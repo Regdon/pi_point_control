@@ -1,0 +1,23 @@
+Need to ensure that Node JS and NPM are both installed on the PI first:
+
+1) Update stuff:
+sudo apt update
+sudo apt upgrade
+
+2) Add the NodeSource PPA (Personal Package Archive):
+curl -sL https://deb.nodesource.com/setup_18.x | sudo -E bash -
+
+3) Install NodeJS and NPM:
+sudo apt install nodejs
+
+4) Check they installed correctly:
+node -v
+npm -v
+
+5) Then need to download the onoff module in NPM:
+npm install onoff
+
+This code defaults to blinking an LED connected to GPIO pin 4.
+https://www.w3schools.com/nodejs/nodejs_raspberrypi_gpio_intro.asp
+https://www.w3schools.com/nodejs/nodejs_raspberrypi_blinking_led.asp
+
