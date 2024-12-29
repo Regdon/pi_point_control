@@ -21,6 +21,14 @@ This code defaults to blinking an LED connected to GPIO pin 4.
 https://www.w3schools.com/nodejs/nodejs_raspberrypi_gpio_intro.asp
 https://www.w3schools.com/nodejs/nodejs_raspberrypi_blinking_led.asp
 
+However as of PI 5 the GPIO pins cannot simply be accessed by referencing pin '4'. We need to work out what internal ID is associated with that pin.
+Run following command line:
+sudo cat /sys/kernal/debug/gpio
+
+Find the section for the GPIO numbered pins. The pin number is in the backets, the actual number used in the code is outside the brackets.
+Unsure if this changes from board to board, but certainly does between PI models.
+For example to use Pin 4 as per the example, we need to use 575 on the PI 5.
+
 GPIO Pin Number for PI5
  gpio-573 (GPIO2               )
  gpio-574 (GPIO3               )
@@ -48,3 +56,9 @@ GPIO Pin Number for PI5
  gpio-596 (GPIO25              )
  gpio-597 (GPIO26              )
  gpio-598 (GPIO27              )
+
+
+
+Run the program by navigating to the correct folder (use ls to see a directory listing, then cd ... to move into a directory)
+Run the code with the following command:
+node blink.js
