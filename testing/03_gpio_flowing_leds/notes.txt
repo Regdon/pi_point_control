@@ -1,0 +1,18 @@
+Pin Mappings:
+
+TOP
+25      596
+12      583
+16      587
+20      591
+21      592
+5       576
+6       577
+13      584
+19      590
+26      597
+BOTTOM
+
+I'm using a 10x bar of lEDs, so have extened the flow example to 10 instead of 8
+I have also differed from the default GPIO pins used in the example
+
