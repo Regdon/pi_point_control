@@ -1,0 +1,8 @@
+https://www.w3schools.com/nodejs/nodejs_raspberrypi_led_pushbutton.asp
+
+Building on the previous blink example this adds a button as a GPIO input and controls the LED.
+
+As before the pin numbers need modifying based on the list in the previous example.
+Pin 4 = 575
+Pin 17 = 588
+
