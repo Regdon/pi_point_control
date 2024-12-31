@@ -1,0 +1,11 @@
+https://www.w3schools.com/nodejs/nodejs_raspberrypi_webserver_websocket.asp
+
+The src link in the example is to an outdated version of NodeJS which differs to the one installed on the Pi
+This results in HTTP 400 Bad Gateway errors.
+
+An alternative scr link has been used instead client side:
+<script src="/socket.io/socket.io.js"></script>
+
+As per previous examples, the PIN ID's need to be changes from the W3S code.
+Pin 4: id 575
+Pin 17: id 588
