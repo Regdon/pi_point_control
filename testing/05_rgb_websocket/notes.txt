@@ -2,3 +2,8 @@ Using Pins:
 18 (red): 589
 23 (green): 594
 24 (blue): 595
+
+https://www.w3schools.com/nodejs/nodejs_raspberrypi_rgb_led_websocket.asp
+
+Note that pigpio doesn't work on the PI5
+Errors with thinking its not a PI!
