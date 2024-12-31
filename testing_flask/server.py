@@ -14,4 +14,6 @@ def handle_button_press(data):
     emit('response', {'message': f"Button {data} pressed!"})
 
 if __name__ == '__main__':
-    socketio.run(app, debug=True)
+    socketio.run(app, debug=True, host='192.168.1.207', port=5000)
+
+    #app.run(host='0.0.0.0', port=5000)
