@@ -1,7 +1,7 @@
 from flask import Flask, render_template
 from flask_socketio import SocketIO, emit
 #import RPi.GPIO as GPIO
-from gpiozero inport LED
+from gpiozero import LED
 # GPIO.setmode(GPIO.BCM)
 # GPIO.setup(580, GPIO.OUT)
 
