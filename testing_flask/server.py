@@ -7,10 +7,13 @@ from gpiozero import LED
 from gpiozero import Device
 from time import sleep
 
+led = ""
 
-def main():
+
+def setup_pin_factory():
     factory = LGPIOFactory(chip=0)
     Device.pin_factory = factory
+    global led
 
 
     print(Device.pin_factory)
@@ -24,28 +27,30 @@ def main():
 
     sleep(0.1)
 
-    app = Flask(__name__)
-    socketio = SocketIO(app)
+app = Flask(__name__)
+socketio = SocketIO(app)
 
-    @app.route('/')
-    def index():
-        return render_template('index.html')
+@app.route('/')
+def index():
+    return render_template('index.html')
 
-    @socketio.on('button_pressed')
-    def handle_button_press(data): 
-        print(f"Button pressed: {data}")  # Receive and print the button's value
+@socketio.on('button_pressed')
+def handle_button_press(data): 
+    print(f"Button pressed: {data}")  # Receive and print the button's value
 
-        if data == 1:
-            led.on()
-        else:
-            led.off()
+    if data == 1:
+        led.on()
+    else:
+        led.off()
 
-        sleep(0.1)
-        emit('response', {'message': f"Button {data} pressed!"})
+    sleep(0.1)
+    emit('response', {'message': f"Button {data} pressed!"})
+
 
 if __name__ == '__main__':
     print("setting up")
+    setup_pin_factory()
     socketio.run(app, debug=True, host='192.168.1.207', port=5000)
-    main()
+    
 
     #app.run(host='0.0.0.0', port=5000)
