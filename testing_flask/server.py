@@ -1,12 +1,13 @@
 from flask import Flask, render_template
 from flask_socketio import SocketIO, emit
 #import RPi.GPIO as GPIO
-from gpiozero.pins.lgpio.LGPIOFactory import lgpioFactory
+from gpiozero.pins.lgpio import LGPIOFactory
 
 from gpiozero import LED
 from gpiozero import Device
 
-Device.pin_factory = lgpioFactory()
+factory = LGPIOFactory(chip=0)
+Device.pin_factory = factory
 
 
 print(Device.pin_factory)
