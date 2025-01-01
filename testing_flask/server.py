@@ -13,9 +13,11 @@ Device.pin_factory = factory
 
 print(Device.pin_factory)
 
-sleep(100)
+sleep(0.1)
 
 led = LED(6)
+
+sleep(0.1)
 
 app = Flask(__name__)
 socketio = SocketIO(app)
@@ -33,6 +35,7 @@ def handle_button_press(data):
     else:
         led.off()
 
+    sleep(0.1)
     emit('response', {'message': f"Button {data} pressed!"})
 
 if __name__ == '__main__':
