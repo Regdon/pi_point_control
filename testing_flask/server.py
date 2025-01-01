@@ -5,7 +5,7 @@ from gpiozero import LED
 # GPIO.setmode(GPIO.BCM)
 # GPIO.setup(580, GPIO.OUT)
 
-led = LED(9)
+led = LED(26)
 
 app = Flask(__name__)
 socketio = SocketIO(app)
