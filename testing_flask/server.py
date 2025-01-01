@@ -5,12 +5,15 @@ from gpiozero.pins.lgpio import LGPIOFactory
 
 from gpiozero import LED
 from gpiozero import Device
+from time import sleep
 
 factory = LGPIOFactory(chip=0)
 Device.pin_factory = factory
 
 
 print(Device.pin_factory)
+
+sleep(100)
 
 led = LED(6)
 
