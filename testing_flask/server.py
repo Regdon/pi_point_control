@@ -12,7 +12,7 @@ Device.pin_factory = factory
 
 print(Device.pin_factory)
 
-sleep(0.1)
+sleep(0.5)
 try:
     led = LED(6)
     print("Set up pin 6")
