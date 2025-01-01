@@ -1,0 +1,27 @@
+1. Install OS on pi
+2. Set up venv
+    in folder      python -m venv venv
+
+3. activate venv
+    . venv/bin/activate
+
+4. pip install flask
+5. pip install RPiGPIO
+
+
+
+make server,
+make templates folder with html templates
+
+
+
+
+
+----------------
+Tools:
+Gemini
+Design on figma
+----------------
+
+
+
