@@ -2,30 +2,33 @@ from flask import Flask, render_template
 from flask_socketio import SocketIO, emit
 #import RPi.GPIO as GPIO
 from gpiozero import LED
+from gpiozero import Device
 # GPIO.setmode(GPIO.BCM)
 # GPIO.setup(580, GPIO.OUT)
 
-led = LED(26)
+print(Device.pin_factory)
 
-app = Flask(__name__)
-socketio = SocketIO(app)
+# led = LED(26)
 
-@app.route('/')
-def index():
-    return render_template('index.html')
+# app = Flask(__name__)
+# socketio = SocketIO(app)
 
-@socketio.on('button_pressed')
-def handle_button_press(data): 
-    print(f"Button pressed: {data}")  # Receive and print the button's value
+# @app.route('/')
+# def index():
+#     return render_template('index.html')
 
-    if data == 1:
-        led.on()
-    else:
-        led.off()
+# @socketio.on('button_pressed')
+# def handle_button_press(data): 
+#     print(f"Button pressed: {data}")  # Receive and print the button's value
 
-    emit('response', {'message': f"Button {data} pressed!"})
+#     if data == 1:
+#         led.on()
+#     else:
+#         led.off()
 
-if __name__ == '__main__':
-    socketio.run(app, debug=True, host='192.168.1.207', port=5000)
+#     emit('response', {'message': f"Button {data} pressed!"})
 
-    #app.run(host='0.0.0.0', port=5000)
+# if __name__ == '__main__':
+#     socketio.run(app, debug=True, host='192.168.1.207', port=5000)
+
+#     #app.run(host='0.0.0.0', port=5000)
