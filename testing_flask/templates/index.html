@@ -8,12 +8,13 @@
 
         function buttonClicked(buttonValue) {
             socket.emit('button_pressed', buttonValue); 
+            console.log(buttonValue);
         }
     </script>
 </head>
 <body>
     <h1>Multiple Buttons</h1>
-    <button onclick="buttonClicked(1)">Button 1</button>
-    <button onclick="buttonClicked(2)">Button 2</button>
+    <button onclick="buttonClicked(1)">LED ON</button>
+    <button onclick="buttonClicked(2)">LED OFF</button>
 </body>
 </html>
