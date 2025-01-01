@@ -14,7 +14,7 @@ print(Device.pin_factory)
 
 sleep(0.5)
 try:
-    led = LED(6)
+    led = factory.LED(6)
     print("Set up pin 6")
 except:
     print("Could not initilse pin 6")
