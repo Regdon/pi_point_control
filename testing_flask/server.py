@@ -3,7 +3,7 @@ from flask_socketio import SocketIO, emit
 import RPi.GPIO as GPIO
 
 GPIO.setmode(GPIO.BCM)
-GPIO.setup(9, GPIO.OUT)
+GPIO.setup(580, GPIO.OUT)
 
 app = Flask(__name__)
 socketio = SocketIO(app)
@@ -17,9 +17,9 @@ def handle_button_press(data):
     print(f"Button pressed: {data}")  # Receive and print the button's value
 
     if data == 1:
-        GPIO.output(9, GPIO.HIGH)
+        GPIO.output(580, GPIO.HIGH)
     else:
-        GPIO.output(9, GPIO.LOW)
+        GPIO.output(580, GPIO.LOW)
 
     emit('response', {'message': f"Button {data} pressed!"})
 
