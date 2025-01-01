@@ -8,7 +8,7 @@ from gpiozero import Device
 from time import sleep
 
 
-def main()
+def main():
     factory = LGPIOFactory(chip=0)
     Device.pin_factory = factory
 
