@@ -12,7 +12,7 @@ Device.pin_factory = factory
 
 print(Device.pin_factory)
 
-led = LED(26)
+led = LED(6)
 
 app = Flask(__name__)
 socketio = SocketIO(app)
