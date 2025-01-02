@@ -15,7 +15,7 @@ def handle_button_press(data):
     if button == 'one':
         print('Button one pressed')
         emit('response', 'Button was pressed!')
-    if button == 'two':
+    elif button == 'two':
         print('Button two pressed')
         emit('response', 'I told you not to!')
 
