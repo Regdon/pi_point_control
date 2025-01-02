@@ -1,5 +1,5 @@
 # Script to blink an LED attached to GPIO Pin xx on a Raspberry Pi
-# LED PIN 18, Button PIN 23
+# LED PIN 26, Button PIN 19
 
 
 import RPi.GPIO as GPIO
@@ -9,7 +9,7 @@ import time
 GPIO.setmode(GPIO.BCM)
 
 # Set GPIO 18 as an output pin
-led_pin = 18
+led_pin = 26
 GPIO.setup(led_pin, GPIO.OUT)
 
 try:
