@@ -17,8 +17,12 @@
                 socket.emit('button_pressed', { button: buttonId });
             }
 
-            document.getElementById('myButton').addEventListener('click', handleButtonClick('one'));
-            document.getElementById('myButton2').addEventListener('click', handleButtonClick('two'));
+            document.getElementById('myButton').addEventListener('click', function() {
+                handleButtonClick('one');
+            });
+            document.getElementById('myButton2').addEventListener('click', function() {
+                handleButtonClick('two');
+            });
 
             socket.on('response', function(msg) {
                 alert(msg);
