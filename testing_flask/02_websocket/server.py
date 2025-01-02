@@ -10,9 +10,14 @@ def home():
     return render_template('index.html')
 
 @socketio.on('button_pressed')
-def handle_button_press():
-    print('Button was pressed')
-    emit('response', 'Button was pressed!')
+def handle_button_press(data):
+    button = data.get('button')
+    if button == 'one':
+        print('Button one pressed')
+        emit('response', 'Button was pressed!')
+    if button == 'two':
+        print('Button two pressed')
+        emit('response', 'I told you not to!')
 
 if __name__ == '__main__':
     socketio.run(app, host='0.0.0.0', port=5000)

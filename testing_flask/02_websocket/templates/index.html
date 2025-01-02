@@ -13,11 +13,12 @@
                 console.log('WebSocket connected');
             });
 
-            function handleButtonClick() {
-                socket.emit('button_pressed');
+            function handleButtonClick(buttonId) {
+                socket.emit('button_pressed', { button: buttonId });
             }
 
-            document.getElementById('myButton').addEventListener('click', handleButtonClick);
+            document.getElementById('myButton').addEventListener('click', handleButtonClick('one'));
+            document.getElementById('myButton2').addEventListener('click', handleButtonClick('two'));
 
             socket.on('response', function(msg) {
                 alert(msg);
@@ -28,5 +29,6 @@
 <body>
     <h1>Flask WebSocket Example</h1>
     <button id="myButton">Press me!</button>
+    <button id="myButton2">Don't Press me!</button>
 </body>
 </html>
