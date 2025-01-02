@@ -1,0 +1,14 @@
+Python installed by default on PI.
+Need to install RPi.GPIO for these to work.
+
+First need to set up a virtual python environment (venv)
+run:
+python -m venv venv
+
+Then to activate the venv, first cd to the folder with the venv folder in it, Then
+run:
+. venv/bin/activate
+
+Now inside venv need to install RPi.GPIO
+run:
+pip install Rpi.GPIO
