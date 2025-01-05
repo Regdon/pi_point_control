@@ -1,0 +1,6 @@
+Important to note that the GPIO setup must happen before the socketio.run code.
+Socketio.run causes the main code to pause at that line, so no further code will run in the main loop.
+
+Add GPIO.cleanup() at the end of the code to ensure when closed the pins are released for next use.
+
+Otherwise this is just a combination of the code from example 1 and 2.
