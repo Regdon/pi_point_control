@@ -6,6 +6,8 @@ app = Flask(__name__)
 app.config['SECRET_KEY'] = 'your_secret_key'
 socketio = SocketIO(app)
 
+led_pin = 26
+
 @app.route('/')
 def home():
     return render_template('index.html')
@@ -27,5 +29,4 @@ if __name__ == '__main__':
 
     #GPIO Setup
     GPIO.setmode(GPIO.BCM)
-    led_pin = 26
     GPIO.setup(led_pin, GPIO.OUT)
