@@ -25,8 +25,12 @@ def handle_button_press(data):
         emit('response', 'LED OFF')
 
 if __name__ == '__main__':
-    socketio.run(app, host='0.0.0.0', port=5000)
-
     #GPIO Setup
     GPIO.setmode(GPIO.BCM)
     GPIO.setup(led_pin, GPIO.OUT)
+
+    socketio.run(app, host='0.0.0.0', port=5000)
+
+    GPIO.cleanup()
+
+
