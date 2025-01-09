@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Control the LED of an Arduino over i2c</title>
+    <script src="https://cdn.socket.io/4.0.0/socket.io.min.js"></script>
+    <script type="text/javascript" charset="utf-8">
+        document.addEventListener("DOMContentLoaded", function() {
+            var socket = io.connect('http://' + document.domain + ':' + location.port);
+
+            socket.on('connect', function() {
+                console.log('WebSocket connected');
+            });
+
+            function handleButtonClick(buttonId) {
+                socket.emit('button_pressed', { button: buttonId });
+            }
+
+            document.getElementById('myButton').addEventListener('click', function() {
+                handleButtonClick('on');
+            });
+            document.getElementById('myButton2').addEventListener('click', function() {
+                handleButtonClick('off');
+            });
+
+            socket.on('response', function(msg) {
+                alert(msg);
+            });
+        });
+    </script>
+</head>
+<body>
+    <h1>Control the LED of an Arduino over i2c</h1>
+    <button id="myButton">LED On</button>
+    <button id="myButton2">LED Off</button>
+</body>
+</html>
