@@ -1,0 +1,46 @@
+Needed to setup a few things with ic2 to get this one working:
+
+Install i2c tools:
+sudo apt-get install -y i2c-tools
+
+Install smbus for Python (in venv)
+pip install smbus
+
+Do some stuff to enable i2c on the pi:
+
+Add to 
+sudo nano /boot/config.txt
+
+dtparam=i2c0=on
+dtparam=i2c1=on
+dtparam=i2c_arm=on
+dtparam=i2c_vc=on
+
+Add to
+sudo nano /boot/cmdline.txt
+bcm2708.vc_i2c_override=1
+
+Run
+sudo modprobe i2c-dev
+followed by
+lsmod | grep i2c
+
+Add to
+sudo nano /etc/modules
+i2c-dev
+
+sudo reboot
+
+Use i2cdetect -y 0
+to check i2c works and detect attached devices (although Arduino didn't pick up it still worked)
+
+Default pins used in code:
+Arduino
+SDA - A4
+SCL - A5
+
+Pi
+SDA - GPIO8
+SCL - GPIO9
+
+Address used for Arduino slave = 0x08
