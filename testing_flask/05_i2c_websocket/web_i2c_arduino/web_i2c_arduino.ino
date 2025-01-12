@@ -16,7 +16,7 @@ void setup() {
 }
 
 void loop() {
-    if (led_state = 0) {
+    if (led_state == 0) {
       digitalWrite(LED_BUILTIN, LOW);
     } else {
       digitalWrite(LED_BUILTIN, HIGH);
@@ -29,9 +29,14 @@ void receiveEvent(int howMany) {
     
     while (Wire.available()) {
         char c = Wire.read();
-        result += c;
+        if (int(c) != 0) {
+          result += c;
+        }
+        Serial.println(int(c));
     }    
+    result.trim();
     Serial.println(result);
+    Serial.println(result.length());
     
     if (result == "on") {
       led_state = 1;
