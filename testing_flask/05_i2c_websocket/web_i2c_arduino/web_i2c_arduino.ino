@@ -12,6 +12,7 @@ void setup() {
     Wire.onReceive(receiveEvent);
     Wire.onRequest(requestEvent);
     Serial.begin(9600);
+    Serial.println("Setup and ready");
 }
 
 void loop() {
