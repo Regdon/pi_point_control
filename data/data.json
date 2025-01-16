@@ -1,0 +1,5 @@
+{"nodes":[
+    {"id":"test-source-1", "type":"node-source", "x":"100", "y":"100", "colour":"Red"}
+    ,{"id":"test1", "type":"node", "x":"200", "y":"100", "parent":"test-source-1"}
+    ,{"id":"test2", "type":"node", "x":"250", "y":"150", "parent":"test-source-2"}
+]}
