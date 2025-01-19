@@ -1,6 +1,14 @@
 from flask import Flask, render_template
 from flask_socketio import SocketIO, emit
 
+from Point_Engine import Point_Engine
+
+engine = Point_Engine
+
+engine.LoadData()
+engine.CalculateOrder()
+engine.CalculateState()
+
 app = Flask(__name__)
 socketio = SocketIO(app)
 

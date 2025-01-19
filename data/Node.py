@@ -5,6 +5,7 @@ class Node:
         self.y = y
         self.parent = parent
         self.state = "None"
+        self.order = 0
 
     def __str__(self):
         return self.id
@@ -17,3 +18,6 @@ class Node:
             return {"x1": self.x, "y1": self.y, 'x2': self.parent.x, "y2": self.parent.y,"state": self.state}
         else:
             return {"error": "Node ID " + self.id + " missing Parent Node"}
+        
+    def CalculateState(self):
+        self.state = self.parent.state
