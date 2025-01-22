@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
     socket.on('update', function (msg) {
-        console.log('Received message: ' + msg.points);
+        console.log('Received message: ' + msg);
         
         // var c = document.getElementById("canvas");
         // var ctx = c.getContext("2d");
