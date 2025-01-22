@@ -4,7 +4,7 @@ from flask_socketio import SocketIO, emit
 from Point_Engine import Point_Engine
 
 if __name__ == '__main__':
-    engine = Point_Engine
+    engine = Point_Engine()
 
     engine.LoadData()
     engine.CalculateOrder()
