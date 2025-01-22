@@ -1,5 +1,8 @@
 function drawLine(ctx, x1, y1, x2, y2, colour) {
     ctx.strokeStyle = colour;
+    ctx.lineWidth = 5;
+    ctx.lineCap = "round";
+
     ctx.beginPath();
     ctx.moveTo(x1, y1);
     ctx.lineTo(x2, y2);
@@ -26,16 +29,3 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 });
-
-
-
-
-
-
-// <script>
-// var c = document.getElementById("myCanvas");
-// var ctx = c.getContext("2d");
-// ctx.moveTo(0, 0);
-// ctx.lineTo(200, 100);
-// ctx.stroke();
-// </script>
