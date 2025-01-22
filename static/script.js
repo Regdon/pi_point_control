@@ -1,3 +1,9 @@
+function drawLine(ctx, x1, y1, x2, y2) {
+    ctx.moveTo(x1, y1);
+    ctx.lineTo(x2, y2);
+    ctx.stroke();
+};
+
 document.addEventListener('DOMContentLoaded', function () {
     var socket = io.connect('http://' + document.domain + ':' + location.port);
 
@@ -8,15 +14,12 @@ document.addEventListener('DOMContentLoaded', function () {
     socket.on('update', function (msg) {
         console.log('Received message: ' + msg);
         
-        // var c = document.getElementById("canvas");
-        // var ctx = c.getContext("2d");
-        // ctx.moveTo(msg.points(0).position(0).x, msg.points(0).position(0).y);
-        // ctx.lineTo(msg.points(0).position(1).x, msg.points(0).position(1).y);
+        var c = document.getElementById("canvas");
+        var ctx = c.getContext("2d");
         
-        // ctx.moveTo(msg.points(0).position(0).x, msg.points(0).position(0).y);
-        // ctx.lineTo(msg.points(0).position(2).x, msg.points(0).position(2).y);
-        // ctx.stroke();
-
+        msg.array.forEach(i => {
+            drawLine(ctx, i.x1, i.y1, i.x2, i.y2);
+        });
     });
 });
 
