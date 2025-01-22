@@ -3,5 +3,6 @@
     ,{"id":"test1", "type":"node", "x":"200", "y":"100", "parent":"test-source-1"}
     ,{"id":"test2", "type":"node", "x":"250", "y":"150", "parent":"test1"}
     ,{"id":"test-source-2", "type":"node-source", "x":"500", "y":"100", "colour":"Green"}    
-    ,{"id":"test3", "type":"node", "x":"400", "y":"100", "parent":"test-source-2"}
+    ,{"id":"test3", "type":"node", "x":"400", "y":"100", "parent":"test-source-2"}    
+    ,{"id":"test4", "type":"node", "x":"400", "y":"150", "parent":"test3"}
 ]}
