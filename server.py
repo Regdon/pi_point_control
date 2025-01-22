@@ -13,7 +13,7 @@ if __name__ == '__main__':
     app = Flask(__name__)
     socketio = SocketIO(app)
 
-    socketio.run(app, debug=True)
+    socketio.run(app, host='0.0.0.0', port=5000)
 
 @app.route('/')
 def index():
