@@ -3,17 +3,8 @@ from flask_socketio import SocketIO, emit
 
 from Point_Engine import Point_Engine
 
-if __name__ == '__main__':
-    engine = Point_Engine()
-
-    engine.LoadData()
-    engine.CalculateOrder()
-    engine.CalculateState()
-
-    app = Flask(__name__)
-    socketio = SocketIO(app)
-
-    socketio.run(app, host='0.0.0.0', port=5000)
+app = Flask(__name__)
+socketio = SocketIO(app)
 
 @app.route('/')
 def home():
@@ -23,4 +14,15 @@ def home():
 @socketio.on('connect')
 def handle_connect():
     emit('update', engine.GetWebJSON())
+
+if __name__ == '__main__':
+    engine = Point_Engine()
+
+    engine.LoadData()
+    engine.CalculateOrder()
+    engine.CalculateState()
+
+    socketio.run(app, host='0.0.0.0', port=5000)
+
+
 
