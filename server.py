@@ -13,6 +13,7 @@ def home():
 
 @socketio.on('connect')
 def handle_connect():
+    print(engine.GetWebJSON())
     emit('update', engine.GetWebJSON())
 
 if __name__ == '__main__':
