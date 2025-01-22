@@ -1,4 +1,5 @@
-function drawLine(ctx, x1, y1, x2, y2) {
+function drawLine(ctx, x1, y1, x2, y2, colour) {
+    ctx.strokeStyle = colour;
     ctx.moveTo(x1, y1);
     ctx.lineTo(x2, y2);
     ctx.stroke();
@@ -19,7 +20,7 @@ document.addEventListener('DOMContentLoaded', function () {
         var ctx = c.getContext("2d");
         
         msgObject.forEach((i) => {
-            drawLine(ctx, i.x1, i.y1, i.x2, i.y2);
+            drawLine(ctx, i.x1, i.y1, i.x2, i.y2, i.state);
         });
     });
 });
