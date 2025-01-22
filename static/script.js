@@ -13,11 +13,12 @@ document.addEventListener('DOMContentLoaded', function () {
 
     socket.on('update', function (msg) {
         console.log('Received message: ' + msg);
-        
+        let msgObject = JSON.parse(msg);
+
         var c = document.getElementById("canvas");
         var ctx = c.getContext("2d");
         
-        msg.forEach((i) => {
+        msgObject.forEach((i) => {
             drawLine(ctx, i.x1, i.y1, i.x2, i.y2);
         });
     });
