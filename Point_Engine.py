@@ -50,7 +50,7 @@ class Point_Engine:
 
         for node in data["nodes"]:
             if (node["type"] == "node"):
-                obj = Node(node["id"], node["x"], node["y"], GetNodeByID(node["parent"]))
+                obj = Node(node["id"], node["x"], node["y"], self.GetNodeByID(node["parent"]))
                 self.nodeList.append(obj)
             if (node["type"] == "node-source"):
                 obj = Node_Source(node["id"], node["x"], node["y"], node["colour"])
