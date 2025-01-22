@@ -1,5 +1,6 @@
 from data.Node import Node
 from data.Node_Source import Node_Source
+from data.Node_Point import Node_Point
 
 import json
 
@@ -52,8 +53,13 @@ class Point_Engine:
             if (node["type"] == "node"):
                 obj = Node(node["id"], node["x"], node["y"], self.GetNodeByID(node["parent"]))
                 self.nodeList.append(obj)
+
             if (node["type"] == "node-source"):
                 obj = Node_Source(node["id"], node["x"], node["y"], node["colour"])
+                self.nodeList.append(obj)
+            
+            if (node["type"] == "node-point"):
+                obj = Node_Point(node["id"], node["x"], node["y"], node["colour"], node["child_id_1"], node["child_id_2"])
                 self.nodeList.append(obj)
 
 

@@ -20,4 +20,7 @@ class Node:
             return {"error": "Node ID " + self.id + " missing Parent Node"}
         
     def CalculateState(self):
-        self.state = self.parent.state
+        self.state = self.parent.GetState(self.id)
+
+    def GetState(self, child_id):
+        return self.state
