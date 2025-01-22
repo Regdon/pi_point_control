@@ -59,7 +59,7 @@ class Point_Engine:
                 self.nodeList.append(obj)
             
             if (node["type"] == "node-point"):
-                obj = Node_Point(node["id"], node["x"], node["y"], node["colour"], node["child_id_1"], node["child_id_2"])
+                obj = Node_Point(node["id"], node["x"], node["y"], self.GetNodeByID(node["parent"]), node["child_id_1"], node["child_id_2"])
                 self.nodeList.append(obj)
 
 
