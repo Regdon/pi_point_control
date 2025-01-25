@@ -65,8 +65,8 @@ class Point_Engine:
     def HandleClick(self, x, y):
         for node in self.nodeList:
             if isinstance(node, Node_Point):
-                abs_dif_x = abs(x - node.x)
-                abs_dif_y = abs(y - node.y)
+                abs_dif_x = abs(x - int(node.x))
+                abs_dif_y = abs(y - int(node.y))
 
                 if (abs_dif_x < 25 and abs_dif_y < 25):
                     print(node.id + ' clicked')
