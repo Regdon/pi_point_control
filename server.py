@@ -19,7 +19,7 @@ def handle_connect():
 @socketio.on('click')
 def handle_click(data):
     print("click")
-    print(data)
+    engine.HandleClick(data['x'], data['y'])
 
 if __name__ == '__main__':
     engine = Point_Engine()
