@@ -19,7 +19,9 @@ def handle_connect():
 @socketio.on('click')
 def handle_click(data):
     print("click")
-    engine.HandleClick(int(data['x']), int(data['y']))
+    isChange = engine.HandleClick(int(data['x']), int(data['y']))
+    if (isChange == 1):
+        emit('update', engine.GetWebJSON())
 
 if __name__ == '__main__':
     engine = Point_Engine()

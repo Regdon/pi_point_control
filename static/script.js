@@ -23,6 +23,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
         var c = document.getElementById("canvas");
         var ctx = c.getContext("2d");
+
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
         
         msgObject.forEach((i) => {
             drawLine(ctx, i.x1, i.y1, i.x2, i.y2, i.state);

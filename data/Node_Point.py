@@ -15,3 +15,9 @@ class Node_Point(Node):
             return self.state
         else:
             return "#000000"
+        
+    def switch(self):
+        if (self.point_state == 1):
+            self.point_state = 2
+        else:
+            self.point_state = 1

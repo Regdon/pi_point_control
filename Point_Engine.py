@@ -70,6 +70,9 @@ class Point_Engine:
 
                 if (abs_dif_x < 25 and abs_dif_y < 25):
                     print(node.id + ' clicked')
+                    node.switch()
+                    return 1
+        return 0
 
 
 #Sorting list by order::
