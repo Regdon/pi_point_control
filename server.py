@@ -21,6 +21,7 @@ def handle_click(data):
     print("click")
     isChange = engine.HandleClick(int(data['x']), int(data['y']))
     if (isChange == 1):
+        engine.CalculateState()
         emit('update', engine.GetWebJSON())
 
 if __name__ == '__main__':
