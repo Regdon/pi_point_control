@@ -1,7 +1,7 @@
 {"nodes":[
     {"id":"test-source-1", "type":"node-source", "x":"100", "y":"100", "colour":"#FF0000"}
-    ,{"id":"test-point-1", "type":"node-point", "x":"200", "y":"100", "parent":"test-source-1", "child_id_1":"test-straignt", "child_id_2":"test-turn"}
-    ,{"id":"test-straght", "type":"node", "x":"300", "y":"100", "parent":"test-point-1"}
+    ,{"id":"test-point-1", "type":"node-point", "x":"200", "y":"100", "parent":"test-source-1", "child_id_1":"test-straight", "child_id_2":"test-turn"}
+    ,{"id":"test-straight", "type":"node", "x":"300", "y":"100", "parent":"test-point-1"}
     ,{"id":"test-turn", "type":"node", "x":"300", "y":"150", "parent":"test-point-1"}
     ,{"id":"test-source-2", "type":"node-source", "x":"500", "y":"100", "colour":"#00FF00"}    
     ,{"id":"test3", "type":"node", "x":"400", "y":"100", "parent":"test-source-2"}    
