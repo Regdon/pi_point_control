@@ -37,6 +37,7 @@ document.addEventListener('DOMContentLoaded', function () {
         const x = event.clientX - rect.left;
         const y = event.clientY - rect.top;
         console.log('Click coordinates: (' + x + ', ' + y + ')');
+        socket.emit('click', {'x' : x, 'y' : y});
     });
 });
 

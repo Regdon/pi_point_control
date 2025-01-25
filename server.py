@@ -16,6 +16,11 @@ def handle_connect():
     print(engine.GetWebJSON())
     emit('update', engine.GetWebJSON())
 
+@socketio.on('click')
+def handle_click(data):
+    print("click")
+    print(data)
+
 if __name__ == '__main__':
     engine = Point_Engine()
 
