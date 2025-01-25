@@ -29,3 +29,13 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 });
+
+const canvas = document.getElementById('canvas');
+const context = canvas.getContext('2d');
+
+canvas.addEventListener('click', function(event) {
+    const rect = canvas.getBoundingClientRect();
+    const x = event.clientX - rect.left;
+    const y = event.clientY - rect.top;
+    console.log('Click coordinates: (' + x + ', ' + y + ')');
+});
