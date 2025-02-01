@@ -24,4 +24,4 @@ class i2c_control:
 
     def write_to_arduino(self, address, value):
         print("Sending Messsage " + bin(value) + " to address " + bin(address))
-        self.bus.write_i2c_block_data(address, 0, value)
+        self.bus.write_i2c_block_data(address, 0, [value])
