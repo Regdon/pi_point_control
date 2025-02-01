@@ -9,10 +9,13 @@ class i2c_control:
         #point = 0,1,2,3,4,5,6,7
         #state = 0,1
 
+        pointBits = int(point)
+        nodeBits = int(node)
+        stateBits = int(state)
+
         #Format = binary bits [state][node][point]
-        pointBits = point
-        nodeBits = node << 4
-        stateBits = state << 6
+        nodeBits = nodeBits << 4
+        stateBits = stateBits << 6
 
         msg = stateBits + nodeBits + pointBits
         address = node
