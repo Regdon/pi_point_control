@@ -4,9 +4,12 @@ from data.Node_Point import Node_Point
 
 import json
 
+from i2c import i2c_control
+
 class Point_Engine:
     def __init__(self):
         self.nodeList = []
+        self.i2c = i2c_control()
 
     def GetNodeByID(self, id):
         for node in self.nodeList:
@@ -59,7 +62,7 @@ class Point_Engine:
                 self.nodeList.append(obj)
             
             if (node["type"] == "node-point"):
-                obj = Node_Point(node["id"], node["x"], node["y"], self.GetNodeByID(node["parent"]), node["child_id_1"], node["child_id_2"])
+                obj = Node_Point(node["id"], node["x"], node["y"], self.GetNodeByID(node["parent"]), node["child_id_1"], node["child_id_2"], node["node"], node["point"])
                 self.nodeList.append(obj)
 
     def HandleClick(self, x, y):
@@ -71,6 +74,7 @@ class Point_Engine:
                 if (abs_dif_x < 25 and abs_dif_y < 25):
                     print(node.id + ' clicked')
                     node.switch()
+                    self.i2c.SendState(node.node, node.point, node.point_state - 1)
                     return 1
         return 0
 
