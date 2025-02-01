@@ -18,7 +18,7 @@ class i2c_control:
         stateBits = stateBits << 6
 
         msg = stateBits + nodeBits + pointBits
-        address = int(node)
+        address = nodeBits
 
         self.write_to_arduino(address, msg)
 
