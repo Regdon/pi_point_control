@@ -28,8 +28,8 @@ class Point_Engine:
             changes = 0
             for node in self.nodeList:
                 if node.order == 0:
-                    if node.parent.order != 0:
-                        node.order = node.parent.order + 1
+                    if node.GetParentOrder() != 0:
+                        node.order = node.GetParentOrder() + 1
                         changes = 1
 
     def ResetState(self):

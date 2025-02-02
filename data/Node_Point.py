@@ -77,3 +77,13 @@ class Node_Point(Node):
         else:
             #Error
             return 0
+        
+    def GetParentOrder(self):
+        if (self.point_type == static.POINT_TYPE_CONVERGE):
+            p1 = self.set_straight.order
+            p2 = self.set_turnout.order
+            return min(p1, p2)
+        elif (self.point_type == static.POINT_TYPE_DIVERGE):
+            return self.single_end.order
+        else:
+            return 0

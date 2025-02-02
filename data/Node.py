@@ -35,3 +35,6 @@ class Node:
     def GetChild(self):
         #undefined for a standard node
         return 0
+    
+    def GetParentOrder(self):
+        return self.parent.order
