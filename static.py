@@ -1,0 +1,2 @@
+POINT_TYPE_CONVERGE = "Converge"
+POINT_TYPE_DIVERGE = "Diverge"

@@ -1,9 +1,9 @@
 {"nodes":[
     {"id":"test-source-1", "type":"node-source", "x":"100", "y":"100", "colour":"#FF0000"}
-    ,{"id":"test-point-1", "type":"node-point", "x":"200", "y":"100", "parent":"test-source-1", "child_id_1":"test-straight", "child_id_2":"test-turn", "node":"1", "point":"2" }
+    ,{"id":"test-point-1", "type":"node-point", "x":"200", "y":"100", "point_type":"Diverge", "single_end_id":"test-source-1", "set_straight_id":"test-straight", "set_turnout_id":"test-turn" , "node":"1", "point":"2" }
     ,{"id":"test-straight", "type":"node", "x":"300", "y":"100", "parent":"test-point-1"}
     ,{"id":"test-turn", "type":"node", "x":"300", "y":"150", "parent":"test-point-1"}
-    ,{"id":"test-source-2", "type":"node-source", "x":"500", "y":"100", "colour":"#00FF00"}    
-    ,{"id":"test3", "type":"node", "x":"400", "y":"100", "parent":"test-source-2"}    
-    ,{"id":"test4", "type":"node", "x":"400", "y":"150", "parent":"test3"}
+    ,{"id":"test-source-green", "type":"node-source", "x":"100", "y":"200", "colour":"#00FF00"}
+    ,{"id":"test-point-converge", "type":"node-point", "x":"400", "y":"250", "point_type":"Converge", "single_end_id":"test-converge", "set_straight_id":"test_source_green", "set_turnout_id":"test-turn" , "node":"1", "point":"3" }
+    ,{"id":"test-converge", "type":"node", "x":"500", "y":"250", "parent":"test-point-converge"}
 ]}

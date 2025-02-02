@@ -28,6 +28,7 @@ if __name__ == '__main__':
     engine = Point_Engine()
 
     engine.LoadData()
+    engine.Setup()
     engine.CalculateOrder()
     engine.CalculateState()
 

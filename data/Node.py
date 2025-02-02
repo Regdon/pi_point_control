@@ -7,6 +7,10 @@ class Node:
         self.state = "None"
         self.order = 0
 
+    def Setup(self, node_list):
+        #undefined for standard node
+        pass
+
     def __str__(self):
         return self.id
     
@@ -24,3 +28,10 @@ class Node:
 
     def GetState(self, child_id):
         return self.state
+    
+    def GetParent(self):
+        return self.parent
+    
+    def GetChild(self):
+        #undefined for a standard node
+        return 0
