@@ -18,7 +18,7 @@ class Point_Engine:
             
     def Setup(self):
         for node in self.nodeList:
-            node.setup()
+            node.Setup()
 
     def CalculateOrder(self):
         #Type Node_Source defaults to order 1 at initilisation
