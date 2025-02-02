@@ -4,6 +4,6 @@
     ,{"id":"test-straight", "type":"node", "x":"300", "y":"100", "parent":"test-point-1"}
     ,{"id":"test-turn", "type":"node", "x":"300", "y":"150", "parent":"test-point-1"}
     ,{"id":"test-source-green", "type":"node-source", "x":"100", "y":"200", "colour":"#00FF00"}
-    ,{"id":"test-point-converge", "type":"node-point", "x":"400", "y":"250", "point_type":"Converge", "single_end_id":"test-converge", "set_straight_id":"test_source_green", "set_turnout_id":"test-turn" , "node":"1", "point":"3" }
+    ,{"id":"test-point-converge", "type":"node-point", "x":"400", "y":"250", "point_type":"Converge", "single_end_id":"test-converge", "set_straight_id":"test-source-green", "set_turnout_id":"test-turn" , "node":"1", "point":"3" }
     ,{"id":"test-converge", "type":"node", "x":"500", "y":"250", "parent":"test-point-converge"}
 ]}
