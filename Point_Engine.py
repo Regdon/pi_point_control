@@ -48,7 +48,7 @@ class Point_Engine:
             if isinstance(node, Node_Source):
                 continue
             else:
-                dict.append(node.to_dict())
+                node.append_to_dict(dict)
 
         return json.dumps(dict)
 

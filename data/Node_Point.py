@@ -87,3 +87,10 @@ class Node_Point(Node):
             return self.single_end.order
         else:
             return 0
+        
+    def append_to_dict(self, dict):
+        if (self.point_type == static.POINT_TYPE_CONVERGE):
+            dict.append({"x1": self.x, "y1": self.y, 'x2': self.set_straight.x, "y2": self.set_straight.y,"state": self.set_straight.state})
+            dict.append({"x1": self.x, "y1": self.y, 'x2': self.set_turnout.x, "y2": self.set_turnout.y,"state": self.set_turnout.state})
+        elif (self.point_type == static.POINT_TYPE_DIVERGE):
+            dict.append({"x1": self.x, "y1": self.y, 'x2': self.single_end.x, "y2": self.single_end.y,"state": self.state})
