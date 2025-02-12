@@ -75,7 +75,7 @@ class Point_Engine:
                 abs_dif_x = abs(x - int(node.x))
                 abs_dif_y = abs(y - int(node.y))
 
-                if (abs_dif_x < 25 and abs_dif_y < 25):
+                if (abs_dif_x < 1 and abs_dif_y < 1):
                     print(node.id + ' clicked')
                     node.switch()
                     self.i2c.SendState(node.node, node.point, node.point_state - 1)
