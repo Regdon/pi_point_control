@@ -1,9 +1,17 @@
 {"nodes":[
-    {"id":"test-source-1", "type":"node-source", "x":"1", "y":"1", "colour":"#FF0000"}
-    ,{"id":"test-point-1", "type":"node-point", "x":"2", "y":"1", "point_type":"Diverge", "single_end_id":"test-source-1", "set_straight_id":"test-straight", "set_turnout_id":"test-turn" , "node":"1", "point":"2" }
-    ,{"id":"test-straight", "type":"node", "x":"3", "y":"1", "parent":"test-point-1"}
-    ,{"id":"test-turn", "type":"node", "x":"3", "y":"2", "parent":"test-point-1"}
-    ,{"id":"test-source-green", "type":"node-source", "x":"1", "y":"2", "colour":"#00FF00"}
-    ,{"id":"test-point-converge", "type":"node-point", "x":"4", "y":"2", "point_type":"Converge", "single_end_id":"test-converge", "set_straight_id":"test-source-green", "set_turnout_id":"test-turn" , "node":"1", "point":"3" }
-    ,{"id":"test-converge", "type":"node", "x":"5", "y":"2", "parent":"test-point-converge"}
+    {"id":"source_leeds_platform", "type":"node-source", "x":"17", "y":"5", "colour":"#FF0000"}
+    ,{"id":"source_york_platform", "type":"node-source", "x":"17", "y":"7", "colour":"#00FF00"}
+
+    ,{"id":"york_inner_loop", "type":"node-point", "x":"13", "y":"5", "point_type":"Diverge", "single_end_id":"source_leeds_platform", "set_straight_id":"york_inner_loop_centre", "set_turnout_id":"york_inner_loop_a" , "node":"1", "point":"2" }     
+    ,{"id":"york_inner_loop_a", "type":"node", "x":"9", "y":"1", "parent":"york_inner_loop"}
+    ,{"id":"york_inner_loop_b", "type":"node", "x":"1", "y":"1", "parent":"york_inner_loop_a"}
+    ,{"id":"york_inner_loop_centre", "type":"node", "x":"12", "y":"5", "parent":"york_inner_loop"}
+
+
+    ,{"id":"york_crossover_facing_a", "type":"node-point", "x":"13", "y":"7", "point_type":"Diverge", "single_end_id":"source_york_platform", "set_straight_id":"york_mid_crossovers", "set_turnout_id":"york_crossover_facing_centre" , "node":"1", "point":"2" }    
+    ,{"id":"york_crossover_facing_centre", "type":"node", "x":"12", "y":"6", "parent":"york_crossover_facing_a"}
+    ,{"id":"york_crossover_facing_b", "type":"node-point", "x":"13", "y":"7", "point_type":"Converge", "single_end_id":"temp", "set_straight_id":"york_inner_loop_centre", "set_turnout_id":"york_crossover_facing_centre" , "node":"1", "point":"2" }
+    ,{"id":"york_mid_crossovers", "type":"node", "x":"10", "y":"7", "parent":"york_crossover_facing_a"}
+
+    ,{"id":"temp", "type":"node", "x":"10", "y":"7", "parent":"york_crossover_facing_b"}
 ]}
