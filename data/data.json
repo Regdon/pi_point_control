@@ -24,8 +24,8 @@
     ,{"id":"york_siding_a", "type":"node", "x":"1", "y":"5", "parent":"york_outer_loop"}
 
     ,{"id":"york_siding", "type":"node-point", "x":"7", "y":"7", "point_type":"Diverge", "single_end_id":"york_crossover_trailing_b", "set_straight_id":"york_siding_b", "set_turnout_id":"york_siding_c" , "node":"1", "point":"2" }  
-    ,{"id":"york_siding_b", "type":"node", "x":"1", "y":"7", "parent":"york_outer_loop"}
-    ,{"id":"york_siding_c", "type":"node", "x":"5", "y":"9", "parent":"york_outer_loop"}    
+    ,{"id":"york_siding_b", "type":"node", "x":"1", "y":"7", "parent":"york_siding"}
+    ,{"id":"york_siding_c", "type":"node", "x":"5", "y":"9", "parent":"york_siding"}    
     ,{"id":"york_siding_c_2", "type":"node", "x":"1", "y":"9", "parent":"york_siding_c"}
 
 ]}
