@@ -16,6 +16,10 @@ class Point_Engine:
             if (node.id == id):
                 return node
             
+    def Setup(self):
+        for node in self.nodeList:
+            node.Setup(self.nodeList)
+
     def CalculateOrder(self):
         #Type Node_Source defaults to order 1 at initilisation
         #Now need to loop through other objects to find correct ordering
@@ -24,8 +28,8 @@ class Point_Engine:
             changes = 0
             for node in self.nodeList:
                 if node.order == 0:
-                    if node.parent.order != 0:
-                        node.order = node.parent.order + 1
+                    if node.GetParentOrder() != 0:
+                        node.order = node.GetParentOrder() + 1
                         changes = 1
 
     def ResetState(self):
@@ -44,7 +48,7 @@ class Point_Engine:
             if isinstance(node, Node_Source):
                 continue
             else:
-                dict.append(node.to_dict())
+                node.append_to_dict(dict)
 
         return json.dumps(dict)
 
@@ -62,7 +66,7 @@ class Point_Engine:
                 self.nodeList.append(obj)
             
             if (node["type"] == "node-point"):
-                obj = Node_Point(node["id"], node["x"], node["y"], self.GetNodeByID(node["parent"]), node["child_id_1"], node["child_id_2"], node["node"], node["point"])
+                obj = Node_Point(node["id"], node["x"], node["y"], node["point_type"], node["single_end_id"], node["set_straight_id"], node["set_turnout_id"], node["node"], node["point"])
                 self.nodeList.append(obj)
 
     def HandleClick(self, x, y):
