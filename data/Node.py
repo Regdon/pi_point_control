@@ -3,8 +3,8 @@ import static
 class Node:
     def __init__(self, id, x, y, parent):
         self.id = id
-        self.x = x
-        self.y = y
+        self.x = int(x)
+        self.y = int(y)
         self.parent = parent
         self.state = "None"
         self.order = 0
