@@ -1,9 +1,9 @@
 {"nodes":[
-    {"id":"test-source-1", "type":"node-source", "x":"100", "y":"100", "colour":"#FF0000"}
-    ,{"id":"test-point-1", "type":"node-point", "x":"200", "y":"100", "point_type":"Diverge", "single_end_id":"test-source-1", "set_straight_id":"test-straight", "set_turnout_id":"test-turn" , "node":"1", "point":"2" }
-    ,{"id":"test-straight", "type":"node", "x":"300", "y":"100", "parent":"test-point-1"}
-    ,{"id":"test-turn", "type":"node", "x":"300", "y":"150", "parent":"test-point-1"}
-    ,{"id":"test-source-green", "type":"node-source", "x":"100", "y":"200", "colour":"#00FF00"}
-    ,{"id":"test-point-converge", "type":"node-point", "x":"400", "y":"250", "point_type":"Converge", "single_end_id":"test-converge", "set_straight_id":"test-source-green", "set_turnout_id":"test-turn" , "node":"1", "point":"3" }
-    ,{"id":"test-converge", "type":"node", "x":"500", "y":"250", "parent":"test-point-converge"}
+    {"id":"test-source-1", "type":"node-source", "x":"1", "y":"1", "colour":"#FF0000"}
+    ,{"id":"test-point-1", "type":"node-point", "x":"2", "y":"1", "point_type":"Diverge", "single_end_id":"test-source-1", "set_straight_id":"test-straight", "set_turnout_id":"test-turn" , "node":"1", "point":"2" }
+    ,{"id":"test-straight", "type":"node", "x":"3", "y":"1", "parent":"test-point-1"}
+    ,{"id":"test-turn", "type":"node", "x":"3", "y":"2", "parent":"test-point-1"}
+    ,{"id":"test-source-green", "type":"node-source", "x":"1", "y":"2", "colour":"#00FF00"}
+    ,{"id":"test-point-converge", "type":"node-point", "x":"4", "y":"2", "point_type":"Converge", "single_end_id":"test-converge", "set_straight_id":"test-source-green", "set_turnout_id":"test-turn" , "node":"1", "point":"3" }
+    ,{"id":"test-converge", "type":"node", "x":"5", "y":"2", "parent":"test-point-converge"}
 ]}
