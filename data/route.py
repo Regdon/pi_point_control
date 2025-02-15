@@ -12,6 +12,10 @@ class Route:
 
     def SetupRoute(self, engine):
         self.route = engine.GetRoute(self.node_id_start, self.node_id_end)
-        print(self.route)
+        s = f"route from {self.node_id_start} to {self.node_id_end}:"
+        for node in self.route:
+            s += f"{node.id}, "
+        print(s)
+    
 
 
