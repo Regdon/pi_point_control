@@ -22,8 +22,9 @@ class Point_Engine:
     def GetRoute(self, id_from, id_to):
         result = []
 
-        while True:
-            node_current = self.GetNodeByID(id_from)
+        node_current = self.GetNodeByID(id_from)
+
+        while True:            
             if (node_current.id == id_to):
                 result.append(node_current) 
                 return result
