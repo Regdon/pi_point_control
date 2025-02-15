@@ -23,13 +23,16 @@ class Point_Engine:
         result = []
 
         node_current = self.GetNodeByID(id_from)
+        print(f"Starting routing for {node_current}")
 
         while True:            
             if (node_current.id == id_to):
+                print(f"Target node {node_current} found, stopping")
                 result.append(node_current) 
                 return result
             elif isinstance(node_current, Node_Source):
                 #If we get here, no route has been found, return 0
+                print(f"Source node {node_current} found, unable to find target")
                 return 0
             elif isinstance(node_current, Node_Point):
                 if (node_current.point_type == static.POINT_TYPE_CONVERGE):
@@ -37,17 +40,22 @@ class Point_Engine:
                     route_straight = self.GetRoute(node_current.set_straight_id, id_to)
                     route_turnout = self.GetRoute(node_current.set_turnout_id, id_to)
                     if (route_straight):
+                        print(f"Following straight from point {node_current}")
                         result.append(route_straight)
                         return result
                     elif (route_turnout):
+                        print(f"Following turnout from point {node_current}")
                         result.append(route_turnout)
                         return result
                     else:
+                        print(f"Routing error from point {node_current}, this shouldn't happen")
                         return 0
                 else:
+                    print(f"Divering point {node_current} found, continuing to parent")
                     result.append(node_current)
                     node_current = node_current.GetParent()                
             else:
+                print(f"node {node_current} found, continuing to parent")
                 result.append(node_current)
                 node_current = node_current.GetParent()
             
