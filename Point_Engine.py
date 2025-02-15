@@ -41,11 +41,13 @@ class Point_Engine:
                     route_turnout = self.GetRoute(node_current.set_turnout_id, id_to)
                     if (route_straight):
                         print(f"Following straight from point {node_current}")
-                        result.append(route_straight)
+                        for part in route_straight:
+                            result.append(part)
                         return result
                     elif (route_turnout):
                         print(f"Following turnout from point {node_current}")
-                        result.append(route_turnout)
+                        for part in route_turnout:
+                            result.append(part)
                         return result
                     else:
                         print(f"Routing error from point {node_current}, this shouldn't happen")
