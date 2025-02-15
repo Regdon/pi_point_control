@@ -3,6 +3,8 @@ from flask_socketio import SocketIO, emit
 
 from Point_Engine import Point_Engine
 
+import static
+
 app = Flask(__name__)
 socketio = SocketIO(app)
 
@@ -19,7 +21,10 @@ def handle_connect():
 @socketio.on('click')
 def handle_click(data):
     print("click")
-    isChange = engine.HandleClick(int(data['x']), int(data['y']))
+    gridX = int(data['x']) / static.GRID_SIZE_X
+    gridY = int(data['y']) / static.GRID_SIZE_Y
+    isChange = engine.HandleClick(gridX, gridY)
+    print(f"X={data['x']}, Y={data['y']}, GridX={gridX}, GridY={gridY}")
     if (isChange == 1):
         engine.CalculateState()
         emit('update', engine.GetWebJSON())

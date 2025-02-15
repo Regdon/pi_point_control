@@ -90,7 +90,7 @@ class Node_Point(Node):
         
     def append_to_dict(self, dict):
         if (self.point_type == static.POINT_TYPE_CONVERGE):
-            dict.append({"x1": self.x, "y1": self.y, 'x2': self.set_straight.x, "y2": self.set_straight.y,"state": self.set_straight.state})
-            dict.append({"x1": self.x, "y1": self.y, 'x2': self.set_turnout.x, "y2": self.set_turnout.y,"state": self.set_turnout.state})
+            dict.append({"x1": self.GetGridX(), "y1": self.GetGridY(), 'x2': self.set_straight.GetGridX(), "y2": self.set_straight.GetGridY(),"state": self.set_straight.state})
+            dict.append({"x1": self.GetGridX(), "y1": self.GetGridY(), 'x2': self.set_turnout.GetGridX(), "y2": self.set_turnout.GetGridY(),"state": self.set_turnout.state})
         elif (self.point_type == static.POINT_TYPE_DIVERGE):
-            dict.append({"x1": self.x, "y1": self.y, 'x2': self.single_end.x, "y2": self.single_end.y,"state": self.state})
+            dict.append({"x1": self.GetGridX(), "y1": self.GetGridY(), 'x2': self.single_end.GetGridX(), "y2": self.single_end.GetGridY(),"state": self.state})

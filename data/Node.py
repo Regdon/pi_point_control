@@ -1,8 +1,10 @@
+import static
+
 class Node:
     def __init__(self, id, x, y, parent):
         self.id = id
-        self.x = x
-        self.y = y
+        self.x = int(x)
+        self.y = int(y)
         self.parent = parent
         self.state = "None"
         self.order = 0
@@ -19,7 +21,7 @@ class Node:
 
     def append_to_dict(self, dict):
         if self.valid_parent():
-            dict.append({"x1": self.x, "y1": self.y, 'x2': self.parent.x, "y2": self.parent.y,"state": self.state})
+            dict.append({"x1": self.GetGridX(), "y1": self.GetGridY(), 'x2': self.parent.GetGridX(), "y2": self.parent.GetGridY(),"state": self.state})
         else:
             dict.append({"error": "Node ID " + self.id + " missing Parent Node"})
         
@@ -38,3 +40,9 @@ class Node:
     
     def GetParentOrder(self):
         return self.parent.order
+    
+    def GetGridX(self):
+        return self.x * static.GRID_SIZE_X
+    
+    def GetGridY(self):
+        return self.y * static.GRID_SIZE_Y
