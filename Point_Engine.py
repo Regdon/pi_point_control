@@ -1,20 +1,54 @@
 from data.Node import Node
 from data.Node_Source import Node_Source
 from data.Node_Point import Node_Point
+from data.route import Route
 
 import json
+import static
 
 from i2c import i2c_control
 
 class Point_Engine:
     def __init__(self):
         self.nodeList = []
+        self.routeList = []
         self.i2c = i2c_control()
 
     def GetNodeByID(self, id):
         for node in self.nodeList:
             if (node.id == id):
                 return node
+            
+    def GetRoute(self, id_from, id_to):
+        result = []
+
+        while True:
+            node_current = self.GetNodeByID(id_from)
+            if (node_current.id == id_to):
+                result.append(node_current) 
+                return result
+            elif isinstance(node_current, Node_Source):
+                #If we get here, no route has been found, return 0
+                return 0
+            elif isinstance(node_current, Node_Point):
+                if (node_current.point_type == static.POINT_TYPE_CONVERGE):
+                    #This is the tricky siutation, because we don't know which way to go to our destination. 
+                    route_straight = self.GetRoute(node_current.set_straight_id, id_to)
+                    route_turnout = self.GetRoute(node_current.set_turnout_id, id_to)
+                    if (route_straight):
+                        result.append(route_straight)
+                        return result
+                    elif (route_turnout):
+                        result.append(route_turnout)
+                        return result
+                    else:
+                        return 0
+                else:
+                    result.append(node_current)
+                    node_current = node_current.GetParent()                
+            else:
+                result.append(node_current)
+                node_current = node_current.GetParent()
             
     def Setup(self):
         for node in self.nodeList:
@@ -68,6 +102,18 @@ class Point_Engine:
             if (node["type"] == "node-point"):
                 obj = Node_Point(node["id"], node["x"], node["y"], node["point_type"], node["single_end_id"], node["set_straight_id"], node["set_turnout_id"], node["node"], node["point"])
                 self.nodeList.append(obj)
+
+    def LoadRoutes(self):
+        with open('data/route.json', 'r') as file:
+            data = json.load(file)
+
+        for route in data["routes"]:
+            obj = Route(route)
+            self.routeList.append(obj)
+
+    def SetupRoutes(self):
+        for route in self.routeList:
+            route.SetupRoute(self)
 
     def HandleClick(self, x, y):
         for node in self.nodeList:

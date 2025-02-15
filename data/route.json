@@ -1,0 +1,18 @@
+{"routes":[
+    {"id":"York A to Leeds Platform"
+        ,"node_id_start":"york_siding_a"
+        ,"node_id_end":"source_leeds_platform"
+        ,"position_x":"5"
+        ,"position_y":"1"
+        ,"align":"left"
+        ,"colour":"red"
+    },
+    {"id":"York A to York Platform"
+        ,"node_id_start":"york_siding_a"
+        ,"node_id_end":"source_york_platform"
+        ,"position_x":"5"
+        ,"position_y":"2"
+        ,"align":"left"
+        ,"colour":"green"
+    }
+]}
