@@ -97,6 +97,9 @@ class Point_Engine:
             else:
                 node.append_to_dict(dict)
 
+        for route in self.routeList:
+            route.append_to_dict(dict)
+
         return json.dumps(dict)
 
     def LoadData(self):

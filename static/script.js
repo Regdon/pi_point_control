@@ -10,6 +10,15 @@ function drawLine(ctx, x1, y1, x2, y2, colour) {
     ctx.closePath();
 };
 
+function drawRect(ctx, x1, x2, width, height, colour) {
+    ctx.strokeStyle = colour;
+
+    ctx.beginPath();
+    ctx.fillRect(x1, y1, width, height)
+    ctx.stroke();
+    ctx.closePath();
+}
+
 document.addEventListener('DOMContentLoaded', function () {
     var socket = io.connect('http://' + document.domain + ':' + location.port);
 
@@ -27,7 +36,13 @@ document.addEventListener('DOMContentLoaded', function () {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         
         msgObject.forEach((i) => {
-            drawLine(ctx, i.x1, i.y1, i.x2, i.y2, i.state);
+            if ("type" in i) {
+                if (i.type == "route_button") {
+                    drawRect(ctx, i.x1, i.x2, i.width, i.height, i.colour);
+                }
+            } else {
+                drawLine(ctx, i.x1, i.y1, i.x2, i.y2, i.state);
+            }
         });
     });
 

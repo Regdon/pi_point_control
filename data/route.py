@@ -46,6 +46,17 @@ class Route:
     def ClearRoute(self):
         pass
 
+    def append_to_dict(self, dict):
+        dict.append({
+            "type": "route_button"
+            ,"x1": self.position_x
+            ,"y1": self.position_y
+            ,"width": 50
+            ,"height": 25
+            ,"colour": self.colour
+            ,"active": 0
+        })
+
 class RouteState:
     def __init__(self, node, state):
         self.node = node
