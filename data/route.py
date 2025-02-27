@@ -60,7 +60,7 @@ class Route:
         })
 
     def position_in_button(self, x, y):
-        return (x >= self.position_x and y >= self.position_y and x <= self.position_x + (2 * static.GRID_SIZE_X) and y <= self.position_y + static.GRID_SIZE_Y)
+        return (x >= self.position_x and y >= self.position_y and x <= self.position_x + 2 and y <= self.position_y + 1)
 
 class RouteState:
     def __init__(self, node, state):
