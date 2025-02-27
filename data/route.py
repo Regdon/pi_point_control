@@ -65,9 +65,9 @@ class Route:
     def toggle(self):
         print("Route Toggle Function")
         if (self.route_set == 0):
-            self.SetRoute
+            self.SetRoute()
         else:
-            self.ClearRoute
+            self.ClearRoute()
 
     def append_to_dict(self, dict):
         dict.append({
