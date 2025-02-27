@@ -13,10 +13,8 @@ function drawLine(ctx, x1, y1, x2, y2, colour) {
 function drawRect(ctx, x1, y1, width, height, colour) {
     ctx.fillStyle = colour;
 
-    ctx.beginPath();
     ctx.fillRect(x1, y1, width, height)
-    ctx.stroke();
-    ctx.closePath();
+
 }
 
 document.addEventListener('DOMContentLoaded', function () {
@@ -38,6 +36,7 @@ document.addEventListener('DOMContentLoaded', function () {
         msgObject.forEach((i) => {
             if ("type" in i) {
                 if (i.type == "route_button") {
+                    console.log('Drawing Button');
                     drawRect(ctx, i.x1, i.x2, i.width, i.height, i.colour);
                 }
             } else {
