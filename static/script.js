@@ -13,7 +13,7 @@ function drawLine(ctx, x1, y1, x2, y2, colour) {
 function drawRect(ctx, x1, y1, width, height, colour) {
     ctx.fillStyle = colour;
 
-    ctx.fillRect(x1, y1, width, height)
+    ctx.fillRect(x1, y1, width, height);
 
 }
 
