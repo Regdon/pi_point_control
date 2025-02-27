@@ -41,7 +41,7 @@ document.addEventListener('DOMContentLoaded', function () {
             if ("type" in i) {
                 if (i.type == "route_button") {
                     console.log('Drawing Button');
-                    drawRect(ctx, i.x1, i.x2, i.width, i.height, i.colour);
+                    drawRect(ctx, i.x1, i.y1, i.width, i.height, i.colour);
                 }
             } else {
                 drawLine(ctx, i.x1, i.y1, i.x2, i.y2, i.state);
