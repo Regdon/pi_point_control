@@ -11,14 +11,8 @@ function drawLine(ctx, x1, y1, x2, y2, colour) {
 };
 
 function drawRect(ctx, x1, y1, width, height, colour) {
-    console.log("x1:", x1);
-    console.log("y1:", y1);
-    console.log("Width:", width);
-    console.log("Height:", height);
-    console.log("Colour:", colour);
     ctx.fillStyle = colour;
     ctx.fillRect(x1, y1, width, height);
-
 }
 
 document.addEventListener('DOMContentLoaded', function () {
@@ -40,7 +34,6 @@ document.addEventListener('DOMContentLoaded', function () {
         msgObject.forEach((i) => {
             if ("type" in i) {
                 if (i.type == "route_button") {
-                    console.log('Drawing Button');
                     drawRect(ctx, i.x1, i.y1, i.width, i.height, i.colour);
                 }
             } else {

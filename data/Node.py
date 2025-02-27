@@ -8,6 +8,7 @@ class Node:
         self.parent = parent
         self.state = "None"
         self.order = 0
+        self.route_set = ""
 
     def Setup(self, node_list):
         #undefined for standard node
@@ -46,3 +47,16 @@ class Node:
     
     def GetGridY(self):
         return self.y * static.GRID_SIZE_Y
+    
+    def IsRouteSet(self):
+        if (self.route_set):
+            return 1
+        else:
+            return 0
+        
+    def SetByRoute(self, route_id, state):
+        self.route_set = route_id
+        self.state = state
+
+    def ClearByRoute(self):
+        self.route_set = ""

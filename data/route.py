@@ -15,6 +15,8 @@ class Route:
         self.route = []
         self.routeStates = []
 
+        self.route_set = 0
+
     def SetupRoute(self, engine):
         self.route = engine.GetRoute(self.node_id_start, self.node_id_end)
 
@@ -42,11 +44,30 @@ class Route:
 
     def SetRoute(self):
         print("Set Route Function")
-        pass
+        for route_state in self.routeStates:
+            if (not route_state.can_set):
+                print("Route Locked")
+                return
+        
+        for route_state in self.routeStates:
+            route_state.set()
+
+        self.route_set = 1
+
 
     def ClearRoute(self):
         print("Clear Route Function")
-        pass
+        for route_state in self.routeStates:
+            route_state.clear()
+
+        self.route_set = 0
+
+    def toggle(self):
+        print("Route Toggle Function")
+        if (self.route_set == 0):
+            self.SetRoute
+        else:
+            self.ClearRoute
 
     def append_to_dict(self, dict):
         dict.append({
@@ -61,8 +82,21 @@ class Route:
 
     def position_in_button(self, x, y):
         return (x >= self.position_x and y >= self.position_y and x <= self.position_x + 2 and y <= self.position_y + 1)
-
+           
 class RouteState:
     def __init__(self, node, state):
         self.node = node
         self.state = state
+
+    def can_set(self):
+        print("Route State Can Set Function")
+        return self.node.IsRouteSet()
+
+    def set(self):
+        print("Route State Set Function")
+        if (self.can_set()):
+            self.node.SetByRoute("temp", self.state)
+
+    def clear(self):
+        print("Route State Clear Function")
+        self.node.ClearByRoute()
