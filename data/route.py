@@ -45,7 +45,7 @@ class Route:
     def SetRoute(self):
         print("Set Route Function")
         for route_state in self.routeStates:
-            if (not route_state.can_set):
+            if (not route_state.can_set()):
                 print("Route Locked")
                 return
         
@@ -90,7 +90,7 @@ class RouteState:
 
     def can_set(self):
         print("Route State Can Set Function")
-        return self.node.IsRouteSet()
+        return not self.node.IsRouteSet()
 
     def set(self):
         print("Route State Set Function")
