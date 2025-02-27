@@ -10,7 +10,7 @@ function drawLine(ctx, x1, y1, x2, y2, colour) {
     ctx.closePath();
 };
 
-function drawRect(ctx, x1, x2, width, height, colour) {
+function drawRect(ctx, x1, y1, width, height, colour) {
     ctx.strokeStyle = colour;
 
     ctx.beginPath();
