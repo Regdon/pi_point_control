@@ -41,9 +41,11 @@ class Route:
         return False
 
     def SetRoute(self):
+        print("Set Route Function")
         pass
 
     def ClearRoute(self):
+        print("Clear Route Function")
         pass
 
     def append_to_dict(self, dict):
@@ -51,11 +53,14 @@ class Route:
             "type": "route_button"
             ,"x1": self.position_x
             ,"y1": self.position_y
-            ,"width": 50
-            ,"height": 25
+            ,"width": 2 * static.GRID_SIZE_X
+            ,"height": 1 * static.GRID_SIZE_Y
             ,"colour": self.colour
             ,"active": 0
         })
+
+    def position_in_button(self, x, y):
+        return (x >= self.position_x and y >= self.position_y and x <= self.position_x + (2 * static.GRID_SIZE_X) and y <= self.position_y + static.GRID_SIZE_Y)
 
 class RouteState:
     def __init__(self, node, state):

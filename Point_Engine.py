@@ -142,6 +142,13 @@ class Point_Engine:
                     node.switch()
                     self.i2c.SendState(node.node, node.point, node.point_state - 1)
                     return 1
+                
+        for route in self.routeList:
+            if route.position_in_button(x, y):
+                print(f"{route.id} clicked")
+                return 1
+
+
         return 0
 
 
