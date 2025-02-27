@@ -51,8 +51,8 @@ class Route:
     def append_to_dict(self, dict):
         dict.append({
             "type": "route_button"
-            ,"x1": self.position_x
-            ,"y1": self.position_y
+            ,"x1": self.position_x * static.GRID_SIZE_X
+            ,"y1": self.position_y * static.GRID_SIZE_Y
             ,"width": 2 * static.GRID_SIZE_X
             ,"height": 1 * static.GRID_SIZE_Y
             ,"colour": self.colour
