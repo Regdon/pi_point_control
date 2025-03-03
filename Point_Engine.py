@@ -143,9 +143,10 @@ class Point_Engine:
 
                 if (abs_dif_x < 1 and abs_dif_y < 1):
                     print(node.id + ' clicked')
-                    node.switch()
-                    self.i2c.SendState(node.node, node.point, node.point_state - 1)
-                    return 1
+                    if (node.IsRouteSet() == 0):
+                        node.switch()
+                        self.i2c.SendState(node.node, node.point, node.point_state - 1)
+                        return 1
                 
         for route in self.routeList:
             if route.position_in_button(x, y):
