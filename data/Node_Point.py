@@ -98,10 +98,10 @@ class Node_Point(Node):
             dict.append({"x1": self.GetGridX(), "y1": self.GetGridY(), 'x2': self.single_end.GetGridX(), "y2": self.single_end.GetGridY(),"state": self.state})
 
     def IsRouteSet(self):
-        if (self.route_set):
-            return 1
-        else:
+        if (self.route_set == ""):
             return 0
+        else:
+            return 1
         
     def SetByRoute(self, route_id, state):
         self.route_set = route_id
