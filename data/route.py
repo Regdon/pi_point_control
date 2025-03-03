@@ -45,7 +45,7 @@ class Route:
         return False
 
     def CheckBlocked(self):
-        print("Check Blocked Function")
+        #print("Check Blocked Function")
 
         if (self.route_set == static.ROUTE_STATE_ACTIVE):
             return self.route_set
@@ -59,7 +59,7 @@ class Route:
         return self.route_set
 
     def SetRoute(self):
-        print("Set Route Function")
+        #print("Set Route Function")
         for route_state in self.routeStates:
             if (not route_state.can_set()):
                 print("Route Locked")
@@ -71,14 +71,14 @@ class Route:
         self.route_set = static.ROUTE_STATE_ACTIVE
   
     def ClearRoute(self):
-        print("Clear Route Function")
+        #print("Clear Route Function")
         for route_state in self.routeStates:
             route_state.clear()
 
         self.route_set = static.ROUTE_STATE_DEFAULT
 
     def toggle(self):
-        print("Route Toggle Function")
+        #print("Route Toggle Function")
         if (self.route_set == static.ROUTE_STATE_DEFAULT):
             self.SetRoute()
         else:
@@ -113,14 +113,14 @@ class RouteState:
         self.state = state
 
     def can_set(self):
-        print("Route State Can Set Function")
+        #print("Route State Can Set Function")
         return not self.node.IsRouteSet()
 
     def set(self):
-        print("Route State Set Function")
+        #print("Route State Set Function")
         if (self.can_set()):
             self.node.SetByRoute("temp", self.state)
 
     def clear(self):
-        print("Route State Clear Function")
+        #print("Route State Clear Function")
         self.node.ClearByRoute()

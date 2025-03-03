@@ -99,13 +99,17 @@ class Node_Point(Node):
 
     def IsRouteSet(self):
         if (self.route_set == ""):
+            print(f"Checking if {self.id} is locked. Clear")
             return 0
         else:
+            print(f"Checking if {self.id} is locked. Locked")
             return 1
         
     def SetByRoute(self, route_id, state):
         self.route_set = route_id
         self.point_state = state
+        print(f"Node {self.id} routed to {state}.")
 
     def ClearByRoute(self):
         self.route_set = ""
+        print(f"Node {self.id} route cleared")
