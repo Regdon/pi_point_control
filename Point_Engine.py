@@ -150,8 +150,9 @@ class Point_Engine:
         for route in self.routeList:
             if route.position_in_button(x, y):
                 print(f"Route ID: '{route.id}' clicked")
-                route.toggle()
-                return 1
+                if (route.route_set != static.ROUTE_STATE_BLOCKED):
+                    route.toggle()
+                    return 1
 
         return 0
 
