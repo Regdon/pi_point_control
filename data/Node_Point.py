@@ -19,6 +19,8 @@ class Node_Point(Node):
         self.node = node
         self.point = point
 
+        self.route_set = ""
+
     def Setup(self, node_list):
         for node in node_list:
             if (node.id == self.single_end_id):
@@ -94,3 +96,20 @@ class Node_Point(Node):
             dict.append({"x1": self.GetGridX(), "y1": self.GetGridY(), 'x2': self.set_turnout.GetGridX(), "y2": self.set_turnout.GetGridY(),"state": self.set_turnout.state})
         elif (self.point_type == static.POINT_TYPE_DIVERGE):
             dict.append({"x1": self.GetGridX(), "y1": self.GetGridY(), 'x2': self.single_end.GetGridX(), "y2": self.single_end.GetGridY(),"state": self.state})
+
+    def IsRouteSet(self):
+        if (self.route_set == ""):
+            print(f"Checking if {self.id} is locked. Clear")
+            return 0
+        else:
+            print(f"Checking if {self.id} is locked. Locked")
+            return 1
+        
+    def SetByRoute(self, route_id, state):
+        self.route_set = route_id
+        self.point_state = state
+        print(f"Node {self.id} routed to {state}.")
+
+    def ClearByRoute(self):
+        self.route_set = ""
+        print(f"Node {self.id} route cleared")

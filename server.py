@@ -37,6 +37,9 @@ if __name__ == '__main__':
     engine.CalculateOrder()
     engine.CalculateState()
 
+    engine.LoadRoutes()
+    engine.SetupRoutes()
+
     socketio.run(app, host='0.0.0.0', port=5000)
 
 

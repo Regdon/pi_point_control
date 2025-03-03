@@ -1,20 +1,67 @@
 from data.Node import Node
 from data.Node_Source import Node_Source
 from data.Node_Point import Node_Point
+from data.route import Route
 
 import json
+import static
 
 from i2c import i2c_control
 
 class Point_Engine:
     def __init__(self):
         self.nodeList = []
+        self.routeList = []
         self.i2c = i2c_control()
 
     def GetNodeByID(self, id):
         for node in self.nodeList:
             if (node.id == id):
                 return node
+            
+    def GetRoute(self, id_from, id_to):
+        result = []
+
+        node_current = self.GetNodeByID(id_from)
+        # print(f"Starting routing for {node_current}")
+
+        while True:            
+            if (node_current.id == id_to):
+                # print(f"Target node {node_current} found, stopping")
+                result.append(node_current) 
+                return result
+            elif isinstance(node_current, Node_Source):
+                #If we get here, no route has been found, return 0
+                # print(f"Source node {node_current} found, unable to find target")
+                return 0
+            elif isinstance(node_current, Node_Point):
+                if (node_current.point_type == static.POINT_TYPE_CONVERGE):
+                    #This is the tricky siutation, because we don't know which way to go to our destination. 
+                    route_straight = self.GetRoute(node_current.set_straight_id, id_to)
+                    route_turnout = self.GetRoute(node_current.set_turnout_id, id_to)
+                    if (route_straight):
+                        # print(f"Following straight from point {node_current}")
+                        result.append(node_current)
+                        for part in route_straight:
+                            result.append(part)
+                        return result
+                    elif (route_turnout):
+                        # print(f"Following turnout from point {node_current}")
+                        result.append(node_current)
+                        for part in route_turnout:
+                            result.append(part)
+                        return result
+                    else:
+                        # print(f"Routing error from point {node_current}, this shouldn't happen")
+                        return 0
+                else:
+                    # print(f"Divering point {node_current} found, continuing to parent")
+                    result.append(node_current)
+                    node_current = node_current.GetParent()                
+            else:
+                # print(f"node {node_current} found, continuing to parent")
+                result.append(node_current)
+                node_current = node_current.GetParent()
             
     def Setup(self):
         for node in self.nodeList:
@@ -42,6 +89,10 @@ class Point_Engine:
         for node in self.nodeList:
             node.CalculateState()
 
+        for route in self.routeList:
+            route.CheckBlocked()
+            
+
     def GetWebJSON(self):
         dict = []
         for node in self.nodeList:
@@ -49,6 +100,9 @@ class Point_Engine:
                 continue
             else:
                 node.append_to_dict(dict)
+
+        for route in self.routeList:
+            route.append_to_dict(dict)
 
         return json.dumps(dict)
 
@@ -69,7 +123,20 @@ class Point_Engine:
                 obj = Node_Point(node["id"], node["x"], node["y"], node["point_type"], node["single_end_id"], node["set_straight_id"], node["set_turnout_id"], node["node"], node["point"])
                 self.nodeList.append(obj)
 
+    def LoadRoutes(self):
+        with open('data/route.json', 'r') as file:
+            data = json.load(file)
+
+        for route in data["routes"]:
+            obj = Route(route)
+            self.routeList.append(obj)
+
+    def SetupRoutes(self):
+        for route in self.routeList:
+            route.SetupRoute(self)
+
     def HandleClick(self, x, y):
+        print("----------Button Click-------------")
         for node in self.nodeList:
             if isinstance(node, Node_Point):
                 abs_dif_x = abs(x - int(node.x))
@@ -77,9 +144,18 @@ class Point_Engine:
 
                 if (abs_dif_x < 1 and abs_dif_y < 1):
                     print(node.id + ' clicked')
-                    node.switch()
-                    self.i2c.SendState(node.node, node.point, node.point_state - 1)
+                    if (node.IsRouteSet() == 0):
+                        node.switch()
+                        self.i2c.SendState(node.node, node.point, node.point_state - 1)
+                        return 1
+                
+        for route in self.routeList:
+            if route.position_in_button(x, y):
+                print(f"Route ID: '{route.id}' clicked")
+                if (route.route_set != static.ROUTE_STATE_BLOCKED):
+                    route.toggle()
                     return 1
+
         return 0
 
 

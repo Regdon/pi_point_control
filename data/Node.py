@@ -45,4 +45,4 @@ class Node:
         return self.x * static.GRID_SIZE_X
     
     def GetGridY(self):
-        return self.y * static.GRID_SIZE_Y
+        return self.y * static.GRID_SIZE_Y  
