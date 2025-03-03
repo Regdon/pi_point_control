@@ -136,6 +136,7 @@ class Point_Engine:
             route.SetupRoute(self)
 
     def HandleClick(self, x, y):
+        print("----------Button Click-------------")
         for node in self.nodeList:
             if isinstance(node, Node_Point):
                 abs_dif_x = abs(x - int(node.x))
