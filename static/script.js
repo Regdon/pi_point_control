@@ -55,3 +55,57 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 
+// // Select the canvas element
+// var canvas = document.getElementById('myCanvas');
+// var ctx = canvas.getContext('2d');
+
+// // Create an image element
+// var img = new Image();
+
+// // When the image is loaded, draw it onto the canvas
+// img.onload = function() {
+//     ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+// };
+
+// // Set the source of the image (update this with your JPEG path)
+// img.src = 'path/to/your/image.jpg';
+
+
+
+
+
+
+// // Select the canvas element
+// var canvas = document.getElementById('myCanvas');
+// var ctx = canvas.getContext('2d');
+
+// // Create an image element
+// var img = new Image();
+
+// // When the image is loaded, manipulate and draw it onto the canvas
+// img.onload = function() {
+//     // Draw the image onto the canvas
+//     ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+
+//     // Get the image data
+//     var imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+//     var data = imageData.data;
+
+//     // Loop through each pixel and modify the RGB values
+//     for (var i = 0; i < data.length; i += 4) {
+//         // Red component
+//         data[i] = data[i] * 1.2;     // Increase the red component by 20%
+
+//         // Green component
+//         data[i + 1] = data[i + 1] * 0.8; // Decrease the green component by 20%
+
+//         // Blue component
+//         data[i + 2] = data[i + 2] * 1.5; // Increase the blue component by 50%
+//     }
+
+//     // Put the modified image data back onto the canvas
+//     ctx.putImageData(imageData, 0, 0);
+// };
+
+// // Set the source of the image (update this with your JPEG path)
+// img.src = 'path/to/your/image.jpg';

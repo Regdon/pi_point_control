@@ -89,6 +89,10 @@ class Point_Engine:
         for node in self.nodeList:
             node.CalculateState()
 
+        for route in self.routeList:
+            route.CheckBlocked()
+            
+
     def GetWebJSON(self):
         dict = []
         for node in self.nodeList:

@@ -11,6 +11,8 @@ class Route:
         self.position_y = int(data["position_y"])
         self.align = data["align"]
         self.colour = data["colour"]
+        self.colour_locked = data["colour_locked"]
+        self.colour_set = data["colour_set"]
 
         self.route = []
         self.routeStates = []
@@ -42,6 +44,20 @@ class Route:
                 return True
         return False
 
+    def CheckBlocked(self):
+        print("Check Blocked Function")
+
+        if (self.route_set == static.ROUTE_STATE_ACTIVE):
+            return self.route_set
+        
+        for route_state in self.routeStates:
+            if (not route_state.can_set()):
+                self.route_set = static.ROUTE_STATE_BLOCKED
+                return self.route_set
+
+        self.route_set = static.ROUTE_STATE_DEFAULT
+        return self.route_set
+
     def SetRoute(self):
         print("Set Route Function")
         for route_state in self.routeStates:
@@ -52,19 +68,18 @@ class Route:
         for route_state in self.routeStates:
             route_state.set()
 
-        self.route_set = 1
-
-
+        self.route_set = static.ROUTE_STATE_ACTIVE
+  
     def ClearRoute(self):
         print("Clear Route Function")
         for route_state in self.routeStates:
             route_state.clear()
 
-        self.route_set = 0
+        self.route_set = static.ROUTE_STATE_DEFAULT
 
     def toggle(self):
         print("Route Toggle Function")
-        if (self.route_set == 0):
+        if (self.route_set == static.ROUTE_STATE_DEFAULT):
             self.SetRoute()
         else:
             self.ClearRoute()
@@ -76,12 +91,21 @@ class Route:
             ,"y1": self.position_y * static.GRID_SIZE_Y
             ,"width": 2 * static.GRID_SIZE_X
             ,"height": 1 * static.GRID_SIZE_Y
-            ,"colour": self.colour
-            ,"active": 0
+            ,"colour": self.getColour()
+            ,"active": self.route_set
         })
 
     def position_in_button(self, x, y):
         return (x >= self.position_x and y >= self.position_y and x <= self.position_x + 2 and y <= self.position_y + 1)
+    
+    def getColour(self):
+        if (self.route_set == static.ROUTE_STATE_ACTIVE):
+            return self.colour_set
+        elif (self.route_set == static.ROUTE_STATE_BLOCKED):
+            return self.colour_locked
+        else:
+            return self.colour
+        
            
 class RouteState:
     def __init__(self, node, state):

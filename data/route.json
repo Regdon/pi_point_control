@@ -5,7 +5,9 @@
         ,"position_x": "13"
         ,"position_y":"1"
         ,"align":"left"
-        ,"colour":"red"
+        ,"colour":"#FF0000"
+        ,"colour_locked":"#660000"
+        ,"colour_set":"FF6666"
     },
     {"id":"York A to York Platform"
         ,"node_id_start":"york_siding_a"
@@ -13,6 +15,8 @@
         ,"position_x":"16"
         ,"position_y":"1"
         ,"align":"left"
-        ,"colour":"green"
+        ,"colour":"#00FF00"
+        ,"colour_locked":"#006600"
+        ,"colour_set":"66FF66"
     }
 ]}
