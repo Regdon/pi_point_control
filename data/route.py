@@ -89,14 +89,14 @@ class Route:
             "type": "route_button"
             ,"x1": self.position_x * static.GRID_SIZE_X
             ,"y1": self.position_y * static.GRID_SIZE_Y
-            ,"width": 2 * static.GRID_SIZE_X
-            ,"height": 1 * static.GRID_SIZE_Y
+            ,"width": 4 * static.GRID_SIZE_X
+            ,"height": 2 * static.GRID_SIZE_Y
             ,"colour": self.getColour()
             ,"active": self.route_set
         })
 
     def position_in_button(self, x, y):
-        return (x >= self.position_x and y >= self.position_y and x <= self.position_x + 2 and y <= self.position_y + 1)
+        return (x >= self.position_x and y >= self.position_y and x <= self.position_x + 4 and y <= self.position_y + 2)
     
     def getColour(self):
         if (self.route_set == static.ROUTE_STATE_ACTIVE):
