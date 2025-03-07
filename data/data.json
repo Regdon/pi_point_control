@@ -1,31 +1,31 @@
 {"nodes":[
-    {"id":"source_leeds_platform", "type":"node-source", "x":"34", "y":"10", "colour":"#FF0000"}
-    ,{"id":"source_york_platform", "type":"node-source", "x":"34", "y":"14", "colour":"#00FF00"}
+    {"id":"source_leeds_platform", "type":"node-source", "x":"38", "y":"10", "colour":"#FF0000"}
+    ,{"id":"source_york_platform", "type":"node-source", "x":"38", "y":"14", "colour":"#00FF00"}
 
-    ,{"id":"york_inner_loop", "type":"node-point", "x":"26", "y":"10", "point_type":"Diverge", "single_end_id":"source_leeds_platform", "set_straight_id":"york_inner_loop_centre", "set_turnout_id":"york_inner_loop_a" , "node":"1", "point":"2" }     
-    ,{"id":"york_inner_loop_a", "type":"node", "x":"18", "y":"2", "parent":"york_inner_loop"}
-    ,{"id":"york_inner_loop_b", "type":"node", "x":"2", "y":"2", "parent":"york_inner_loop_a"}
-    ,{"id":"york_inner_loop_centre", "type":"node", "x":"24", "y":"10", "parent":"york_inner_loop"}
+    ,{"id":"york_inner_loop", "type":"node-point", "x":"30", "y":"10", "point_type":"Diverge", "single_end_id":"source_leeds_platform", "set_straight_id":"york_inner_loop_centre", "set_turnout_id":"york_inner_loop_a" , "node":"1", "point":"2" }     
+    ,{"id":"york_inner_loop_a", "type":"node", "x":"22", "y":"2", "parent":"york_inner_loop"}
+    ,{"id":"york_inner_loop_b", "type":"node", "x":"6", "y":"2", "parent":"york_inner_loop_a"}
+    ,{"id":"york_inner_loop_centre", "type":"node", "x":"28", "y":"10", "parent":"york_inner_loop"}
 
 
-    ,{"id":"york_crossover_facing_a", "type":"node-point", "x":"26", "y":"14", "point_type":"Diverge", "single_end_id":"source_york_platform", "set_straight_id":"york_mid_crossovers", "set_turnout_id":"york_crossover_facing_centre" , "node":"1", "point":"2" }    
-    ,{"id":"york_crossover_facing_centre", "type":"node", "x":"24", "y":"12", "parent":"york_crossover_facing_a"}
-    ,{"id":"york_crossover_facing_b", "type":"node-point", "x":"22", "y":"10", "point_type":"Converge", "single_end_id":"york_crossover_trailing_a", "set_straight_id":"york_inner_loop_centre", "set_turnout_id":"york_crossover_facing_centre" , "node":"1", "point":"2" }
-    ,{"id":"york_mid_crossovers", "type":"node", "x":"20", "y":"14", "parent":"york_crossover_facing_a"}
+    ,{"id":"york_crossover_facing_a", "type":"node-point", "x":"30", "y":"14", "point_type":"Diverge", "single_end_id":"source_york_platform", "set_straight_id":"york_mid_crossovers", "set_turnout_id":"york_crossover_facing_centre" , "node":"1", "point":"2" }    
+    ,{"id":"york_crossover_facing_centre", "type":"node", "x":"28", "y":"12", "parent":"york_crossover_facing_a"}
+    ,{"id":"york_crossover_facing_b", "type":"node-point", "x":"26", "y":"10", "point_type":"Converge", "single_end_id":"york_crossover_trailing_a", "set_straight_id":"york_inner_loop_centre", "set_turnout_id":"york_crossover_facing_centre" , "node":"1", "point":"2" }
+    ,{"id":"york_mid_crossovers", "type":"node", "x":"24", "y":"14", "parent":"york_crossover_facing_a"}
 
-    ,{"id":"york_crossover_trailing_a", "type":"node-point", "x":"20", "y":"10", "point_type":"Diverge", "single_end_id":"york_crossover_facing_b", "set_straight_id":"york_outer_loop", "set_turnout_id":"york_crossover_trailing_centre" , "node":"1", "point":"2" } 
-    ,{"id":"york_crossover_trailing_centre", "type":"node", "x":"18", "y":"12", "parent":"york_crossover_trailing_a"}
-    ,{"id":"york_crossover_trailing_b", "type":"node-point", "x":"16", "y":"14", "point_type":"Converge", "single_end_id":"york_siding", "set_straight_id":"york_mid_crossovers", "set_turnout_id":"york_crossover_trailing_centre" , "node":"1", "point":"2" } 
+    ,{"id":"york_crossover_trailing_a", "type":"node-point", "x":"24", "y":"10", "point_type":"Diverge", "single_end_id":"york_crossover_facing_b", "set_straight_id":"york_outer_loop", "set_turnout_id":"york_crossover_trailing_centre" , "node":"1", "point":"2" } 
+    ,{"id":"york_crossover_trailing_centre", "type":"node", "x":"22", "y":"12", "parent":"york_crossover_trailing_a"}
+    ,{"id":"york_crossover_trailing_b", "type":"node-point", "x":"20", "y":"14", "point_type":"Converge", "single_end_id":"york_siding", "set_straight_id":"york_mid_crossovers", "set_turnout_id":"york_crossover_trailing_centre" , "node":"1", "point":"2" } 
 
-    ,{"id":"york_outer_loop", "type":"node-point", "x":"18", "y":"10", "point_type":"Diverge", "single_end_id":"york_crossover_trailing_a", "set_straight_id":"york_siding_a", "set_turnout_id":"york_outer_loop_a" , "node":"1", "point":"2" }     
-    ,{"id":"york_outer_loop_a", "type":"node", "x":"14", "y":"6", "parent":"york_outer_loop"}
-    ,{"id":"york_outer_loop_b", "type":"node", "x":"2", "y":"6", "parent":"york_outer_loop_a"}
+    ,{"id":"york_outer_loop", "type":"node-point", "x":"22", "y":"10", "point_type":"Diverge", "single_end_id":"york_crossover_trailing_a", "set_straight_id":"york_siding_a", "set_turnout_id":"york_outer_loop_a" , "node":"1", "point":"2" }     
+    ,{"id":"york_outer_loop_a", "type":"node", "x":"18", "y":"6", "parent":"york_outer_loop"}
+    ,{"id":"york_outer_loop_b", "type":"node", "x":"6", "y":"6", "parent":"york_outer_loop_a"}
 
-    ,{"id":"york_siding_a", "type":"node", "x":"2", "y":"10", "parent":"york_outer_loop"}
+    ,{"id":"york_siding_a", "type":"node", "x":"6", "y":"10", "parent":"york_outer_loop"}
 
-    ,{"id":"york_siding", "type":"node-point", "x":"14", "y":"14", "point_type":"Diverge", "single_end_id":"york_crossover_trailing_b", "set_straight_id":"york_siding_b", "set_turnout_id":"york_siding_c" , "node":"1", "point":"2" }  
-    ,{"id":"york_siding_b", "type":"node", "x":"2", "y":"14", "parent":"york_siding"}
-    ,{"id":"york_siding_c", "type":"node", "x":"10", "y":"18", "parent":"york_siding"}    
-    ,{"id":"york_siding_c_2", "type":"node", "x":"2", "y":"18", "parent":"york_siding_c"}
+    ,{"id":"york_siding", "type":"node-point", "x":"18", "y":"14", "point_type":"Diverge", "single_end_id":"york_crossover_trailing_b", "set_straight_id":"york_siding_b", "set_turnout_id":"york_siding_c" , "node":"1", "point":"2" }  
+    ,{"id":"york_siding_b", "type":"node", "x":"6", "y":"14", "parent":"york_siding"}
+    ,{"id":"york_siding_c", "type":"node", "x":"14", "y":"18", "parent":"york_siding"}    
+    ,{"id":"york_siding_c_2", "type":"node", "x":"6", "y":"18", "parent":"york_siding_c"}
 
 ]}
