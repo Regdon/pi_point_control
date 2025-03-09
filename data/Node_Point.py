@@ -1,9 +1,10 @@
 from .Node import Node
+from i2c import i2c_control
 
 import static
 
 class Node_Point(Node):
-    def __init__(self, id, x, y, point_type, single_end_id, set_straight_id, set_turnout_id, node, point):
+    def __init__(self, id, x, y, point_type, single_end_id, set_straight_id, set_turnout_id, node, point, i2c):
         Node.__init__(self, id, x, y, "")
 
         self.point_type = point_type
@@ -20,6 +21,8 @@ class Node_Point(Node):
         self.point = point
 
         self.route_set = ""
+
+        self.i2c = i2c
 
     def Setup(self, node_list):
         for node in node_list:
@@ -47,6 +50,7 @@ class Node_Point(Node):
             self.point_state = 2
         else:
             self.point_state = 1
+        self.i2c.SendState(self.node, self.point, self.point_state - 1)
 
     def GetParent(self):
         if (self.point_type == static.POINT_TYPE_CONVERGE):
@@ -106,9 +110,14 @@ class Node_Point(Node):
             return 1
         
     def SetByRoute(self, route_id, state):
+                    
         self.route_set = route_id
-        self.point_state = state
-        print(f"Node {self.id} routed to {state}.")
+        if (self.point_state != state):
+            self.point_state = state
+            print(f"Node {self.id} routed to {state}.")
+            self.i2c.SendState(self.node, self.point, self.point_state - 1)
+        else:
+            print(f"Node {self.id} routed, but state unchanged")
 
     def ClearByRoute(self):
         self.route_set = ""

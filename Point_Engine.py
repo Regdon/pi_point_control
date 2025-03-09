@@ -120,7 +120,7 @@ class Point_Engine:
                 self.nodeList.append(obj)
             
             if (node["type"] == "node-point"):
-                obj = Node_Point(node["id"], node["x"], node["y"], node["point_type"], node["single_end_id"], node["set_straight_id"], node["set_turnout_id"], node["node"], node["point"])
+                obj = Node_Point(node["id"], node["x"], node["y"], node["point_type"], node["single_end_id"], node["set_straight_id"], node["set_turnout_id"], node["node"], node["point"], self.i2c)
                 self.nodeList.append(obj)
 
     def LoadRoutes(self):
@@ -146,7 +146,7 @@ class Point_Engine:
                     print(node.id + ' clicked')
                     if (node.IsRouteSet() == 0):
                         node.switch()
-                        self.i2c.SendState(node.node, node.point, node.point_state - 1)
+                        # self.i2c.SendState(node.node, node.point, node.point_state - 1)
                         return 1
                 
         for route in self.routeList:
