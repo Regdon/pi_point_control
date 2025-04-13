@@ -38,8 +38,8 @@
     ,{"id":"leeds_outer_loop2", "type":"node", "x":"93", "y":"22", "parent":"leeds_outer_loop"}
         
     ,{"id":"leeds_facing_crossover_outer_start", "type":"node", "x":"65", "y":"14", "parent":"leeds_outer_loop_points"}
-    ,{"id":"leeds_facing_crossover_inner_point", "type":"node-point", "x":"63", "y":"10", "point_type":"Diverge", "single_end_id":"source_york_platform", "set_straight_id":"aaaa", "set_turnout_id":"leeds_facing_crossover_centre" , "node":"0", "point":"3" }    
-    ,{"id":"leeds_facing_crossover_centre", "type":"node", "x":"65", "y":"12", "parent":"york_crossover_facing_a"}
+    ,{"id":"leeds_facing_crossover_inner_point", "type":"node-point", "x":"63", "y":"10", "point_type":"Diverge", "single_end_id":"viaduct_crossover_leeds", "set_straight_id":"aaaa", "set_turnout_id":"leeds_facing_crossover_centre" , "node":"0", "point":"3" }    
+    ,{"id":"leeds_facing_crossover_centre", "type":"node", "x":"65", "y":"12", "parent":"leeds_facing_crossover_inner_point"}
     ,{"id":"leeds_facing_crossover_outer_point", "type":"node-point", "x":"67", "y":"14", "point_type":"Converge", "single_end_id":"bbbb", "set_straight_id":"leeds_facing_crossover_outer_start", "set_turnout_id":"leeds_facing_crossover_centre" , "node":"0", "point":"4" }
 
 
