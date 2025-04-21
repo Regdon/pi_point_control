@@ -27,5 +27,35 @@
     ,{"id":"york_siding_b", "type":"node", "x":"11", "y":"14", "parent":"york_siding"}
     ,{"id":"york_siding_c", "type":"node", "x":"19", "y":"18", "parent":"york_siding"}    
     ,{"id":"york_siding_c_2", "type":"node", "x":"11", "y":"18", "parent":"york_siding_c"}
+    
+    ,{"id":"viaduct_leeds_start", "type":"node", "x":"49", "y":"10", "parent":"source_leeds_platform"}
+    ,{"id":"viaduct_crossover_york", "type":"node-point", "x":"49", "y":"14", "point_type":"Diverge", "single_end_id":"source_york_platform", "set_straight_id":"leeds_outer_loop_points", "set_turnout_id":"viaduct_crossover_centre" , "node":"2", "point":"3" }    
+    ,{"id":"viaduct_crossover_centre", "type":"node", "x":"51", "y":"12", "parent":"viaduct_crossover_york"}
+    ,{"id":"viaduct_crossover_leeds", "type":"node-point", "x":"53", "y":"10", "point_type":"Converge", "single_end_id":"leeds_facing_crossover_inner_point", "set_straight_id":"viaduct_leeds_start", "set_turnout_id":"viaduct_crossover_centre" , "node":"2", "point":"4" }
 
+    ,{"id":"leeds_outer_loop_points", "type":"node-point", "x":"63", "y":"14", "point_type":"Diverge", "single_end_id":"viaduct_crossover_york", "set_straight_id":"leeds_facing_crossover_outer_start", "set_turnout_id":"leeds_outer_loop" , "node":"0", "point":"2" } 
+    ,{"id":"leeds_outer_loop", "type":"node", "x":"71", "y":"22", "parent":"leeds_outer_loop_points"}    
+    ,{"id":"leeds_outer_loop2", "type":"node", "x":"93", "y":"22", "parent":"leeds_outer_loop"}
+        
+    ,{"id":"leeds_facing_crossover_outer_start", "type":"node", "x":"65", "y":"14", "parent":"leeds_outer_loop_points"}
+    ,{"id":"leeds_facing_crossover_inner_point", "type":"node-point", "x":"63", "y":"10", "point_type":"Diverge", "single_end_id":"viaduct_crossover_leeds", "set_straight_id":"leeds_trailing_crossover_inner_start", "set_turnout_id":"leeds_facing_crossover_centre" , "node":"0", "point":"3" }    
+    ,{"id":"leeds_facing_crossover_centre", "type":"node", "x":"65", "y":"12", "parent":"leeds_facing_crossover_inner_point"}
+    ,{"id":"leeds_facing_crossover_outer_point", "type":"node-point", "x":"67", "y":"14", "point_type":"Converge", "single_end_id":"leeds_trailing_crossover_outer_point", "set_straight_id":"leeds_facing_crossover_outer_start", "set_turnout_id":"leeds_facing_crossover_centre" , "node":"0", "point":"4" }
+
+    ,{"id":"leeds_trailing_crossover_inner_start", "type":"node", "x":"69", "y":"10", "parent":"leeds_facing_crossover_inner_point"}
+    ,{"id":"leeds_trailing_crossover_outer_point", "type":"node-point", "x":"69", "y":"14", "point_type":"Diverge", "single_end_id":"leeds_facing_crossover_outer_point", "set_straight_id":"leeds_inner_loop_points", "set_turnout_id":"leeds_trailing_crossover_centre" , "node":"0", "point":"5" }    
+    ,{"id":"leeds_trailing_crossover_centre", "type":"node", "x":"71", "y":"12", "parent":"leeds_trailing_crossover_outer_point"}
+    ,{"id":"leeds_trailing_crossover_inner_point", "type":"node-point", "x":"73", "y":"10", "point_type":"Converge", "single_end_id":"leeds_siding_points_b", "set_straight_id":"leeds_trailing_crossover_inner_start", "set_turnout_id":"leeds_trailing_crossover_centre" , "node":"0", "point":"6" }
+
+    ,{"id":"leeds_inner_loop_points", "type":"node-point", "x":"71", "y":"14", "point_type":"Diverge", "single_end_id":"leeds_trailing_crossover_outer_point", "set_straight_id":"leeds_siding_a", "set_turnout_id":"leeds_inner_loop" , "node":"0", "point":"7" } 
+    ,{"id":"leeds_inner_loop", "type":"node", "x":"75", "y":"18", "parent":"leeds_inner_loop_points"}    
+    ,{"id":"leeds_inner_loop2", "type":"node", "x":"93", "y":"18", "parent":"leeds_inner_loop"}
+    ,{"id":"leeds_siding_a", "type":"node", "x":"93", "y":"14", "parent":"leeds_inner_loop_points"}
+
+    ,{"id":"leeds_siding_points_b", "type":"node-point", "x":"75", "y":"10", "point_type":"Diverge", "single_end_id":"leeds_trailing_crossover_inner_point", "set_straight_id":"leeds_siding_b", "set_turnout_id":"leeds_siding_points_c" , "node":"2", "point":"5" }     
+    ,{"id":"leeds_siding_b", "type":"node", "x":"93", "y":"10", "parent":"leeds_siding_points_b"} 
+    ,{"id":"leeds_siding_points_c", "type":"node-point", "x":"79", "y":"6", "point_type":"Diverge", "single_end_id":"leeds_siding_points_b", "set_straight_id":"leeds_siding_c", "set_turnout_id":"leeds_siding_d1" , "node":"2", "point":"6" } 
+    ,{"id":"leeds_siding_c", "type":"node", "x":"93", "y":"6", "parent":"leeds_siding_points_c"}
+    ,{"id":"leeds_siding_d1", "type":"node", "x":"83", "y":"2", "parent":"leeds_siding_points_c"}
+    ,{"id":"leeds_siding_d2", "type":"node", "x":"93", "y":"2", "parent":"leeds_siding_d1"}
 ]}
