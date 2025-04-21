@@ -45,15 +45,17 @@
     ,{"id":"leeds_trailing_crossover_inner_start", "type":"node", "x":"69", "y":"10", "parent":"leeds_facing_crossover_inner_point"}
     ,{"id":"leeds_trailing_crossover_outer_point", "type":"node-point", "x":"69", "y":"14", "point_type":"Diverge", "single_end_id":"leeds_facing_crossover_outer_point", "set_straight_id":"leeds_inner_loop_points", "set_turnout_id":"leeds_trailing_crossover_centre" , "node":"0", "point":"5" }    
     ,{"id":"leeds_trailing_crossover_centre", "type":"node", "x":"71", "y":"12", "parent":"leeds_trailing_crossover_outer_point"}
-    ,{"id":"leeds_trailing_crossover_inner_point", "type":"node-point", "x":"73", "y":"10", "point_type":"Converge", "single_end_id":"bbbb", "set_straight_id":"leeds_trailing_crossover_inner_start", "set_turnout_id":"leeds_trailing_crossover_centre" , "node":"0", "point":"6" }
+    ,{"id":"leeds_trailing_crossover_inner_point", "type":"node-point", "x":"73", "y":"10", "point_type":"Converge", "single_end_id":"leeds_siding_points_b", "set_straight_id":"leeds_trailing_crossover_inner_start", "set_turnout_id":"leeds_trailing_crossover_centre" , "node":"0", "point":"6" }
 
-
-    ,{"id":"leeds_inner_loop_points", "type":"node-point", "x":"71", "y":"14", "point_type":"Diverge", "single_end_id":"leeds_trailing_crossover_outer_point", "set_straight_id":"aaaa", "set_turnout_id":"leeds_inner_loop" , "node":"0", "point":"7" } 
+    ,{"id":"leeds_inner_loop_points", "type":"node-point", "x":"71", "y":"14", "point_type":"Diverge", "single_end_id":"leeds_trailing_crossover_outer_point", "set_straight_id":"leeds_siding_a", "set_turnout_id":"leeds_inner_loop" , "node":"0", "point":"7" } 
     ,{"id":"leeds_inner_loop", "type":"node", "x":"75", "y":"18", "parent":"leeds_inner_loop_points"}    
-    ,{"id":"leeds_inner_loop2", "type":"node", "x":"93", "y":"18", "parent":"leeds_inner_loop"}    
+    ,{"id":"leeds_inner_loop2", "type":"node", "x":"93", "y":"18", "parent":"leeds_inner_loop"}
+    ,{"id":"leeds_siding_a", "type":"node", "x":"93", "y":"14", "parent":"leeds_inner_loop_points"}
 
-
-    ,{"id":"aaaa", "type":"node", "x":"93", "y":"14", "parent":"leeds_inner_loop_points"}
-    ,{"id":"bbbb", "type":"node", "x":"93", "y":"10", "parent":"leeds_trailing_crossover_inner_point"}    
-
+    ,{"id":"leeds_siding_points_b", "type":"node-point", "x":"75", "y":"10", "point_type":"Diverge", "single_end_id":"leeds_trailing_crossover_inner_point", "set_straight_id":"leeds_siding_b", "set_turnout_id":"leeds_siding_points_c" , "node":"2", "point":"5" }     
+    ,{"id":"leeds_siding_b", "type":"node", "x":"93", "y":"10", "parent":"leeds_siding_points_b"} 
+    ,{"id":"leeds_siding_points_c", "type":"node-point", "x":"79", "y":"6", "point_type":"Diverge", "single_end_id":"leeds_siding_points_b", "set_straight_id":"leeds_siding_c", "set_turnout_id":"leeds_siding_d1" , "node":"2", "point":"6" } 
+    ,{"id":"leeds_siding_c", "type":"node", "x":"93", "y":"6", "parent":"leeds_siding_points_c"}
+    ,{"id":"leeds_siding_d1", "type":"node", "x":"83", "y":"2", "parent":"leeds_siding_points_c"}
+    ,{"id":"leeds_siding_d2", "type":"node", "x":"93", "y":"2", "parent":"leeds_siding_d1"}
 ]}
