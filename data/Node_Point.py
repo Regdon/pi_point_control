@@ -4,7 +4,7 @@ from i2c import i2c_control
 import static
 
 class Node_Point(Node):
-    def __init__(self, id, x, y, point_type, single_end_id, set_straight_id, set_turnout_id, node, point, i2c):
+    def __init__(self, id, x, y, point_type, single_end_id, set_straight_id, set_turnout_id, node, point, i2c, flag):
         Node.__init__(self, id, x, y, "")
 
         self.point_type = point_type
@@ -23,6 +23,7 @@ class Node_Point(Node):
         self.route_set = ""
 
         self.i2c = i2c
+        self.flag = flag
 
     def Setup(self, node_list):
         for node in node_list:
