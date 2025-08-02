@@ -99,4 +99,26 @@
         ,"colour_locked":"#000066"
         ,"colour_set":"#6666FF"
     }
+    {
+        "id":"Leeds D to Leeds Platform"
+        ,"node_id_start":"leeds_siding_d2"
+        ,"node_id_end":"source_leeds_platform"
+        ,"position_x": "95"
+        ,"position_y":"1"
+        ,"align":"right"
+        ,"colour":"#FF0000"
+        ,"colour_locked":"#660000"
+        ,"colour_set":"#FF6666"
+    },
+    {
+        "id":"Leeds D to York Platform"
+        ,"node_id_start":"leeds_siding_d2"
+        ,"node_id_end":"source_york_platform"
+        ,"position_x":"100"
+        ,"position_y":"1"
+        ,"align":"right"
+        ,"colour":"#00FF00"
+        ,"colour_locked":"#006600"
+        ,"colour_set":"#66FF66"
+    },
 ]}
