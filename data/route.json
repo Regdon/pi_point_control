@@ -98,7 +98,7 @@
         ,"colour":"#0000FF"
         ,"colour_locked":"#000066"
         ,"colour_set":"#6666FF"
-    }
+    },
     {
         "id":"Leeds D to Leeds Platform"
         ,"node_id_start":"leeds_siding_d2"
@@ -120,5 +120,5 @@
         ,"colour":"#00FF00"
         ,"colour_locked":"#006600"
         ,"colour_set":"#66FF66"
-    },
+    }
 ]}
