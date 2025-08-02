@@ -98,6 +98,7 @@
         ,"colour":"#0000FF"
         ,"colour_locked":"#000066"
         ,"colour_set":"#6666FF"
+        ,"type":"toggle"
     },
     {
         "id":"Leeds D to Leeds Platform"
@@ -113,7 +114,7 @@
     {
         "id":"Leeds D to York Platform"
         ,"node_id_start":"leeds_siding_d2"
-        ,"node_id_end":"leeds_outer_loop_points"
+        ,"node_id_end":"source_york_platform"
         ,"position_x":"99"
         ,"position_y":"1"
         ,"align":"right"
@@ -135,7 +136,7 @@
     {
         "id":"Leeds C to York Platform"
         ,"node_id_start":"leeds_siding_c"
-        ,"node_id_end":"leeds_outer_loop_points"
+        ,"node_id_end":"source_york_platform"
         ,"position_x":"99"
         ,"position_y":"5"
         ,"align":"right"
@@ -157,7 +158,7 @@
     {
         "id":"Leeds B to York Platform"
         ,"node_id_start":"leeds_siding_b"
-        ,"node_id_end":"leeds_outer_loop_points"
+        ,"node_id_end":"source_york_platform"
         ,"position_x":"99"
         ,"position_y":"9"
         ,"align":"right"
@@ -179,7 +180,7 @@
     {
         "id":"Leeds A to York Platform"
         ,"node_id_start":"leeds_siding_a"
-        ,"node_id_end":"leeds_outer_loop_points"
+        ,"node_id_end":"source_york_platform"
         ,"position_x":"99"
         ,"position_y":"13"
         ,"align":"right"
@@ -201,7 +202,7 @@
     {
         "id":"Leeds Inner Loop to York Platform"
         ,"node_id_start":"leeds_inner_loop2"
-        ,"node_id_end":"leeds_outer_loop_points"
+        ,"node_id_end":"source_york_platform"
         ,"position_x":"99"
         ,"position_y":"17"
         ,"align":"right"
@@ -212,7 +213,7 @@
     {
         "id":"Leeds Outer Loop to York Platform"
         ,"node_id_start":"leeds_outer_loop2"
-        ,"node_id_end":"leeds_outer_loop_points"
+        ,"node_id_end":"source_york_platform"
         ,"position_x":"99"
         ,"position_y":"21"
         ,"align":"right"
