@@ -1,0 +1,12 @@
+{"toggle_items":[
+    {
+        "toggle_id":"Viaduct Toggle"
+        ,"node_id":"viaduct_crossover_york"
+        ,"turnout_state":"Turnout"
+    },
+    {
+        "toggle_id":"Viaduct Toggle"
+        ,"node_id":"viaduct_crossover_leeds"
+        ,"turnout_state":"Turnout"
+    }
+]}

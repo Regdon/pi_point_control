@@ -1,0 +1,9 @@
+{"toggles":[
+    {
+        "id":"Viaduct Toggle"
+        ,"button_position_x": "50"
+        ,"button_position_y":"6"
+        ,"button_colour_default":"#000033"
+        ,"button_colour_toggle":"#0000FF"
+    }
+]}

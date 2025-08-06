@@ -89,17 +89,6 @@
         ,"colour_locked":"#006600"
         ,"colour_set":"#66FF66"
     },
-    {"id":"Viaduct Turnout"
-        ,"node_id_start":"leeds_facing_crossover_inner_point"
-        ,"node_id_end":"source_york_platform"
-        ,"position_x":"50"
-        ,"position_y":"6"
-        ,"align":"centre"
-        ,"colour":"#0000FF"
-        ,"colour_locked":"#000066"
-        ,"colour_set":"#6666FF"
-        ,"type":"toggle"
-    },
     {
         "id":"Leeds D to Leeds Platform"
         ,"node_id_start":"leeds_siding_d2"

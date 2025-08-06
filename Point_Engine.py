@@ -2,6 +2,7 @@ from data.Node import Node
 from data.Node_Source import Node_Source
 from data.Node_Point import Node_Point
 from data.route import Route
+from data.toggle import Toggle
 
 import json
 import static
@@ -12,12 +13,18 @@ class Point_Engine:
     def __init__(self):
         self.nodeList = []
         self.routeList = []
+        self.toggleList = []
         self.i2c = i2c_control()
 
     def GetNodeByID(self, id):
         for node in self.nodeList:
             if (node.id == id):
                 return node
+            
+    def GetToggleByID(self, id):
+        for toggle in self.toggleList:
+            if (toggle.id == id):
+                return toggle
             
     def GetRoute(self, id_from, id_to):
         result = []
@@ -104,6 +111,9 @@ class Point_Engine:
         for route in self.routeList:
             route.append_to_dict(dict)
 
+        for toggle in self.toggleList:
+            route.GetButtonJSON(dict)
+
         return json.dumps(dict)
 
     def LoadData(self):
@@ -134,11 +144,28 @@ class Point_Engine:
 
         for route in data["routes"]:
             obj = Route(route)
-            self.routeList.append(obj)
+            self.routeList.append(obj)        
 
     def SetupRoutes(self):
         for route in self.routeList:
             route.SetupRoute(self)
+
+    def LoadToggles(self):
+        with open('data/toggle.json', 'r') as file:
+            data = json.load(file)  
+
+        for toggle in data["toggles"]:
+            obj = Toggle(toggle, self)
+            self.toggleList.append(obj)
+
+        with open('data/toggle_item.json', 'r') as file:
+            data = json.load(file)  
+
+        for toggle_item in data["toggle_items"]:
+            toggle = self.GetToggleByID(toggle_item["toggle_id"])
+            node_id = self.GetNodeByID(toggle_item["node_id"])
+            turnout_state = toggle_item["turnout_state"]
+            toggle.AddNode(node_id, turnout_state)
 
     def HandleClick(self, x, y):
         print("----------Button Click-------------")
@@ -160,6 +187,13 @@ class Point_Engine:
                 if (route.route_set != static.ROUTE_STATE_BLOCKED):
                     route.toggle()
                     return 1
+                
+        for toggle in self.toggleList:
+            if toggle.IsClicked(x, y):
+                print(f"Toggle ID: '{toggle.id}' clicked")
+                toggle.Toggle()
+                return 1
+
 
         return 0
 

@@ -45,14 +45,22 @@ class Toggle:
         for point in self.toggle_points:
             point.setState(self.state)
 
-    def GetButtonJSON(self):
-        pass
+    def GetButtonJSON(self, dict):
+        dict.append({
+            "type": "route_button"
+            ,"x1": self.button_position_x * static.GRID_SIZE_X
+            ,"y1": self.button_position_y * static.GRID_SIZE_Y
+            ,"width": 4 * static.GRID_SIZE_X
+            ,"height": 2 * static.GRID_SIZE_Y
+            ,"colour": self.GetColour()
+            ,"active": self.state
+        })
 
     def GetColour(self):
-        pass
+        return self.button_colour[self.state]
 
-    def IsClicked(self):
-        pass
+    def IsClicked(self, x, y):
+        return (x >= self.button_position_x and y >= self.button_position_y and x <= self.button_position_x + 4 and y <= self.button_position_y + 2)
 
 
 class ToggleItem:
