@@ -106,12 +106,15 @@ class Node_Point(Node):
         if (self.route_set == ""):
             # Not currently set by a route - clear
             # Now check toggle
-            if (self.state == target_state):                
-                print(f"Toggle Node {self.id} routed to {target_state}. Clear")
-                return 0
+            if (self.flag == "toggle"):
+                if (self.state == target_state):                
+                    print(f"Toggle Node {self.id} routed to {target_state}. Clear")
+                    return 0
+                else:
+                    print(f"Toggle Node {self.id} NOT routed to {target_state}. BLOCKED")
+                    return 1
             else:
-                print(f"Toggle Node {self.id} NOT routed to {target_state}. BLOCKED")
-                return 1
+                return 0
 
         else:
             # Currently set by a route - blocked
