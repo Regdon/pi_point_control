@@ -163,7 +163,7 @@ class Point_Engine:
 
         for toggle_item in data["toggle_items"]:
             toggle = self.GetToggleByID(toggle_item["toggle_id"])
-            node_id = self.GetNodeByID(toggle_item["node_id"])
+            node_id = toggle_item["node_id"]
             turnout_state = toggle_item["turnout_state"]
             toggle.AddNode(node_id, turnout_state)
 

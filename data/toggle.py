@@ -21,8 +21,8 @@ class Toggle:
             self.button_position_y = int(data["button_position_y"])
         else:
             self.button_position_y = 0
-            
-        if "button_colour_defaut" in data and "button_colour_toggle" in data:
+
+        if "button_colour_default" in data and "button_colour_toggle" in data:
             self.button_colour = [data["button_colour_default"], data["button_colour_toggle"]]
         else:
             self.button_colour = ["#000000", "#000000"]
