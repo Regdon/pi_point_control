@@ -13,12 +13,12 @@ class Toggle:
 
         # button properties
         if "button_position_x" in data:
-            self.button_position_x = data["button_position_x"]
+            self.button_position_x = int(data["button_position_x"])
         else:
             self.button_position_x = 0
             
         if "button_position_y" in data:
-            self.button_position_y = data["button_position_y"]
+            self.button_position_y = int(data["button_position_y"])
         else:
             self.button_position_y = 0
             
