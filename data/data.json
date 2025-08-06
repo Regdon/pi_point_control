@@ -29,9 +29,9 @@
     ,{"id":"york_siding_c_2", "type":"node", "x":"11", "y":"18", "parent":"york_siding_c"}
     
     ,{"id":"viaduct_leeds_start", "type":"node", "x":"49", "y":"10", "parent":"source_leeds_platform"}
-    ,{"id":"viaduct_crossover_york", "type":"node-point", "x":"49", "y":"14", "point_type":"Diverge", "single_end_id":"source_york_platform", "set_straight_id":"leeds_outer_loop_points", "set_turnout_id":"viaduct_crossover_centre" , "node":"2", "point":"3", "flag":"viaduct" }    
+    ,{"id":"viaduct_crossover_york", "type":"node-point", "x":"49", "y":"14", "point_type":"Diverge", "single_end_id":"source_york_platform", "set_straight_id":"leeds_outer_loop_points", "set_turnout_id":"viaduct_crossover_centre" , "node":"2", "point":"3" }    
     ,{"id":"viaduct_crossover_centre", "type":"node", "x":"51", "y":"12", "parent":"viaduct_crossover_york"}
-    ,{"id":"viaduct_crossover_leeds", "type":"node-point", "x":"53", "y":"10", "point_type":"Converge", "single_end_id":"leeds_facing_crossover_inner_point", "set_straight_id":"viaduct_leeds_start", "set_turnout_id":"viaduct_crossover_centre" , "node":"2", "point":"4", "flag":"viaduct" }
+    ,{"id":"viaduct_crossover_leeds", "type":"node-point", "x":"53", "y":"10", "point_type":"Converge", "single_end_id":"leeds_facing_crossover_inner_point", "set_straight_id":"viaduct_leeds_start", "set_turnout_id":"viaduct_crossover_centre" , "node":"2", "point":"4" }
 
     ,{"id":"leeds_outer_loop_points", "type":"node-point", "x":"63", "y":"14", "point_type":"Diverge", "single_end_id":"viaduct_crossover_york", "set_straight_id":"leeds_facing_crossover_outer_start", "set_turnout_id":"leeds_outer_loop" , "node":"0", "point":"2" } 
     ,{"id":"leeds_outer_loop", "type":"node", "x":"71", "y":"22", "parent":"leeds_outer_loop_points"}    

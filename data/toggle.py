@@ -33,6 +33,7 @@ class Toggle:
 
     def AddNode(self, node_id, turnout_state):
         node = self.engine.GetNodeByID(node_id)
+        node.flag = "toggle"
         item = ToggleItem(node, turnout_state)
         self.toggle_points.append(item)
 

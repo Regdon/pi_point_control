@@ -4,7 +4,7 @@ from i2c import i2c_control
 import static
 
 class Node_Point(Node):
-    def __init__(self, id, x, y, point_type, single_end_id, set_straight_id, set_turnout_id, node, point, i2c, flag):
+    def __init__(self, id, x, y, point_type, single_end_id, set_straight_id, set_turnout_id, node, point, i2c):
         Node.__init__(self, id, x, y, "")
 
         self.point_type = point_type
@@ -23,7 +23,7 @@ class Node_Point(Node):
         self.route_set = ""
 
         self.i2c = i2c
-        self.flag = flag
+        self.flag = ""
 
     def Setup(self, node_list):
         for node in node_list:
@@ -102,12 +102,19 @@ class Node_Point(Node):
         elif (self.point_type == static.POINT_TYPE_DIVERGE):
             dict.append({"x1": self.GetGridX(), "y1": self.GetGridY(), 'x2': self.single_end.GetGridX(), "y2": self.single_end.GetGridY(),"state": self.state})
 
-    def IsRouteSet(self):
+    def IsRouteSet(self, target_state):        
         if (self.route_set == ""):
-            print(f"Checking if {self.id} is locked. Clear")
-            return 0
+            # Not currently set by a route - clear
+            # Now check toggle
+            if (self.state == target_state):                
+                print(f"Toggle Node {self.id} routed to {target_state}. Clear")
+                return 0
+            else:
+                print(f"Toggle Node {self.id} NOT routed to {target_state}. BLOCKED")
+                return 1
+
         else:
-            print(f"Checking if {self.id} is locked. Locked")
+            # Currently set by a route - blocked
             return 1
         
     def SetByRoute(self, route_id, state):

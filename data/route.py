@@ -114,7 +114,7 @@ class RouteState:
 
     def can_set(self):
         #print("Route State Can Set Function")
-        return not self.node.IsRouteSet()
+        return not self.node.IsRouteSet(self.state)
 
     def set(self):
         #print("Route State Set Function")
