@@ -111,7 +111,8 @@ class Node_Point(Node):
                     print(f"Toggle Node {self.id} routed to {target_state}. Clear")
                     return 0
                 else:
-                    print(f"Toggle Node {self.id} NOT routed to {target_state}. BLOCKED")
+                    print(f"Toggle Node {self.id}. Node State: {self.state}. Target State: {target_state}. BLOCKED")
+
                     return 1
             else:
                 return 0
