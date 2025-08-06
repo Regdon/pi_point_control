@@ -112,7 +112,7 @@ class Point_Engine:
             route.append_to_dict(dict)
 
         for toggle in self.toggleList:
-            route.GetButtonJSON(dict)
+            toggle.GetButtonJSON(dict)
 
         return json.dumps(dict)
 
