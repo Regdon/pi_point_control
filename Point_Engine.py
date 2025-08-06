@@ -128,7 +128,8 @@ class Point_Engine:
             if (node["type"] == "node-source"):
                 obj = Node_Source(node["id"], node["x"], node["y"], node["colour"])
                 self.nodeList.append(obj)
-                    
+
+            if (node["type"] == "node-point"):       
                 obj = Node_Point(node["id"], node["x"], node["y"], node["point_type"], node["single_end_id"], node["set_straight_id"], node["set_turnout_id"], node["node"], node["point"], self.i2c)
                 self.nodeList.append(obj)
 
