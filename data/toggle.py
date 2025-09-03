@@ -37,6 +37,13 @@ class Toggle:
         item = ToggleItem(node, turnout_state)
         self.toggle_points.append(item)
 
+    def CanToggle(self):
+        clear = 1
+        for point in self.toggle_points:   
+            if (point.canSetState() == 0):
+                clear = 0
+        return clear
+
     def Toggle(self):        
         if (self.state == 0):
             self.state = 1
@@ -58,7 +65,10 @@ class Toggle:
         })
 
     def GetColour(self):
-        return self.button_colour[self.state]
+        if self.CanToggle() == 0:
+            return '#333333'
+        else:
+            return self.button_colour[self.state]
 
     def IsClicked(self, x, y):
         return (x >= self.button_position_x and y >= self.button_position_y and x <= self.button_position_x + 4 and y <= self.button_position_y + 2)
@@ -81,4 +91,10 @@ class ToggleItem:
             self.node.SetPointState(self.state_default)
         else:
             self.node.SetPointState(self.state_toggled)
+
+    def canSetState(self):
+        if (self.node.route_set == ""):
+            return 0
+        else:
+            return 1
         

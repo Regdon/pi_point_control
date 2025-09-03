@@ -28,6 +28,7 @@ class Point_Engine:
             
     def GetRoute(self, id_from, id_to):
         result = []
+        result_list = []
 
         node_current = self.GetNodeByID(id_from)
         # print(f"Starting routing for {node_current}")
@@ -44,20 +45,29 @@ class Point_Engine:
             elif isinstance(node_current, Node_Point):
                 if (node_current.point_type == static.POINT_TYPE_CONVERGE):
                     #This is the tricky siutation, because we don't know which way to go to our destination. 
+                    #Potentially both of these routes could be valid, which means we may need to return a list of routes
                     route_straight = self.GetRoute(node_current.set_straight_id, id_to)
                     route_turnout = self.GetRoute(node_current.set_turnout_id, id_to)
+                    #The above might both return false or a list of routes with one or more valid routes
+                    #For each valid route we need to add it to our existing result[] and append the resulting list in result_list[]
+                    
                     if (route_straight):
                         # print(f"Following straight from point {node_current}")
-                        result.append(node_current)
-                        for part in route_straight:
-                            result.append(part)
-                        return result
+                        for route in route_straight:
+                            output = result[:]
+                            for part in route:
+                                output.append(part)
+                            result_list.append(output)
+                        return result_list
+                    
                     elif (route_turnout):
                         # print(f"Following turnout from point {node_current}")
-                        result.append(node_current)
-                        for part in route_turnout:
-                            result.append(part)
-                        return result
+                        for route in route_turnout:
+                            output = result[:]
+                            for part in route:
+                                output.append(part)
+                            result_list.append(output)
+                        return result_list
                     else:
                         # print(f"Routing error from point {node_current}, this shouldn't happen")
                         return 0
@@ -171,7 +181,7 @@ class Point_Engine:
 
                 if (abs_dif_x < 1 and abs_dif_y < 1):
                     print(node.id + ' clicked')
-                    if (node.IsRouteSet() == 0):
+                    if (node.route_set == ""):
                         node.switch()
                         # self.i2c.SendState(node.node, node.point, node.point_state - 1)
                         return 1
@@ -186,9 +196,10 @@ class Point_Engine:
         for toggle in self.toggleList:
             if toggle.IsClicked(x, y):
                 print(f"Toggle ID: '{toggle.id}' clicked")
-                toggle.Toggle()
-                return 1
-
+                if toggle.CanToggle() == 1:
+                    toggle.Toggle()
+                    return 1
+                
 
         return 0
 
