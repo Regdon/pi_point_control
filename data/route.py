@@ -14,29 +14,16 @@ class Route:
         self.colour_locked = data["colour_locked"]
         self.colour_set = data["colour_set"]
 
-        self.route = []
-        self.routeStates = []
+        self.routes = []
 
         self.route_set = 0
 
     def SetupRoute(self, engine):
-        self.route = engine.GetRoute(self.node_id_start, self.node_id_end)
+        list_routes = engine.GetRoute(self.node_id_start, self.node_id_end)
 
-        s = f"route from {self.node_id_start} to {self.node_id_end}:"
-        for node in self.route:
-            s += f"{node.id}, "
-        print(s)
-    
-        for node in self.route:
-            if isinstance(node, Node_Point):
-                if self.NodeInRoute(node.set_straight_id):
-                    obj = RouteState(node, static.POINT_STATE_STRAIGHT)
-                    self.routeStates.append(obj)
-                    print(f"Node ID {node.id} must be set straight for this route")
-                elif self.NodeInRoute(node.set_turnout_id):
-                    obj = RouteState(node, static.POINT_STATS_TURNOUT)
-                    self.routeStates.append(obj)
-                    print(f"Node ID {node.id} must be set turnout for this route")
+        for individual_route in self.list_routes:
+            route = routeOption(individual_route)
+            self.routes.append(route)
 
     def NodeInRoute(self, node_id):
         for node in self.route:
@@ -45,37 +32,28 @@ class Route:
         return False
 
     def CheckBlocked(self):
-        #print("Check Blocked Function")
+        clear = 1
+        for route in self.routes:
+            if route.canSet() == 0:
+                clear = 0
 
-        if (self.route_set == static.ROUTE_STATE_ACTIVE):
-            return self.route_set
-        
-        for route_state in self.routeStates:
-            if (not route_state.can_set()):
-                self.route_set = static.ROUTE_STATE_BLOCKED
-                return self.route_set
+        return clear
 
-        self.route_set = static.ROUTE_STATE_DEFAULT
-        return self.route_set
 
     def SetRoute(self):
-        #print("Set Route Function")
-        for route_state in self.routeStates:
-            if (not route_state.can_set()):
-                print("Route Locked")
-                return
-        
-        for route_state in self.routeStates:
-            route_state.set()
+        for route in self.routes:
+            if route.canSet() == 1:
+                route.setRoute()
+                return 0
 
-        self.route_set = static.ROUTE_STATE_ACTIVE
   
     def ClearRoute(self):
-        #print("Clear Route Function")
-        for route_state in self.routeStates:
-            route_state.clear()
+        for route in self.routes:
+            if route.route_set == 1:
+                route.clearRoute()
+                return 0
 
-        self.route_set = static.ROUTE_STATE_DEFAULT
+
 
     def toggle(self):
         #print("Route Toggle Function")
@@ -105,8 +83,57 @@ class Route:
             return self.colour_locked
         else:
             return self.colour
+
+class routeOption:
+    def __init__(self, data):
+        self.route = data
+        self.routeStates = []
+        self.route_set = 0
+
+        for node in self.route:
+            if isinstance(node, Node_Point):
+                if self.NodeInRoute(node.set_straight_id):
+                    obj = RouteState(node, static.POINT_STATE_STRAIGHT)
+                    self.routeStates.append(obj)
+                    print(f"Node ID {node.id} must be set straight for this route")
+                elif self.NodeInRoute(node.set_turnout_id):
+                    obj = RouteState(node, static.POINT_STATS_TURNOUT)
+                    self.routeStates.append(obj)
+                    print(f"Node ID {node.id} must be set turnout for this route")
+
+    def canSet(self):
+        #print("Check Blocked Function")
+
+        if (self.route_set == static.ROUTE_STATE_ACTIVE):
+            return self.route_set
         
-           
+        for route_state in self.routeStates:
+            if (not route_state.can_set()):
+                self.route_set = static.ROUTE_STATE_BLOCKED
+                return self.route_set
+
+        self.route_set = static.ROUTE_STATE_DEFAULT
+        return self.route_set
+
+    def setRoute(self):
+        #print("Set Route Function")
+        for route_state in self.routeStates:
+            if (not route_state.can_set()):
+                print("Route Locked")
+                return
+        
+        for route_state in self.routeStates:
+            route_state.set()
+
+        self.route_set = static.ROUTE_STATE_ACTIVE
+
+    def clearRoute(self):
+        #print("Clear Route Function")
+        for route_state in self.routeStates:
+            route_state.clear()
+
+        self.route_set = static.ROUTE_STATE_DEFAULT
+
 class RouteState:
     def __init__(self, node, state):
         self.node = node
