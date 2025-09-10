@@ -21,7 +21,7 @@ class Route:
     def SetupRoute(self, engine):
         list_routes = engine.GetRoute(self.node_id_start, self.node_id_end)
 
-        for individual_route in self.list_routes:
+        for individual_route in list_routes:
             route = routeOption(individual_route)
             self.routes.append(route)
 
