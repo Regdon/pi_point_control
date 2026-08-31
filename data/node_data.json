@@ -1,0 +1,15 @@
+{"nodes":[
+     {"id":"source_leeds_platform", "type":"node_source", "x":"30", "y":"20", "colour":"#FF0000"}
+    ,{"id":"source_york_platform", "type":"node_source", "x":"30", "y":"22", "colour":"#00FF00"}
+
+    ,{"id":"inner_loop_tunnel_portal", "type":"node", "x":"10", "y":"20", "parent":"source_leeds_platform"}
+    ,{"id":"outer_loop_tunnel_portal", "type":"node", "x":"10", "y":"22", "parent":"source_york_platform"}
+    ,{"id":"inner_loop_lhs_mid", "type":"node", "x":"4", "y":"10", "parent":"inner_loop_tunnel_portal"}
+    ,{"id":"outer_loop_lhs_mid", "type":"node", "x":"2", "y":"10", "parent":"outer_loop_tunnel_portal"}
+    ,{"id":"inner_loop_lhs_back", "type":"node", "x":"10", "y":"4", "parent":"inner_loop_lhs_mid"}
+    ,{"id":"outer_loop_lhs_back", "type":"node", "x":"10", "y":"2", "parent":"outer_loop_lhs_mid"}
+
+    ,{"id":"york_facing_crossover_point_outer", "type":"node_point_diverge", "x":"16", "y":"2", "parent":"outer_loop_lhs_back", "child_straight_id":"york_facing_crossover_point_temp", "child_turnout_id":"york_facing_crossover_point_mid", "point_default_state":"1"}    
+    ,{"id":"york_facing_crossover_point_mid", "type":"node", "x":"18", "y":"3", "parent":"york_facing_crossover_point_outer"}
+    ,{"id":"york_facing_crossover_point_temp", "type":"node", "x":"18", "y":"2", "parent":"york_facing_crossover_point_outer"}
+]}

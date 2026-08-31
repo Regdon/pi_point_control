@@ -1,4 +1,4 @@
-from .Node import Node
+from .xxNode import Node
 from i2c import i2c_control
 
 import static

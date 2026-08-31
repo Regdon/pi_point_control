@@ -37,7 +37,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     drawRect(ctx, i.x1, i.y1, i.width, i.height, i.colour);
                 }
             } else {
-                drawLine(ctx, i.x1, i.y1, i.x2, i.y2, i.state);
+                drawLine(ctx, i.x1, i.y1, i.x2, i.y2, i.colour);
             }
         });
     });
