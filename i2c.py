@@ -1,8 +1,17 @@
-import smbus
+try:
+    import smbus
+except ImportError:
+    print("smbus not found, i2c disabled")
+    smbus = None
+
 
 class i2c_control:
     def __init__(self):
-        self.bus = smbus.SMBus(1)
+        self.no_smbus = False
+        if smbus:            
+            self.bus = smbus.SMBus(1)
+        else:
+            self.no_smbus = True
 
     def SendState(self, node, point, state):
         #node = 0,1,2,3
@@ -22,9 +31,11 @@ class i2c_control:
 
         self.write_to_arduino(address, msg)
 
-    def write_to_arduino(self, address, value):
+    def write_to_arduino(self, address, value):        
         print("Sending Messsage " + bin(value) + " to address " + bin(address))
         print([value])
+        if self.no_smbus:
+            print("No smbus, I2C Disabled")
         try:
             self.bus.write_i2c_block_data(address, 0, [value])
         except:

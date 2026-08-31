@@ -1,7 +1,7 @@
 from data.Node import Node
 from data.Node_Source import Node_Source
 from data.Node_Point import Node_Point
-from data.route import Route
+from data.route import RouteButton
 from data.toggle import Toggle
 
 import json
@@ -30,14 +30,18 @@ class Point_Engine:
         result = []
         result_list = []
 
+        if (id_from == "leeds_siding_d2" and id_to == "source_york_platform"):
+            pass
+
         node_current = self.GetNodeByID(id_from)
         # print(f"Starting routing for {node_current}")
 
         while True:            
             if (node_current.id == id_to):
                 # print(f"Target node {node_current} found, stopping")
-                result.append(node_current) 
-                return result
+                result.append(node_current)
+                result_list.append(result) 
+                return result_list
             elif isinstance(node_current, Node_Source):
                 #If we get here, no route has been found, return 0
                 # print(f"Source node {node_current} found, unable to find target")
@@ -55,22 +59,21 @@ class Point_Engine:
                         # print(f"Following straight from point {node_current}")
                         for route in route_straight:
                             output = result[:]
+                            output.append(node_current)
                             for part in route:
                                 output.append(part)
                             result_list.append(output)
-                        return result_list
                     
-                    elif (route_turnout):
+                    if (route_turnout):
                         # print(f"Following turnout from point {node_current}")
                         for route in route_turnout:
                             output = result[:]
+                            output.append(node_current)
                             for part in route:
                                 output.append(part)
                             result_list.append(output)
-                        return result_list
-                    else:
-                        # print(f"Routing error from point {node_current}, this shouldn't happen")
-                        return 0
+                            
+                    return result_list
                 else:
                     # print(f"Divering point {node_current} found, continuing to parent")
                     result.append(node_current)
@@ -107,7 +110,7 @@ class Point_Engine:
             node.CalculateState()
 
         for route in self.routeList:
-            route.CheckBlocked()
+            route.CalculateButtonState()
             
 
     def GetWebJSON(self):
@@ -148,7 +151,7 @@ class Point_Engine:
             data = json.load(file)
 
         for route in data["routes"]:
-            obj = Route(route)
+            obj = RouteButton(route)
             self.routeList.append(obj)        
 
     def SetupRoutes(self):
@@ -189,8 +192,12 @@ class Point_Engine:
         for route in self.routeList:
             if route.position_in_button(x, y):
                 print(f"Route ID: '{route.id}' clicked")
-                if (route.route_set != static.ROUTE_STATE_BLOCKED):
-                    route.toggle()
+                #print(f"route_set: {route.route_set}, ({static.ROUTE_STATE_BLOCKED})")
+                if (route.GetButtonState() == static.ROUTE_STATE_ACTIVE):
+                    route.ClearRoute()
+                    return 1
+                if (route.GetButtonState() == static.ROUTE_STATE_DEFAULT):
+                    route.SetRoute()
                     return 1
                 
         for toggle in self.toggleList:

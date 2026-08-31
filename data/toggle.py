@@ -94,7 +94,7 @@ class ToggleItem:
 
     def canSetState(self):
         if (self.node.route_set == ""):
-            return 0
-        else:
             return 1
+        else:
+            return 0
         
