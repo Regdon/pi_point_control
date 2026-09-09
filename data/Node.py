@@ -35,3 +35,6 @@ class Node:
             return {"x1": self.GetGridX(), "y1": self.GetGridY(), 'x2': self.parent.GetGridX(), "y2": self.parent.GetGridY(),"colour": self.draw_colour}
         else:
             return {"error": "Node ID " + self.id + " missing Parent Node"}
+
+    def HandleClick(self, gridX, gridY):
+        return 0

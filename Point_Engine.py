@@ -1,10 +1,11 @@
 from data.Node import Node
 from data.Node_Source import Node_Source
 from data.Node_Point_Diverge import Node_Point_Diverge
+from data.Node_Point_Converge import Node_Point_Converge
 # from data.xxroute import Route
 
 import json
-# import static
+import static
 
 # from i2c import i2c_control
 
@@ -106,7 +107,10 @@ class Point_Engine:
         for node in self.node_list:
             value = node.GetDrawScript()
             if value is not None:
-                dict.append(value)
+                if isinstance(value, list):
+                    dict.extend(value)
+                else:
+                    dict.append(value)
 
         # for route in self.routeList:
         #     route.append_to_dict(dict)
@@ -130,6 +134,10 @@ class Point_Engine:
                 obj = Node_Point_Diverge(node["id"], node["x"], node["y"], node["parent"], node["child_straight_id"], node["child_turnout_id"], node["point_default_state"])
                 self.node_list.append(obj)
 
+            if (node["type"] == "node_point_converge"):
+                obj = Node_Point_Converge(node["id"], node["x"], node["y"], node["parent_straight_id"], node["parent_turnout_id"], node["point_default_state"])
+                self.node_list.append(obj)
+
     # def LoadRoutes(self):
     #     with open('data/route.json', 'r') as file:
     #         data = json.load(file)
@@ -142,28 +150,21 @@ class Point_Engine:
     #     for route in self.routeList:
     #         route.SetupRoute(self)
 
-    # def HandleClick(self, x, y):
-    #     print("----------Button Click-------------")
-    #     for node in self.nodeList:
-    #         if isinstance(node, Node_Point):
-    #             abs_dif_x = abs(x - int(node.x))
-    #             abs_dif_y = abs(y - int(node.y))
-
-    #             if (abs_dif_x < 1 and abs_dif_y < 1):
-    #                 print(node.id + ' clicked')
-    #                 if (node.IsRouteSet() == 0):
-    #                     node.switch()
-    #                     # self.i2c.SendState(node.node, node.point, node.point_state - 1)
-    #                     return 1
+    def HandleClick(self, x, y):
+        print("----------Button Click-------------")
+        for node in self.node_list:
+            if node.HandleClick(x, y):
+                print(f"Node ID: '{node.id}' clicked")
+                return 1
                 
-    #     for route in self.routeList:
-    #         if route.position_in_button(x, y):
-    #             print(f"Route ID: '{route.id}' clicked")
-    #             if (route.route_set != static.ROUTE_STATE_BLOCKED):
-    #                 route.toggle()
-    #                 return 1
+        # for route in self.routeList:
+        #     if route.position_in_button(x, y):
+        #         print(f"Route ID: '{route.id}' clicked")
+        #         if (route.route_set != static.ROUTE_STATE_BLOCKED):
+        #             route.toggle()
+        #             return 1
 
-    #     return 0
+        return 0
 
 
 #Sorting list by order::

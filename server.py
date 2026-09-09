@@ -23,11 +23,11 @@ def handle_click(data):
     print("click")
     gridX = int(data['x']) / static.GRID_SIZE_X
     gridY = int(data['y']) / static.GRID_SIZE_Y
-    # isChange = engine.HandleClick(gridX, gridY)
+    isChange = engine.HandleClick(gridX, gridY)
     print(f"X={data['x']}, Y={data['y']}, GridX={gridX}, GridY={gridY}")
-    # if (isChange == 1):
-    #     engine.CalculateAllNodeDrawColours()
-    #     emit('update', engine.GetAllDrawScripts())
+    if (isChange == 1):
+        engine.CalculateAllNodeDrawColours()
+        emit('update', engine.GetAllDrawScripts())
 
 if __name__ == '__main__':
     engine = Point_Engine()
