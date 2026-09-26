@@ -27,6 +27,7 @@ def handle_click(data):
     print(f"X={data['x']}, Y={data['y']}, GridX={gridX}, GridY={gridY}")
     if (isChange == 1):
         engine.CalculateAllNodeDrawColours()
+        engine.CalculateAllRouteStates()
         emit('update', engine.GetAllDrawScripts())
 
 if __name__ == '__main__':
@@ -35,6 +36,9 @@ if __name__ == '__main__':
     engine.LoadData()
     engine.SetupAllNodeParents()
     engine.CalculateAllNodeDrawColours()
+
+    engine.LoadRoutes()
+    engine.SetupRoutes()
     # engine.Setup()
     # engine.CalculateOrder()
     # engine.CalculateState()

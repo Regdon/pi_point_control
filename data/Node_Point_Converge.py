@@ -1,15 +1,13 @@
-from .Node import Node
+from .Node_Point import Node_Point
 
 import static
 
-class Node_Point_Converge(Node):
+class Node_Point_Converge(Node_Point):
     def __init__(self, id, x, y, parent_straight_id, parent_turnout_id, point_default_state):
-        Node.__init__(self, id, x, y, None)
+        Node_Point.__init__(self, id, x, y, None, point_default_state)
 
         self.parent_straight_id = parent_straight_id
         self.parent_turnout_id = parent_turnout_id
-        self.point_default_state = point_default_state
-        self.point_state = int(point_default_state)
 
     def SetupParent(self, node_list):
         for node in node_list:
@@ -43,18 +41,3 @@ class Node_Point_Converge(Node):
         else:
             self.draw_colour = self.parent_turnout_id.GetDrawColour(self.id)
 
-    def HandleClick(self, gridX, gridY):
-        abs_dif_x = abs(gridX - int(self.x))
-        abs_dif_y = abs(gridY - int(self.y))
-
-        if (abs_dif_x < 1 and abs_dif_y < 1):
-            print(self.id + ' clicked')
-        else:
-            return 0
-
-        if self.point_state == static.POINT_STATE_STRAIGHT:
-            self.point_state = static.POINT_STATE_TURNOUT
-        else:
-            self.point_state = static.POINT_STATE_STRAIGHT
-
-        return 1

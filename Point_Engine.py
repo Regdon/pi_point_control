@@ -2,7 +2,7 @@ from data.Node import Node
 from data.Node_Source import Node_Source
 from data.Node_Point_Diverge import Node_Point_Diverge
 from data.Node_Point_Converge import Node_Point_Converge
-# from data.xxroute import Route
+from data.route import Route
 
 import json
 import static
@@ -12,7 +12,7 @@ import static
 class Point_Engine:
     def __init__(self):
         self.node_list = []
-        # self.routeList = []
+        self.route_list = []
         # self.i2c = i2c_control()
 
     # def GetNodeByID(self, id):
@@ -112,8 +112,8 @@ class Point_Engine:
                 else:
                     dict.append(value)
 
-        # for route in self.routeList:
-        #     route.append_to_dict(dict)
+        for route in self.route_list:
+            dict.append(route.GetDrawScript())
 
         return json.dumps(dict)
 
@@ -138,17 +138,17 @@ class Point_Engine:
                 obj = Node_Point_Converge(node["id"], node["x"], node["y"], node["parent_straight_id"], node["parent_turnout_id"], node["point_default_state"])
                 self.node_list.append(obj)
 
-    # def LoadRoutes(self):
-    #     with open('data/route.json', 'r') as file:
-    #         data = json.load(file)
+    def LoadRoutes(self):
+        with open('data/route_data.json', 'r') as file:
+            data = json.load(file)
 
-    #     for route in data["routes"]:
-    #         obj = Route(route)
-    #         self.routeList.append(obj)
+        for route in data["routes"]:
+            obj = Route(route)
+            self.route_list.append(obj)
 
-    # def SetupRoutes(self):
-    #     for route in self.routeList:
-    #         route.SetupRoute(self)
+    def SetupRoutes(self):
+        for route in self.route_list:
+            route.SetupRoute(self.node_list)
 
     def HandleClick(self, x, y):
         print("----------Button Click-------------")
@@ -157,14 +157,16 @@ class Point_Engine:
                 print(f"Node ID: '{node.id}' clicked")
                 return 1
                 
-        # for route in self.routeList:
-        #     if route.position_in_button(x, y):
-        #         print(f"Route ID: '{route.id}' clicked")
-        #         if (route.route_set != static.ROUTE_STATE_BLOCKED):
-        #             route.toggle()
-        #             return 1
+        for route in self.route_list:
+            if route.HandleClick(x, y):
+                print(f"Route ID: '{route.id}' clicked")
+                return 1
 
         return 0
+
+    def CalculateAllRouteStates(self):
+        for route in self.route_list:
+            route.CalculateState()
 
 
 #Sorting list by order::

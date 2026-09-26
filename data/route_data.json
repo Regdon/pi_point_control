@@ -1,0 +1,40 @@
+{"routes":[
+    {"id":"York A to York Platform"
+        ,"button_centre_x":"66"
+        ,"button_centre_y":"2"
+        ,"button_height":"2"
+        ,"button_width":"2"
+        ,"button_colour_scheme":"Green"
+        ,"points":[
+             {"id":"york_facing_crossover_point_outer", "state":"Straight"}
+            ,{"id":"york_trailing_crossover_point_outer", "state":"Straight"}
+            ,{"id":"york_siding_a_b", "state":"Turnout"}
+        ]
+    },
+    {"id":"York A to Leeds Platform"
+        ,"button_centre_x":"62"
+        ,"button_centre_y":"2"
+        ,"button_height":"2"
+        ,"button_width":"2"
+        ,"button_colour_scheme":"Red"
+        ,"points":[
+             {"id":"york_inner_loop_turnout", "state":"Straight"}
+            ,{"id":"york_facing_crossover_point_inner", "state":"Straight"}
+            ,{"id":"york_trailing_crossover_point_inner", "state":"Turnout"}
+            ,{"id":"york_trailing_crossover_point_outer", "state":"Turnout"}      
+            ,{"id":"york_siding_a_b", "state":"Turnout"}
+        ]
+    },
+    {"id":"York B to York Platform"
+        ,"button_centre_x":"66"
+        ,"button_centre_y":"4"
+        ,"button_height":"2"
+        ,"button_width":"2"
+        ,"button_colour_scheme":"Green"
+        ,"points":[
+             {"id":"york_facing_crossover_point_outer", "state":"Straight"}
+            ,{"id":"york_trailing_crossover_point_outer", "state":"Straight"}
+            ,{"id":"york_siding_a_b", "state":"Straight"}
+        ]
+    }
+]}
