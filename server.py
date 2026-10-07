@@ -38,6 +38,22 @@ def create_app() -> Flask:
             engine.CalculateAllRouteStates()
             emit('update', engine.GetAllDrawScripts())
 
+    @socketio.on('reset_points')
+    def handle_reset_points():
+        success, locked_point_ids = engine.ResetPointsToDefault()
+        if success:
+            engine.CalculateAllNodeDrawColours()
+            engine.CalculateAllRouteStates()
+            emit('update', engine.GetAllDrawScripts())
+
+        emit(
+            'reset_result',
+            {
+                'success': success,
+                'locked_points': locked_point_ids,
+            },
+        )
+
     return app
 
 

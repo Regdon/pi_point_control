@@ -1,4 +1,5 @@
 from data.Node import Node
+from data.Node_Point import Node_Point
 from data.Node_Source import Node_Source
 from data.Node_Point_Diverge import Node_Point_Diverge
 from data.Node_Point_Converge import Node_Point_Converge
@@ -168,6 +169,33 @@ class Point_Engine:
                     self._send_point_state,
                 )
                 self.node_list.append(obj)
+
+        self._send_default_point_states()
+
+    def _send_default_point_states(self):
+        for point in self.node_list:
+            if isinstance(point, Node_Point):
+                self._send_point_state(
+                    point.node,
+                    point.point,
+                    point.point_state,
+                )
+
+    def ResetPointsToDefault(self):
+        points = [
+            point for point in self.node_list
+            if isinstance(point, Node_Point)
+        ]
+        locked_point_ids = [
+            point.id for point in points if point.locked == 1
+        ]
+        if locked_point_ids:
+            return False, locked_point_ids
+
+        for point in points:
+            point.SetPointState(point.point_default_state)
+
+        return True, []
 
     def LoadRoutes(self):
         if self._route_data is None:

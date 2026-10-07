@@ -42,6 +42,21 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 
+    socket.on('reset_result', function (result) {
+        const status = document.getElementById('reset-status');
+        if (result.success) {
+            status.textContent = 'All points reset to their default states.';
+        } else {
+            status.textContent =
+                'Unlock routes controlling these points before resetting: ' +
+                result.locked_points.join(', ');
+        }
+    });
+
+    document.getElementById('reset-points').addEventListener('click', function () {
+        socket.emit('reset_points');
+    });
+
     const canvas = document.getElementById('canvas');
     const context = canvas.getContext('2d');
     
