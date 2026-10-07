@@ -36,3 +36,16 @@ sudo systemctl start pi_point.service
 ## Verify and see errors:
 sudo systemctl status pi_point.service
 journalctl -u pi_point.service -f
+
+## Configuration validation and tests
+
+Node and route configuration is validated during startup. Invalid node types,
+duplicate IDs, missing references, unsupported point states, and malformed
+route settings raise a `ConfigurationError` with the relevant configuration
+item identified.
+
+Run the test suite from the repository root with:
+
+```sh
+python -m unittest discover -s tests
+```

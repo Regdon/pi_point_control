@@ -2,11 +2,11 @@ from data.Node import Node
 from data.Node_Source import Node_Source
 from data.Node_Point_Diverge import Node_Point_Diverge
 from data.Node_Point_Converge import Node_Point_Converge
+from data.config import validate_configuration
 from data.route import Route
 
 import json
 from pathlib import Path
-import static
 
 # from i2c import i2c_control
 
@@ -14,6 +14,7 @@ class Point_Engine:
     def __init__(self):
         self.node_list = []
         self.route_list = []
+        self._route_data = None
         # self.i2c = i2c_control()
 
     # def GetNodeByID(self, id):
@@ -119,11 +120,21 @@ class Point_Engine:
         return json.dumps(dict)
 
     def LoadData(self):
-        data_path = Path(__file__).resolve().parent / 'data' / 'node_data.json'
-        with data_path.open('r', encoding='utf-8') as file:
-            data = json.load(file)
+        data_directory = Path(__file__).resolve().parent / 'data'
+        with (data_directory / 'node_data.json').open(
+            'r', encoding='utf-8'
+        ) as file:
+            node_data = json.load(file)
 
-        for node in data["nodes"]:
+        with (data_directory / 'route_data.json').open(
+            'r', encoding='utf-8'
+        ) as file:
+            route_data = json.load(file)
+
+        validate_configuration(node_data, route_data)
+        self._route_data = route_data
+
+        for node in node_data["nodes"]:
             if (node["type"] == "node"):
                 obj = Node(node["id"], node["x"], node["y"], node["parent"])
                 self.node_list.append(obj)
@@ -141,11 +152,11 @@ class Point_Engine:
                 self.node_list.append(obj)
 
     def LoadRoutes(self):
-        data_path = Path(__file__).resolve().parent / 'data' / 'route_data.json'
-        with data_path.open('r', encoding='utf-8') as file:
-            data = json.load(file)
+        if self._route_data is None:
+            raise RuntimeError("LoadData must be called before LoadRoutes")
 
-        for route in data["routes"]:
+        route_data = self._route_data
+        for route in route_data["routes"]:
             obj = Route(route)
             self.route_list.append(obj)
 
