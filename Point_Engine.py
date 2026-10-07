@@ -4,18 +4,26 @@ from data.Node_Point_Diverge import Node_Point_Diverge
 from data.Node_Point_Converge import Node_Point_Converge
 from data.config import validate_configuration
 from data.route import Route
+import static
 
 import json
 from pathlib import Path
 
-# from i2c import i2c_control
-
 class Point_Engine:
-    def __init__(self):
+    def __init__(self, i2c=None):
         self.node_list = []
         self.route_list = []
         self._route_data = None
-        # self.i2c = i2c_control()
+        self._i2c = i2c
+
+    def _send_point_state(self, node, point, point_state):
+        if self._i2c is None:
+            from i2c import i2c_control
+
+            self._i2c = i2c_control()
+
+        i2c_state = point_state - static.POINT_STATE_STRAIGHT
+        self._i2c.SendState(node, point, i2c_state)
 
     # def GetNodeByID(self, id):
     #     for node in self.nodeList:
@@ -148,6 +156,7 @@ class Point_Engine:
                     node["id"], node["x"], node["y"], node["parent"],
                     node["child_straight_id"], node["child_turnout_id"],
                     node["point_default_state"], node["node"], node["point"],
+                    self._send_point_state,
                 )
                 self.node_list.append(obj)
 
@@ -156,6 +165,7 @@ class Point_Engine:
                     node["id"], node["x"], node["y"],
                     node["parent_straight_id"], node["parent_turnout_id"],
                     node["point_default_state"], node["node"], node["point"],
+                    self._send_point_state,
                 )
                 self.node_list.append(obj)
 

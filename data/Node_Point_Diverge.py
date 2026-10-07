@@ -14,9 +14,11 @@ class Node_Point_Diverge(Node_Point):
         point_default_state,
         node,
         point,
+        state_changed=None,
     ):
         Node_Point.__init__(
-            self, id, x, y, parent_id, point_default_state, node, point
+            self, id, x, y, parent_id, point_default_state, node, point,
+            state_changed,
         )
 
         self.child_straight_id = child_straight_id

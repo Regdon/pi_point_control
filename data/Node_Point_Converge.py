@@ -13,9 +13,11 @@ class Node_Point_Converge(Node_Point):
         point_default_state,
         node,
         point,
+        state_changed=None,
     ):
         Node_Point.__init__(
-            self, id, x, y, None, point_default_state, node, point
+            self, id, x, y, None, point_default_state, node, point,
+            state_changed,
         )
 
         self.parent_straight_id = parent_straight_id
