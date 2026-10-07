@@ -4,13 +4,31 @@ import json
 import os
 import tempfile
 import unittest
+from unittest.mock import Mock
 
 from Point_Engine import Point_Engine
 from server import create_app
 import static
+from i2c import i2c_control
 
 
 class ApplicationFactoryTests(unittest.TestCase):
+    @unittest.skipUnless(os.name == "nt", "Windows-only I2C simulation")
+    def test_i2c_control_runs_without_hardware_on_windows(self):
+        with self.assertLogs("i2c", level="WARNING") as logs:
+            control = i2c_control()
+
+        self.assertIsNone(control.bus)
+        self.assertIn("point changes will be local only", logs.output[0])
+        control.SendState(1, 3, 1)
+
+    def test_i2c_control_sends_state_using_injected_bus(self):
+        bus = Mock()
+        control = i2c_control(bus=bus)
+        control.SendState(1, 3, 1)
+
+        bus.write_i2c_block_data.assert_called_once_with(16, 0, [83])
+
     def test_point_state_changes_send_i2c_state(self):
         class I2CRecorder:
             def __init__(self):
