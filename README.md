@@ -3,16 +3,15 @@
 ## Script to create an executable on the PI to start the venv and run the server:
 nano server_start.sh
     #!/bin/bash
-    cd /home/pi/code/pi_point_control/testing_flask
-    source venv/bin/activate
     cd /home/pi/code/pi_point_control
-    python3 server.py
+    source venv/bin/activate
+    python server.py
 
 Save CTRL + O, Enter
 Close CTRL + X
 
 Make executable:
-chmod +x start_server.sh
+chmod +x server_start.sh
 
 ## Script to manage the autostart on PI:
 sudo nano /etc/systemd/system/pi_point.service

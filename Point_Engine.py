@@ -5,6 +5,7 @@ from data.Node_Point_Converge import Node_Point_Converge
 from data.route import Route
 
 import json
+from pathlib import Path
 import static
 
 # from i2c import i2c_control
@@ -118,7 +119,8 @@ class Point_Engine:
         return json.dumps(dict)
 
     def LoadData(self):
-        with open('data/node_data.json', 'r') as file:
+        data_path = Path(__file__).resolve().parent / 'data' / 'node_data.json'
+        with data_path.open('r', encoding='utf-8') as file:
             data = json.load(file)
 
         for node in data["nodes"]:
@@ -139,7 +141,8 @@ class Point_Engine:
                 self.node_list.append(obj)
 
     def LoadRoutes(self):
-        with open('data/route_data.json', 'r') as file:
+        data_path = Path(__file__).resolve().parent / 'data' / 'route_data.json'
+        with data_path.open('r', encoding='utf-8') as file:
             data = json.load(file)
 
         for route in data["routes"]:
