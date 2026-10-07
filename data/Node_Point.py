@@ -4,11 +4,13 @@ import static
 
 
 class Node_Point(Node):
-    def __init__(self, id, x, y, parent_id, point_default_state):
+    def __init__(self, id, x, y, parent_id, point_default_state, node, point):
         Node.__init__(self, id, x, y, parent_id)
 
         self.point_default_state = point_default_state
         self.point_state = int(point_default_state)
+        self.node = int(node)
+        self.point = int(point)
         self.locked = 0
 
     def HandleClick(self, gridX, gridY):

@@ -5,10 +5,27 @@ import os
 import tempfile
 import unittest
 
+from Point_Engine import Point_Engine
 from server import create_app
 
 
 class ApplicationFactoryTests(unittest.TestCase):
+    def test_point_address_values_are_retained_by_point_models(self):
+        engine = Point_Engine()
+        engine.LoadData()
+
+        points = {point.id: point for point in engine.node_list if hasattr(point, "point")}
+        self.assertEqual(
+            (points["york_facing_crossover_point_outer"].node,
+             points["york_facing_crossover_point_outer"].point),
+            (1, 3),
+        )
+        self.assertEqual(
+            (points["york_facing_crossover_point_inner"].node,
+             points["york_facing_crossover_point_inner"].point),
+            (1, 4),
+        )
+
     def test_app_loads_configuration_outside_project_directory(self):
         original_directory = os.getcwd()
         with tempfile.TemporaryDirectory() as working_directory:

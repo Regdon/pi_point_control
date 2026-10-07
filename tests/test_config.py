@@ -56,6 +56,50 @@ class ConfigurationValidationTests(unittest.TestCase):
         with self.assertRaisesRegex(ConfigurationError, "point_default_state"):
             validate_configuration(self.node_data, self.route_data)
 
+    def test_rejects_missing_point_address_fields(self):
+        point = next(
+            node for node in self.node_data["nodes"]
+            if node["type"] == "node_point_diverge"
+        )
+        for field in ("node", "point"):
+            with self.subTest(field=field):
+                value = point.pop(field)
+                with self.assertRaisesRegex(
+                    ConfigurationError, f"missing required field.*{field}"
+                ):
+                    validate_configuration(self.node_data, self.route_data)
+                point[field] = value
+
+    def test_rejects_invalid_point_address_values(self):
+        point = next(
+            node for node in self.node_data["nodes"]
+            if node["type"] == "node_point_diverge"
+        )
+        for field, value, message in (
+            ("node", "-1", "node must be an integer between 0 and 3"),
+            ("node", "4", "node must be an integer between 0 and 3"),
+            ("node", "invalid", "node must be an integer"),
+            ("point", "-1", "point must be an integer between 0 and 7"),
+            ("point", "8", "point must be an integer between 0 and 7"),
+            ("point", "invalid", "point must be an integer"),
+        ):
+            with self.subTest(field=field, value=value):
+                point[field] = value
+                with self.assertRaisesRegex(ConfigurationError, message):
+                    validate_configuration(self.node_data, self.route_data)
+                point[field] = "1" if field == "node" else "0"
+
+    def test_rejects_duplicate_point_addresses(self):
+        point_nodes = [
+            node for node in self.node_data["nodes"]
+            if node["type"] in {"node_point_diverge", "node_point_converge"}
+        ]
+        point_nodes[1]["node"] = point_nodes[0]["node"]
+        point_nodes[1]["point"] = point_nodes[0]["point"]
+
+        with self.assertRaisesRegex(ConfigurationError, "duplicates point address"):
+            validate_configuration(self.node_data, self.route_data)
+
     def test_rejects_route_reference_to_non_point_node(self):
         self.route_data["routes"][0]["points"][0]["id"] = "source_york_platform"
 

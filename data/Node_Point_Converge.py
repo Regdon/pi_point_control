@@ -3,8 +3,20 @@ from .Node_Point import Node_Point
 import static
 
 class Node_Point_Converge(Node_Point):
-    def __init__(self, id, x, y, parent_straight_id, parent_turnout_id, point_default_state):
-        Node_Point.__init__(self, id, x, y, None, point_default_state)
+    def __init__(
+        self,
+        id,
+        x,
+        y,
+        parent_straight_id,
+        parent_turnout_id,
+        point_default_state,
+        node,
+        point,
+    ):
+        Node_Point.__init__(
+            self, id, x, y, None, point_default_state, node, point
+        )
 
         self.parent_straight_id = parent_straight_id
         self.parent_turnout_id = parent_turnout_id
@@ -40,4 +52,3 @@ class Node_Point_Converge(Node_Point):
             self.draw_colour = self.parent_straight_id.GetDrawColour(self.id)
         else:
             self.draw_colour = self.parent_turnout_id.GetDrawColour(self.id)
-

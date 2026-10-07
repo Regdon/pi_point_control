@@ -12,11 +12,11 @@ NODE_FIELDS = {
     "node_source": {"id", "type", "x", "y", "colour"},
     "node_point_diverge": {
         "id", "type", "x", "y", "parent", "child_straight_id",
-        "child_turnout_id", "point_default_state",
+        "child_turnout_id", "point_default_state", "node", "point",
     },
     "node_point_converge": {
         "id", "type", "x", "y", "parent_straight_id",
-        "parent_turnout_id", "point_default_state",
+        "parent_turnout_id", "point_default_state", "node", "point",
     },
 }
 POINT_TYPES = {"node_point_diverge", "node_point_converge"}
@@ -73,6 +73,7 @@ def validate_configuration(
 
     nodes: dict[str, str] = {}
     node_records: list[tuple[str, Mapping[str, object]]] = []
+    point_addresses: set[tuple[int, int]] = set()
     for index, raw_node in enumerate(node_document["nodes"]):
         context = f"Node at index {index}"
         node = _require_mapping(raw_node, context)
@@ -101,6 +102,23 @@ def validate_configuration(
                 raise ConfigurationError(
                     f"{context} point_default_state must be Straight or Turnout"
                 )
+            point_node = _require_integer(node["node"], f"{context} node")
+            if not 0 <= point_node <= 3:
+                raise ConfigurationError(
+                    f"{context} node must be an integer between 0 and 3"
+                )
+            point_number = _require_integer(node["point"], f"{context} point")
+            if not 0 <= point_number <= 7:
+                raise ConfigurationError(
+                    f"{context} point must be an integer between 0 and 7"
+                )
+            address = (point_node, point_number)
+            if address in point_addresses:
+                raise ConfigurationError(
+                    f"{context} duplicates point address "
+                    f"(node={point_node}, point={point_number})"
+                )
+            point_addresses.add(address)
         elif node_type == "node_source":
             colour = node["colour"]
             if not isinstance(colour, str) or not colour:

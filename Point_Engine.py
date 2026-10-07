@@ -144,11 +144,19 @@ class Point_Engine:
                 self.node_list.append(obj)
             
             if (node["type"] == "node_point_diverge"):
-                obj = Node_Point_Diverge(node["id"], node["x"], node["y"], node["parent"], node["child_straight_id"], node["child_turnout_id"], node["point_default_state"])
+                obj = Node_Point_Diverge(
+                    node["id"], node["x"], node["y"], node["parent"],
+                    node["child_straight_id"], node["child_turnout_id"],
+                    node["point_default_state"], node["node"], node["point"],
+                )
                 self.node_list.append(obj)
 
             if (node["type"] == "node_point_converge"):
-                obj = Node_Point_Converge(node["id"], node["x"], node["y"], node["parent_straight_id"], node["parent_turnout_id"], node["point_default_state"])
+                obj = Node_Point_Converge(
+                    node["id"], node["x"], node["y"],
+                    node["parent_straight_id"], node["parent_turnout_id"],
+                    node["point_default_state"], node["node"], node["point"],
+                )
                 self.node_list.append(obj)
 
     def LoadRoutes(self):
