@@ -201,12 +201,132 @@ class ApplicationFactoryTests(unittest.TestCase):
         self.assertIsInstance(payload, list)
         self.assertEqual(
             [event["name"] for event in reset_events],
-            ["update", "reset_result"],
+            ["reset_result"],
         )
         self.assertEqual(
-            reset_events[1]["args"][0],
-            {"success": True, "locked_points": []},
+            reset_events[0]["args"][0],
+            {
+                "success": False,
+                "locked_points": [
+                    "viaduct_crossover_outer",
+                    "viaduct_crossover_inner",
+                ],
+            },
         )
+
+    def test_toggle_click_emits_active_button_draw_script(self):
+        with contextlib.redirect_stdout(io.StringIO()):
+            app = create_app()
+            socketio = app.extensions["socketio"]
+            client = socketio.test_client(app)
+            client.get_received()
+            client.emit(
+                "click",
+                {
+                    "x": 34 * static.GRID_SIZE_X,
+                    "y": 20 * static.GRID_SIZE_Y,
+                },
+            )
+            events = client.get_received()
+            client.disconnect()
+
+        self.assertEqual([event["name"] for event in events], ["update"])
+        payload = events[0]["args"]
+        if len(payload) == 1 and isinstance(payload[0], str):
+            payload = json.loads(payload[0])
+        toggle_script = next(
+            item for item in payload if item.get("type") == "toggle_button"
+        )
+        self.assertEqual(toggle_script["colour"], "#000066")
+
+    def test_toggle_sets_points_and_reverts_route_and_node_colours(self):
+        engine = Point_Engine()
+        engine.LoadData()
+        engine.SetupAllNodeParents()
+        engine.LoadRoutes()
+        engine.SetupRoutes()
+        engine.LoadToggles()
+        engine.CalculateAllNodeDrawColours()
+
+        points = {
+            point.id: point
+            for point in engine.node_list
+            if hasattr(point, "point_default_state")
+        }
+        node = next(
+            node for node in engine.node_list
+            if node.id == "viaduct_crossover_outer"
+        )
+        child = next(
+            node for node in engine.node_list
+            if node.id == "viaduct_crossover_mid"
+        )
+        inactive_child = next(
+            node for node in engine.node_list
+            if node.id == "viaduct_outer_end"
+        )
+        descendant = next(
+            node for node in engine.node_list
+            if node.id == "viaduct_inner_end"
+        )
+        leeds_route = next(
+            route for route in engine.route_list
+            if route.id == "Leeds Viaduct to Leeds A"
+        )
+        york_route = next(
+            route for route in engine.route_list
+            if route.id == "York Viaduct to Leeds A"
+        )
+
+        self.assertTrue(all(points[point_id].locked for point_id in (
+            "viaduct_crossover_outer", "viaduct_crossover_inner"
+        )))
+        self.assertEqual(
+            [points[point_id].point_state for point_id in (
+                "viaduct_crossover_outer", "viaduct_crossover_inner"
+            )],
+            [static.POINT_STATE_STRAIGHT, static.POINT_STATE_STRAIGHT],
+        )
+        normal_node_colour = child.draw_colour
+        normal_descendant_colour = descendant.draw_colour
+        self.assertEqual(leeds_route.GetDrawScript()["colour"], "#FF0000")
+        self.assertEqual(york_route.GetDrawScript()["colour"], "#00FF00")
+
+        self.assertEqual(engine.HandleClick(34, 20), 1)
+        engine.CalculateAllNodeDrawColours()
+        self.assertTrue(all(points[point_id].locked for point_id in (
+            "viaduct_crossover_outer", "viaduct_crossover_inner"
+        )))
+        self.assertEqual(
+            [points[point_id].point_state for point_id in (
+                "viaduct_crossover_outer", "viaduct_crossover_inner"
+            )],
+            [static.POINT_STATE_TURNOUT, static.POINT_STATE_TURNOUT],
+        )
+        self.assertEqual(node.GetDrawColour(child.id), "Blue")
+        self.assertEqual(
+            node.GetDrawColour(inactive_child.id),
+            static.COLOUR_DEFAULT,
+        )
+        self.assertEqual(child.draw_colour, "Blue")
+        self.assertEqual(descendant.draw_colour, "Blue")
+        self.assertEqual(leeds_route.GetDrawScript()["colour"], "#0000FF")
+        self.assertEqual(york_route.GetDrawScript()["colour"], "Black")
+
+        self.assertEqual(engine.HandleClick(34, 20), 1)
+        engine.CalculateAllNodeDrawColours()
+        self.assertEqual(
+            node.GetDrawColour(child.id),
+            static.COLOUR_DEFAULT,
+        )
+        self.assertEqual(
+            node.GetDrawColour(inactive_child.id),
+            node.draw_colour,
+        )
+        self.assertEqual(child.draw_colour, normal_node_colour)
+        self.assertEqual(descendant.draw_colour, normal_descendant_colour)
+        self.assertEqual(leeds_route.GetDrawScript()["colour"], "#FF0000")
+        self.assertEqual(york_route.GetDrawScript()["colour"], "#00FF00")
 
 
 if __name__ == "__main__":

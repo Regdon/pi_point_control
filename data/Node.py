@@ -7,6 +7,7 @@ class Node:
         self.y = int(y)
         self.parent_id = parent_id
         self.draw_colour = None
+        self._draw_colour_overrides = {}
 
     def SetupParent(self, node_list):
         for node in node_list:
@@ -22,7 +23,22 @@ class Node:
             self.draw_colour = self.parent.GetDrawColour(self.id)
 
     def GetDrawColour(self, child_node_id):
+        override = self.GetDrawColourOverride()
+        if override is not None:
+            return override
         return self.draw_colour
+
+    def GetDrawColourOverride(self):
+        if self._draw_colour_overrides:
+            return next(reversed(self._draw_colour_overrides.values()))
+        return None
+
+    def SetDrawColourOverride(self, source_id, colour):
+        self._draw_colour_overrides.pop(source_id, None)
+        self._draw_colour_overrides[source_id] = colour
+
+    def ClearDrawColourOverride(self, source_id):
+        self._draw_colour_overrides.pop(source_id, None)
 
     def GetGridX(self):
         return self.x * static.GRID_SIZE_X

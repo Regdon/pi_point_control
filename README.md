@@ -39,10 +39,17 @@ journalctl -u pi_point.service -f
 
 ## Configuration validation and tests
 
-Node and route configuration is validated during startup. Invalid node types,
-duplicate IDs, missing references, unsupported point states, and malformed
-route settings raise a `ConfigurationError` with the relevant configuration
-item identified.
+Node, route, and toggle configuration is validated during startup. Invalid
+node types, duplicate IDs, missing references, unsupported point states, and
+malformed button settings raise a `ConfigurationError` with the relevant
+configuration item identified.
+
+Toggle buttons are configured in `data/toggle_data.json`. Each toggle defines
+its button position and colour scheme, a `default_state`, point IDs, route IDs
+with their active colours, and node IDs with their active colours. Toggles
+start off: their points are set to `default_state` and locked. Clicking a toggle
+sets and locks those points to the opposite state while applying its route and
+node colours; clicking again restores the off state and normal colours.
 
 Run the test suite from the repository root with:
 

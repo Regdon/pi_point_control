@@ -1,0 +1,31 @@
+{"toggles":[
+    {"id":"Viaduct Crossover"
+        ,"button_centre_x":"34"
+        ,"button_centre_y":"20"
+        ,"button_height":"2"
+        ,"button_width":"2"
+        ,"button_colour_scheme":"Blue"
+        ,"default_state":"Straight"
+        ,"points":[
+             {"id":"viaduct_crossover_outer"}
+            ,{"id":"viaduct_crossover_inner"}
+        ]
+        ,"routes":[
+             {"id":"Leeds Viaduct to Leeds A", "colour":"Blue"}
+            ,{"id":"York Viaduct to Leeds A", "colour":"Black"}
+            ,{"id":"Leeds Viaduct to Leeds B", "colour":"Blue"}
+            ,{"id":"York Viaduct to Leeds B", "colour":"Black"}
+            ,{"id":"Leeds Viaduct to Leeds C", "colour":"Blue"}
+            ,{"id":"York Viaduct to Leeds C", "colour":"Black"}
+            ,{"id":"Leeds Viaduct to Leeds D", "colour":"Blue"}
+            ,{"id":"York Viaduct to Leeds D", "colour":"Black"}
+            ,{"id":"Leeds Viaduct to Leeds Inner", "colour":"Blue"}
+            ,{"id":"York Viaduct to Leeds Inner", "colour":"Black"}
+            ,{"id":"York Viaduct to Leeds Outer", "colour":"Black"}
+        ]
+        ,"nodes":[
+             {"id":"viaduct_crossover_outer", "colour":"Blue"}
+            ,{"id":"viaduct_outer_start", "colour":"Black"}
+        ]
+    }
+]}

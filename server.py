@@ -12,9 +12,11 @@ def create_app() -> Flask:
     engine = Point_Engine()
     engine.LoadData()
     engine.SetupAllNodeParents()
-    engine.CalculateAllNodeDrawColours()
     engine.LoadRoutes()
     engine.SetupRoutes()
+    engine.LoadToggles()
+    engine.CalculateAllNodeDrawColours()
+    engine.CalculateAllRouteStates()
 
     @app.route('/')
     def home():

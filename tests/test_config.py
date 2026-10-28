@@ -15,17 +15,46 @@ def load_configuration():
         node_data = json.load(file)
     with (DATA_DIRECTORY / "route_data.json").open(encoding="utf-8") as file:
         route_data = json.load(file)
-    return node_data, route_data
+    with (DATA_DIRECTORY / "toggle_data.json").open(encoding="utf-8") as file:
+        toggle_data = json.load(file)
+    return node_data, route_data, toggle_data
 
 
 class ConfigurationValidationTests(unittest.TestCase):
     def setUp(self):
-        self.node_data, self.route_data = load_configuration()
+        self.node_data, self.route_data, self.toggle_data = load_configuration()
         self.node_data = copy.deepcopy(self.node_data)
         self.route_data = copy.deepcopy(self.route_data)
+        self.toggle_data = copy.deepcopy(self.toggle_data)
 
     def test_repository_configuration_is_valid(self):
-        validate_configuration(self.node_data, self.route_data)
+        validate_configuration(
+            self.node_data, self.route_data, self.toggle_data
+        )
+
+    def test_rejects_toggle_reference_to_unknown_point(self):
+        self.toggle_data["toggles"][0]["points"][0]["id"] = "missing-point"
+
+        with self.assertRaisesRegex(ConfigurationError, "unknown point"):
+            validate_configuration(
+                self.node_data, self.route_data, self.toggle_data
+            )
+
+    def test_rejects_toggle_reference_to_unknown_route(self):
+        self.toggle_data["toggles"][0]["routes"][0]["id"] = "missing-route"
+
+        with self.assertRaisesRegex(ConfigurationError, "unknown route"):
+            validate_configuration(
+                self.node_data, self.route_data, self.toggle_data
+            )
+
+    def test_rejects_invalid_toggle_default_state(self):
+        self.toggle_data["toggles"][0]["default_state"] = "Reverse"
+
+        with self.assertRaisesRegex(ConfigurationError, "default_state"):
+            validate_configuration(
+                self.node_data, self.route_data, self.toggle_data
+            )
 
     def test_rejects_unknown_node_type(self):
         self.node_data["nodes"][0]["type"] = "unknown"

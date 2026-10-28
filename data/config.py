@@ -65,8 +65,9 @@ def _require_integer(value: object, context: str) -> int:
 def validate_configuration(
     node_data: object,
     route_data: object,
+    toggle_data: object = None,
 ) -> None:
-    """Validate the node and route JSON documents before building the model."""
+    """Validate the node, route, and optional toggle JSON documents."""
     node_document = _require_mapping(node_data, "Node configuration")
     if "nodes" not in node_document or not isinstance(node_document["nodes"], list):
         raise ConfigurationError("Node configuration must contain a 'nodes' array")
@@ -201,6 +202,90 @@ def validate_configuration(
                 raise ConfigurationError(
                     f"{point_context} state must be 'Straight' or 'Turnout'"
                 )
+
+    if toggle_data is None:
+        return
+
+    toggle_document = _require_mapping(toggle_data, "Toggle configuration")
+    if (
+        "toggles" not in toggle_document
+        or not isinstance(toggle_document["toggles"], list)
+    ):
+        raise ConfigurationError(
+            "Toggle configuration must contain a 'toggles' array"
+        )
+
+    toggle_ids: set[str] = set()
+    for index, raw_toggle in enumerate(toggle_document["toggles"]):
+        context = f"Toggle at index {index}"
+        toggle = _require_mapping(raw_toggle, context)
+        _require_fields(
+            toggle,
+            {
+                "id", "button_centre_x", "button_centre_y", "button_height",
+                "button_width", "button_colour_scheme", "default_state",
+                "points", "routes", "nodes",
+            },
+            context,
+        )
+        toggle_id = _require_id(toggle["id"], f"{context} id")
+        if toggle_id in toggle_ids:
+            raise ConfigurationError(f"Duplicate toggle id: {toggle_id!r}")
+        toggle_ids.add(toggle_id)
+
+        for field in ("button_centre_x", "button_centre_y"):
+            _require_integer(toggle[field], f"{context} {field}")
+        for field in ("button_height", "button_width"):
+            if _require_integer(toggle[field], f"{context} {field}") <= 0:
+                raise ConfigurationError(f"{context} {field} must be greater than zero")
+
+        colour_scheme = toggle["button_colour_scheme"]
+        if (
+            not isinstance(colour_scheme, str)
+            or colour_scheme not in static.ROUTE_COLOUR_SCHEMES
+        ):
+            raise ConfigurationError(
+                f"{context} has an unknown button_colour_scheme"
+            )
+        default_state = toggle["default_state"]
+        if not isinstance(default_state, str) or default_state not in ROUTE_POINT_STATES:
+            raise ConfigurationError(
+                f"{context} default_state must be 'Straight' or 'Turnout'"
+            )
+
+        for field, valid_ids, description in (
+            ("points", {node_id for node_id, kind in nodes.items() if kind in POINT_TYPES}, "point"),
+            ("routes", route_ids, "route"),
+            ("nodes", set(nodes), "node"),
+        ):
+            references = toggle[field]
+            if not isinstance(references, list):
+                raise ConfigurationError(f"{context} {field} must be an array")
+            reference_ids: set[str] = set()
+            for item_index, raw_reference in enumerate(references):
+                reference_context = f"{context} {field[:-1]} at index {item_index}"
+                reference = _require_mapping(raw_reference, reference_context)
+                _require_fields(reference, {"id"}, reference_context)
+                reference_id = _require_id(
+                    reference["id"],
+                    f"{reference_context} id",
+                )
+                if reference_id in reference_ids:
+                    raise ConfigurationError(
+                        f"{context} contains duplicate {field} id {reference_id!r}"
+                    )
+                reference_ids.add(reference_id)
+                if reference_id not in valid_ids:
+                    raise ConfigurationError(
+                        f"{reference_context} references unknown {description} "
+                        f"{reference_id!r}"
+                    )
+                if field in {"routes", "nodes"}:
+                    colour = reference.get("colour")
+                    if not isinstance(colour, str) or not colour:
+                        raise ConfigurationError(
+                            f"{reference_context} colour must be a non-empty string"
+                        )
 
 
 def _require_node_reference(

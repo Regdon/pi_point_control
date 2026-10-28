@@ -16,6 +16,7 @@ class Route:
         self.route = {}
         self.route_set = 0
         self.state = 0
+        self.toggle_colour_scheme = None
 
     def SetupRoute(self, node_list):
         self.route = {}
@@ -78,7 +79,8 @@ class Route:
 
     def GetDrawScript(self):
         self.CalculateState()
-        colour_scheme = static.ROUTE_COLOUR_SCHEMES.get(self.button_colour_scheme, {})
+        colour_name = self.toggle_colour_scheme or self.button_colour_scheme
+        colour_scheme = static.ROUTE_COLOUR_SCHEMES.get(colour_name, {})
         x_inset = static.GRID_SIZE_X * 0.1
         y_inset = static.GRID_SIZE_Y * 0.1
 
@@ -88,5 +90,8 @@ class Route:
             "y1": (self.button_centre_y - self.button_height / 2) * static.GRID_SIZE_Y + y_inset,
             "width": self.button_width * static.GRID_SIZE_X - 2 * x_inset,
             "height": self.button_height * static.GRID_SIZE_Y - 2 * y_inset,
-            "colour": colour_scheme.get(self.state, self.button_colour_scheme)
+            "colour": colour_scheme.get(self.state, colour_name)
         }
+
+    def SetToggleColourScheme(self, colour_scheme):
+        self.toggle_colour_scheme = colour_scheme

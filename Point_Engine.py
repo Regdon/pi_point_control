@@ -5,6 +5,7 @@ from data.Node_Point_Diverge import Node_Point_Diverge
 from data.Node_Point_Converge import Node_Point_Converge
 from data.config import validate_configuration
 from data.route import Route
+from data.toggle import Toggle
 import static
 
 import json
@@ -14,7 +15,9 @@ class Point_Engine:
     def __init__(self, i2c=None):
         self.node_list = []
         self.route_list = []
+        self.toggle_list = []
         self._route_data = None
+        self._toggle_data = None
         self._i2c = i2c
 
     def _send_point_state(self, node, point, point_state):
@@ -126,6 +129,9 @@ class Point_Engine:
         for route in self.route_list:
             dict.append(route.GetDrawScript())
 
+        for toggle in self.toggle_list:
+            dict.append(toggle.GetDrawScript())
+
         return json.dumps(dict)
 
     def LoadData(self):
@@ -140,8 +146,14 @@ class Point_Engine:
         ) as file:
             route_data = json.load(file)
 
-        validate_configuration(node_data, route_data)
+        with (data_directory / 'toggle_data.json').open(
+            'r', encoding='utf-8'
+        ) as file:
+            toggle_data = json.load(file)
+
+        validate_configuration(node_data, route_data, toggle_data)
         self._route_data = route_data
+        self._toggle_data = toggle_data
 
         for node in node_data["nodes"]:
             if (node["type"] == "node"):
@@ -210,8 +222,25 @@ class Point_Engine:
         for route in self.route_list:
             route.SetupRoute(self.node_list)
 
+    def LoadToggles(self):
+        if self._toggle_data is None:
+            raise RuntimeError("LoadData must be called before LoadToggles")
+
+        self.toggle_list = [
+            Toggle(data) for data in self._toggle_data["toggles"]
+        ]
+        for toggle in self.toggle_list:
+            toggle.Setup(self.node_list, self.route_list)
+        self._apply_toggle_route_colours()
+
     def HandleClick(self, x, y):
         print("----------Button Click-------------")
+        for toggle in self.toggle_list:
+            if toggle.HandleClick(x, y):
+                print(f"Toggle ID: '{toggle.id}' clicked")
+                self._apply_toggle_route_colours()
+                return 1
+
         for node in self.node_list:
             if node.HandleClick(x, y):
                 print(f"Node ID: '{node.id}' clicked")
@@ -223,6 +252,14 @@ class Point_Engine:
                 return 1
 
         return 0
+
+    def _apply_toggle_route_colours(self):
+        for route in self.route_list:
+            route.SetToggleColourScheme(None)
+        for toggle in self.toggle_list:
+            if toggle.is_on:
+                for route_id, colour in toggle.route_colours.items():
+                    toggle.routes[route_id].SetToggleColourScheme(colour)
 
     def CalculateAllRouteStates(self):
         for route in self.route_list:
