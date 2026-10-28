@@ -3,16 +3,15 @@
 ## Script to create an executable on the PI to start the venv and run the server:
 nano server_start.sh
     #!/bin/bash
-    cd /home/pi/code/pi_point_control/testing_flask
-    source venv/bin/activate
     cd /home/pi/code/pi_point_control
-    python3 server.py
+    source venv/bin/activate
+    python server.py
 
 Save CTRL + O, Enter
 Close CTRL + X
 
 Make executable:
-chmod +x start_server.sh
+chmod +x server_start.sh
 
 ## Script to manage the autostart on PI:
 sudo nano /etc/systemd/system/pi_point.service
@@ -37,3 +36,16 @@ sudo systemctl start pi_point.service
 ## Verify and see errors:
 sudo systemctl status pi_point.service
 journalctl -u pi_point.service -f
+
+## Configuration validation and tests
+
+Node and route configuration is validated during startup. Invalid node types,
+duplicate IDs, missing references, unsupported point states, and malformed
+route settings raise a `ConfigurationError` with the relevant configuration
+item identified.
+
+Run the test suite from the repository root with:
+
+```sh
+python -m unittest discover -s tests
+```

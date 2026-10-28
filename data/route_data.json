@@ -1,0 +1,271 @@
+{"routes":[
+    {"id":"York A to York Platform"
+        ,"button_centre_x":"66"
+        ,"button_centre_y":"2"
+        ,"button_height":"2"
+        ,"button_width":"2"
+        ,"button_colour_scheme":"Green"
+        ,"points":[
+             {"id":"york_facing_crossover_point_outer", "state":"Straight"}
+            ,{"id":"york_trailing_crossover_point_outer", "state":"Straight"}
+            ,{"id":"york_siding_a_b", "state":"Turnout"}
+        ]
+    },
+    {"id":"York A to Leeds Platform"
+        ,"button_centre_x":"62"
+        ,"button_centre_y":"2"
+        ,"button_height":"2"
+        ,"button_width":"2"
+        ,"button_colour_scheme":"Red"
+        ,"points":[
+             {"id":"york_inner_loop_turnout", "state":"Straight"}
+            ,{"id":"york_facing_crossover_point_inner", "state":"Straight"}
+            ,{"id":"york_trailing_crossover_point_inner", "state":"Turnout"}
+            ,{"id":"york_trailing_crossover_point_outer", "state":"Turnout"}      
+            ,{"id":"york_siding_a_b", "state":"Turnout"}
+        ]
+    },
+    {"id":"York B to York Platform"
+        ,"button_centre_x":"66"
+        ,"button_centre_y":"4"
+        ,"button_height":"2"
+        ,"button_width":"2"
+        ,"button_colour_scheme":"Green"
+        ,"points":[
+             {"id":"york_facing_crossover_point_outer", "state":"Straight"}
+            ,{"id":"york_trailing_crossover_point_outer", "state":"Straight"}
+            ,{"id":"york_siding_a_b", "state":"Straight"}
+        ]
+    },
+    {"id":"York B to Leeds Platform"
+        ,"button_centre_x":"62"
+        ,"button_centre_y":"4"
+        ,"button_height":"2"
+        ,"button_width":"2"
+        ,"button_colour_scheme":"Red"
+        ,"points":[
+             {"id":"york_inner_loop_turnout", "state":"Straight"}
+            ,{"id":"york_facing_crossover_point_inner", "state":"Straight"}
+            ,{"id":"york_trailing_crossover_point_inner", "state":"Turnout"}
+            ,{"id":"york_trailing_crossover_point_outer", "state":"Turnout"}      
+            ,{"id":"york_siding_a_b", "state":"Straight"}
+        ]
+    },
+    {"id":"York C to York Platform"
+        ,"button_centre_x":"66"
+        ,"button_centre_y":"6"
+        ,"button_height":"2"
+        ,"button_width":"2"
+        ,"button_colour_scheme":"Green"
+        ,"points":[
+             {"id":"york_facing_crossover_point_outer", "state":"Turnout"}
+            ,{"id":"york_facing_crossover_point_inner", "state":"Turnout"}
+            ,{"id":"york_trailing_crossover_point_outer", "state":"Straight"}
+            ,{"id":"york_outer_loop_turnout", "state":"Straight"}
+        ]
+    },
+    {"id":"York C to Leeds Platform"
+        ,"button_centre_x":"62"
+        ,"button_centre_y":"6"
+        ,"button_height":"2"
+        ,"button_width":"2"
+        ,"button_colour_scheme":"Red"
+        ,"points":[
+             {"id":"york_inner_loop_turnout", "state":"Straight"}
+            ,{"id":"york_facing_crossover_point_inner", "state":"Straight"}
+            ,{"id":"york_trailing_crossover_point_inner", "state":"Straight"}
+            ,{"id":"york_outer_loop_turnout", "state":"Straight"}
+        ]
+    },
+    {"id":"York Outer Loop to York Platform"
+        ,"button_centre_x":"32"
+        ,"button_centre_y":"8"
+        ,"button_height":"2"
+        ,"button_width":"2"
+        ,"button_colour_scheme":"Green"
+        ,"points":[
+             {"id":"york_facing_crossover_point_outer", "state":"Turnout"}
+            ,{"id":"york_facing_crossover_point_inner", "state":"Turnout"}
+            ,{"id":"york_trailing_crossover_point_inner", "state":"Straight"}
+            ,{"id":"york_outer_loop_turnout", "state":"Turnout"}
+        ]
+    },
+    {"id":"York Outer Loop to Leeds Platform"
+        ,"button_centre_x":"28"
+        ,"button_centre_y":"8"
+        ,"button_height":"2"
+        ,"button_width":"2"
+        ,"button_colour_scheme":"Red"
+        ,"points":[
+             {"id":"york_inner_loop_turnout", "state":"Straight"}
+            ,{"id":"york_facing_crossover_point_inner", "state":"Straight"}
+            ,{"id":"york_trailing_crossover_point_inner", "state":"Straight"}
+            ,{"id":"york_outer_loop_turnout", "state":"Turnout"}
+        ]
+    },
+    {"id":"York Inner Loop to Leeds Platform"
+        ,"button_centre_x":"24"
+        ,"button_centre_y":"10"
+        ,"button_height":"2"
+        ,"button_width":"2"
+        ,"button_colour_scheme":"Red"
+        ,"points":[
+             {"id":"york_inner_loop_turnout", "state":"Turnout"}
+        ]
+    },
+    {"id":"Viaduct Crossover"
+        ,"button_centre_x":"34"
+        ,"button_centre_y":"20"
+        ,"button_height":"2"
+        ,"button_width":"2"
+        ,"button_colour_scheme":"Blue"
+        ,"points":[
+             {"id":"viaduct_crossover_outer", "state":"Turnout"}
+            ,{"id":"viaduct_crossover_inner", "state":"Turnout"}
+        ]
+    },
+    {"id":"Leeds Viaduct to Leeds A"
+        ,"button_centre_x":"10"
+        ,"button_centre_y":"18"
+        ,"button_height":"2"
+        ,"button_width":"2"
+        ,"button_colour_scheme":"Red"
+        ,"points":[
+             {"id":"leeds_facing_crossover_point_inner", "state":"Straight"}
+            ,{"id":"leeds_trailing_crossover_point_inner", "state":"Straight"}
+            ,{"id":"leeds_siding_c_b_point", "state":"Straight"}
+            ,{"id":"leeds_siding_b_a_point", "state":"Straight"}
+        ]
+    },
+    {"id":"York Viaduct to Leeds A"
+        ,"button_centre_x":"14"
+        ,"button_centre_y":"18"
+        ,"button_height":"2"
+        ,"button_width":"2"
+        ,"button_colour_scheme":"Green"
+        ,"points":[
+             {"id":"leeds_outer_loop_point", "state":"Straight"}
+            ,{"id":"leeds_facing_crossover_point_outer", "state":"Straight"}
+            ,{"id":"leeds_trailing_crossover_point_outer", "state":"Turnout"}
+            ,{"id":"leeds_trailing_crossover_point_inner", "state":"Turnout"}
+            ,{"id":"leeds_siding_c_b_point", "state":"Straight"}
+            ,{"id":"leeds_siding_b_a_point", "state":"Straight"}
+        ]
+    },
+    {"id":"Leeds Viaduct to Leeds B"
+        ,"button_centre_x":"10"
+        ,"button_centre_y":"16"
+        ,"button_height":"2"
+        ,"button_width":"2"
+        ,"button_colour_scheme":"Red"
+        ,"points":[
+             {"id":"leeds_facing_crossover_point_inner", "state":"Straight"}
+            ,{"id":"leeds_trailing_crossover_point_inner", "state":"Straight"}
+            ,{"id":"leeds_siding_c_b_point", "state":"Straight"}
+            ,{"id":"leeds_siding_b_a_point", "state":"Turnout"}
+        ]
+    },
+    {"id":"York Viaduct to Leeds B"
+        ,"button_centre_x":"14"
+        ,"button_centre_y":"16"
+        ,"button_height":"2"
+        ,"button_width":"2"
+        ,"button_colour_scheme":"Green"
+        ,"points":[
+             {"id":"leeds_outer_loop_point", "state":"Straight"}
+            ,{"id":"leeds_facing_crossover_point_outer", "state":"Straight"}
+            ,{"id":"leeds_trailing_crossover_point_outer", "state":"Turnout"}
+            ,{"id":"leeds_trailing_crossover_point_inner", "state":"Turnout"}
+            ,{"id":"leeds_siding_c_b_point", "state":"Straight"}
+            ,{"id":"leeds_siding_b_a_point", "state":"Turnout"}
+        ]
+    },
+    {"id":"Leeds Viaduct to Leeds C"
+        ,"button_centre_x":"10"
+        ,"button_centre_y":"14"
+        ,"button_height":"2"
+        ,"button_width":"2"
+        ,"button_colour_scheme":"Red"
+        ,"points":[
+             {"id":"leeds_facing_crossover_point_inner", "state":"Straight"}
+            ,{"id":"leeds_trailing_crossover_point_inner", "state":"Straight"}
+            ,{"id":"leeds_siding_c_b_point", "state":"Turnout"}
+        ]
+    },
+    {"id":"York Viaduct to Leeds C"
+        ,"button_centre_x":"14"
+        ,"button_centre_y":"14"
+        ,"button_height":"2"
+        ,"button_width":"2"
+        ,"button_colour_scheme":"Green"
+        ,"points":[
+             {"id":"leeds_outer_loop_point", "state":"Straight"}
+            ,{"id":"leeds_facing_crossover_point_outer", "state":"Straight"}
+            ,{"id":"leeds_trailing_crossover_point_outer", "state":"Turnout"}
+            ,{"id":"leeds_trailing_crossover_point_inner", "state":"Turnout"}
+            ,{"id":"leeds_siding_c_b_point", "state":"Turnout"}
+        ]
+    },
+    {"id":"Leeds Viaduct to Leeds D"
+        ,"button_centre_x":"10"
+        ,"button_centre_y":"12"
+        ,"button_height":"2"
+        ,"button_width":"2"
+        ,"button_colour_scheme":"Red"
+        ,"points":[
+             {"id":"leeds_facing_crossover_point_inner", "state":"Turnout"}
+            ,{"id":"leeds_facing_crossover_point_outer", "state":"Turnout"}
+            ,{"id":"leeds_trailing_crossover_point_outer", "state":"Straight"}
+            ,{"id":"leeds_inner_loop_point", "state":"Turnout"}
+        ]
+    },
+    {"id":"York Viaduct to Leeds D"
+        ,"button_centre_x":"14"
+        ,"button_centre_y":"12"
+        ,"button_height":"2"
+        ,"button_width":"2"
+        ,"button_colour_scheme":"Green"
+        ,"points":[
+             {"id":"leeds_outer_loop_point", "state":"Straight"}
+            ,{"id":"leeds_facing_crossover_point_outer", "state":"Straight"}
+            ,{"id":"leeds_trailing_crossover_point_outer", "state":"Straight"}
+            ,{"id":"leeds_inner_loop_point", "state":"Turnout"}
+        ]
+    },
+    {"id":"Leeds Viaduct to Leeds Inner"
+        ,"button_centre_x":"36"
+        ,"button_centre_y":"10"
+        ,"button_height":"2"
+        ,"button_width":"2"
+        ,"button_colour_scheme":"Red"
+        ,"points":[
+             {"id":"leeds_facing_crossover_point_inner", "state":"Turnout"}
+            ,{"id":"leeds_facing_crossover_point_outer", "state":"Turnout"}
+            ,{"id":"leeds_trailing_crossover_point_outer", "state":"Straight"}
+            ,{"id":"leeds_inner_loop_point", "state":"Straight"}
+        ]
+    },
+    {"id":"York Viaduct to Leeds Inner"
+        ,"button_centre_x":"40"
+        ,"button_centre_y":"10"
+        ,"button_height":"2"
+        ,"button_width":"2"
+        ,"button_colour_scheme":"Green"
+        ,"points":[
+             {"id":"leeds_outer_loop_point", "state":"Straight"}
+            ,{"id":"leeds_facing_crossover_point_outer", "state":"Straight"}
+            ,{"id":"leeds_trailing_crossover_point_outer", "state":"Straight"}
+            ,{"id":"leeds_inner_loop_point", "state":"Straight"}
+        ]
+    },
+    {"id":"York Viaduct to Leeds Outer"
+        ,"button_centre_x":"50"
+        ,"button_centre_y":"8"
+        ,"button_height":"2"
+        ,"button_width":"2"
+        ,"button_colour_scheme":"Green"
+        ,"points":[
+             {"id":"leeds_outer_loop_point", "state":"Turnout"}
+        ]
+    }
+]}

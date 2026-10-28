@@ -37,9 +37,24 @@ document.addEventListener('DOMContentLoaded', function () {
                     drawRect(ctx, i.x1, i.y1, i.width, i.height, i.colour);
                 }
             } else {
-                drawLine(ctx, i.x1, i.y1, i.x2, i.y2, i.state);
+                drawLine(ctx, i.x1, i.y1, i.x2, i.y2, i.colour);
             }
         });
+    });
+
+    socket.on('reset_result', function (result) {
+        const status = document.getElementById('reset-status');
+        if (result.success) {
+            status.textContent = 'All points reset to their default states.';
+        } else {
+            status.textContent =
+                'Unlock routes controlling these points before resetting: ' +
+                result.locked_points.join(', ');
+        }
+    });
+
+    document.getElementById('reset-points').addEventListener('click', function () {
+        socket.emit('reset_points');
     });
 
     const canvas = document.getElementById('canvas');

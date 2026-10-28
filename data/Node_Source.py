@@ -4,7 +4,14 @@ class Node_Source(Node):
     def __init__(self, id, x, y, colour):
         Node.__init__(self, id, x, y, "")
         self.colour = colour
-        self.order = 1
+        self.draw_colour = colour
 
-    def CalculateState(self):
-        self.state = self.colour
+    def SetupParent(self, node_list):
+        self.parent = None
+        return 0
+    
+    def CalculateDrawColour(self):
+        self.draw_colour = self.colour
+
+    def GetDrawScript(self):
+        return None
