@@ -33,7 +33,7 @@ document.addEventListener('DOMContentLoaded', function () {
         
         msgObject.forEach((i) => {
             if ("type" in i) {
-                if (i.type == "route_button") {
+                if (i.type == "route_button" || i.type == "toggle_button") {
                     drawRect(ctx, i.x1, i.y1, i.width, i.height, i.colour);
                 }
             } else {

@@ -26,7 +26,7 @@ class Node_Point_Diverge(Node_Point):
 
     def GetDrawColour(self, child_node_id):
         if self.point_state == static.POINT_STATE_STRAIGHT and child_node_id == self.child_straight_id:
-            return self.draw_colour
+            return self.GetDrawColourOverride() or self.draw_colour
         elif self.point_state == static.POINT_STATE_TURNOUT and child_node_id == self.child_turnout_id:
-            return self.draw_colour
+            return self.GetDrawColourOverride() or self.draw_colour
         return static.COLOUR_DEFAULT

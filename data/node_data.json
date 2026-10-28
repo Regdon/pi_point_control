@@ -38,12 +38,12 @@
     ,{"id":"york_outer_loop_turnout_end", "type":"node", "x":"32", "y":"8", "parent":"york_outer_loop_turnout_start"}
     ,{"id":"york_inner_loop_turnout_end", "type":"node", "x":"32", "y":"10", "parent":"york_inner_loop_turnout_start"}
 
-    ,{"id":"viaduct_crossover_outer", "type":"node_point_diverge", "x":"32", "y":"24", "parent":"source_york_platform", "child_straight_id":"viaduct_outer_end", "child_turnout_id":"viaduct_crossover_mid", "point_default_state":"1" , "node":"2", "point":"3"}    
+    ,{"id":"viaduct_crossover_outer", "type":"node_point_diverge", "x":"32", "y":"24", "parent":"source_york_platform", "child_straight_id":"viaduct_outer_start", "child_turnout_id":"viaduct_crossover_mid", "point_default_state":"1" , "node":"2", "point":"3"}    
     ,{"id":"viaduct_crossover_mid", "type":"node", "x":"34", "y":"23", "parent":"viaduct_crossover_outer"}
     ,{"id":"viaduct_crossover_inner", "type":"node_point_converge", "x":"36", "y":"22", "parent_straight_id":"source_leeds_platform", "parent_turnout_id":"viaduct_crossover_mid", "point_default_state":"1" , "node":"2", "point":"4" } 
 
-
-    ,{"id":"viaduct_outer_end", "type":"node", "x":"66", "y":"24", "parent":"viaduct_crossover_outer"}  
+    ,{"id":"viaduct_outer_start", "type":"node", "x":"36", "y":"24", "parent":"viaduct_crossover_outer"} 
+    ,{"id":"viaduct_outer_end", "type":"node", "x":"66", "y":"24", "parent":"viaduct_outer_start"}  
     ,{"id":"viaduct_inner_end", "type":"node", "x":"64", "y":"22", "parent":"viaduct_crossover_inner"} 
     ,{"id":"inner_loop_rhs_back", "type":"node", "x":"64", "y":"12", "parent":"viaduct_inner_end"}
     ,{"id":"outer_loop_rhs_back", "type":"node", "x":"66", "y":"10", "parent":"viaduct_outer_end"}
