@@ -38,6 +38,26 @@ function drawPointLock(ctx, x, y) {
     ctx.restore();
 }
 
+function drawPlatform(ctx, graphic) {
+    const x = graphic.x1;
+    const y = graphic.y1;
+    const width = graphic.x2 - graphic.x1;
+    const height = graphic.y2 - graphic.y1;
+
+    ctx.fillStyle = graphic.colour;
+    ctx.fillRect(x, y, width, height);
+
+    ctx.fillStyle = graphic.text_colour;
+    ctx.font = "16px sans-serif";
+    ctx.textAlign = "center";
+    ctx.textBaseline = "middle";
+    ctx.fillText(
+        graphic.text,
+        x + width / 2,
+        y + height / 2
+    );
+}
+
 document.addEventListener('DOMContentLoaded', function () {
     var socket = io.connect('http://' + document.domain + ':' + location.port);
 
@@ -56,7 +76,9 @@ document.addEventListener('DOMContentLoaded', function () {
         
         msgObject.forEach((i) => {
             if ("type" in i) {
-                if (i.type == "locked_point") {
+                if (i.type == "platform") {
+                    drawPlatform(ctx, i);
+                } else if (i.type == "locked_point") {
                     drawPointLock(ctx, i.x, i.y);
                 } else if (i.type == "route_button" || i.type == "toggle_button") {
                     drawRect(ctx, i.x1, i.y1, i.width, i.height, i.colour);

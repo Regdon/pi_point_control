@@ -3,7 +3,11 @@ import json
 import unittest
 from pathlib import Path
 
-from data.config import ConfigurationError, validate_configuration
+from data.config import (
+    ConfigurationError,
+    validate_configuration,
+    validate_graphic_configuration,
+)
 
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
@@ -147,6 +151,47 @@ class ConfigurationValidationTests(unittest.TestCase):
 
         with self.assertRaisesRegex(ConfigurationError, "Duplicate route id"):
             validate_configuration(self.node_data, self.route_data)
+
+
+class GraphicConfigurationValidationTests(unittest.TestCase):
+    def setUp(self):
+        with (DATA_DIRECTORY / "graphic_data.json").open(encoding="utf-8") as file:
+            self.graphic_data = json.load(file)
+
+    def test_repository_graphic_configuration_is_valid(self):
+        validate_graphic_configuration(self.graphic_data)
+
+    def test_accepts_decimal_platform_coordinates(self):
+        platform = self.graphic_data["graphics"][0]
+        platform["x1"] = "10.5"
+        platform["y1"] = "19.25"
+        platform["x2"] = "30.5"
+        platform["y2"] = "21.75"
+
+        validate_graphic_configuration(self.graphic_data)
+
+    def test_accepts_empty_platform_text(self):
+        self.graphic_data["graphics"][0]["Text"] = ""
+
+        validate_graphic_configuration(self.graphic_data)
+
+    def test_rejects_non_string_platform_text(self):
+        self.graphic_data["graphics"][0]["Text"] = None
+
+        with self.assertRaisesRegex(ConfigurationError, "Text must be a string"):
+            validate_graphic_configuration(self.graphic_data)
+
+    def test_rejects_graphic_with_unknown_type(self):
+        self.graphic_data["graphics"][0]["type"] = "Unknown"
+
+        with self.assertRaisesRegex(ConfigurationError, "unknown type"):
+            validate_graphic_configuration(self.graphic_data)
+
+    def test_rejects_platform_with_invalid_bounds(self):
+        self.graphic_data["graphics"][0]["x2"] = "10"
+
+        with self.assertRaisesRegex(ConfigurationError, "larger than zero"):
+            validate_graphic_configuration(self.graphic_data)
 
 
 if __name__ == "__main__":

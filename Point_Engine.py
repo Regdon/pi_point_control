@@ -3,7 +3,8 @@ from data.Node_Point import Node_Point
 from data.Node_Source import Node_Source
 from data.Node_Point_Diverge import Node_Point_Diverge
 from data.Node_Point_Converge import Node_Point_Converge
-from data.config import validate_configuration
+from data.Graphic_Platform import Graphic_Platform
+from data.config import validate_configuration, validate_graphic_configuration
 from data.route import Route
 from data.toggle import Toggle
 import static
@@ -14,6 +15,7 @@ from pathlib import Path
 class Point_Engine:
     def __init__(self, i2c=None):
         self.node_list = []
+        self.graphic_list = []
         self.route_list = []
         self.toggle_list = []
         self._route_data = None
@@ -118,6 +120,9 @@ class Point_Engine:
 
     def GetAllDrawScripts(self):
         draw_scripts = []
+        for graphic in self.graphic_list:
+            draw_scripts.append(graphic.GetDrawScript())
+
         for point in self.node_list:
             if isinstance(point, Node_Point) and point.locked == 1:
                 draw_scripts.append({
@@ -159,9 +164,19 @@ class Point_Engine:
         ) as file:
             toggle_data = json.load(file)
 
+        with (data_directory / 'graphic_data.json').open(
+            'r', encoding='utf-8'
+        ) as file:
+            graphic_data = json.load(file)
+
         validate_configuration(node_data, route_data, toggle_data)
+        validate_graphic_configuration(graphic_data)
         self._route_data = route_data
         self._toggle_data = toggle_data
+        self.graphic_list = [
+            Graphic_Platform(graphic)
+            for graphic in graphic_data["graphics"]
+        ]
 
         for node in node_data["nodes"]:
             if (node["type"] == "node"):

@@ -1,4 +1,5 @@
 from collections.abc import Mapping
+import math
 
 import static
 
@@ -20,6 +21,12 @@ NODE_FIELDS = {
     },
 }
 POINT_TYPES = {"node_point_diverge", "node_point_converge"}
+GRAPHIC_FIELDS = {
+    "Platform": {
+        "id", "type", "x1", "y1", "x2", "y2",
+        "Colour", "Text", "Text-Colour",
+    },
+}
 ROUTE_POINT_STATES = {
     "Straight": static.POINT_STATE_STRAIGHT,
     "Turnout": static.POINT_STATE_TURNOUT,
@@ -59,6 +66,18 @@ def _require_integer(value: object, context: str) -> int:
         raise ConfigurationError(f"{context} must be an integer") from error
     if isinstance(value, float) and not value.is_integer():
         raise ConfigurationError(f"{context} must be an integer")
+    return result
+
+
+def _require_number(value: object, context: str) -> float:
+    if isinstance(value, bool) or not isinstance(value, (str, int, float)):
+        raise ConfigurationError(f"{context} must be a number")
+    try:
+        result = float(value)
+    except (ValueError, OverflowError) as error:
+        raise ConfigurationError(f"{context} must be a number") from error
+    if not math.isfinite(result):
+        raise ConfigurationError(f"{context} must be a finite number")
     return result
 
 
@@ -286,6 +305,59 @@ def validate_configuration(
                         raise ConfigurationError(
                             f"{reference_context} colour must be a non-empty string"
                         )
+
+
+def validate_graphic_configuration(graphic_data: object) -> None:
+    """Validate supported, non-interactive canvas graphics."""
+    graphic_document = _require_mapping(graphic_data, "Graphic configuration")
+    if (
+        "graphics" not in graphic_document
+        or not isinstance(graphic_document["graphics"], list)
+    ):
+        raise ConfigurationError(
+            "Graphic configuration must contain a 'graphics' array"
+        )
+
+    graphic_ids: set[str] = set()
+    for index, raw_graphic in enumerate(graphic_document["graphics"]):
+        context = f"Graphic at index {index}"
+        graphic = _require_mapping(raw_graphic, context)
+        graphic_type = graphic.get("type")
+        if not isinstance(graphic_type, str) or graphic_type not in GRAPHIC_FIELDS:
+            raise ConfigurationError(
+                f"{context} has an unknown type: {graphic_type!r}"
+            )
+        _require_fields(graphic, GRAPHIC_FIELDS[graphic_type], context)
+
+        graphic_id = _require_id(graphic["id"], f"{context} id")
+        if graphic_id in graphic_ids:
+            raise ConfigurationError(f"Duplicate graphic id: {graphic_id!r}")
+        graphic_ids.add(graphic_id)
+
+        coordinates = {
+            field: _require_number(graphic[field], f"{context} {field}")
+            for field in ("x1", "y1", "x2", "y2")
+        }
+        if (
+            coordinates["x2"] <= coordinates["x1"]
+            or coordinates["y2"] <= coordinates["y1"]
+        ):
+            raise ConfigurationError(
+                f"{context} x2 and y2 must define a rectangle "
+                "larger than zero"
+            )
+
+        for field in ("Colour", "Text", "Text-Colour"):
+            if field == "Text":
+                if not isinstance(graphic[field], str):
+                    raise ConfigurationError(
+                        f"{context} Text must be a string"
+                    )
+                continue
+            if not isinstance(graphic[field], str) or not graphic[field]:
+                raise ConfigurationError(
+                    f"{context} {field} must be a non-empty string"
+                )
 
 
 def _require_node_reference(

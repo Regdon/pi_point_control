@@ -10,6 +10,7 @@ from Point_Engine import Point_Engine
 from server import create_app
 import static
 from i2c import i2c_control
+from data.Graphic_Platform import Graphic_Platform
 
 
 class ApplicationFactoryTests(unittest.TestCase):
@@ -189,19 +190,64 @@ class ApplicationFactoryTests(unittest.TestCase):
         draw_scripts = json.loads(engine.GetAllDrawScripts())
 
         self.assertEqual(
-            draw_scripts[0],
+            draw_scripts[1],
             {
                 "type": "locked_point",
                 "x": point.GetGridX(),
                 "y": point.GetGridY(),
             },
         )
-        self.assertNotEqual(draw_scripts[1].get("type"), "locked_point")
+        self.assertNotEqual(draw_scripts[2].get("type"), "locked_point")
 
         point.ClearLockedState()
         draw_scripts = json.loads(engine.GetAllDrawScripts())
         self.assertFalse(
             any(script.get("type") == "locked_point" for script in draw_scripts)
+        )
+
+    def test_platform_graphic_is_drawn_before_nodes(self):
+        engine = Point_Engine()
+        engine.LoadData()
+        engine.SetupAllNodeParents()
+
+        draw_scripts = json.loads(engine.GetAllDrawScripts())
+
+        self.assertEqual(
+            draw_scripts[0],
+            {
+                "type": "platform",
+                "x1": 10 * static.GRID_SIZE_X,
+                "y1": 19 * static.GRID_SIZE_Y,
+                "x2": 30 * static.GRID_SIZE_X,
+                "y2": 21 * static.GRID_SIZE_Y,
+                "colour": "Gray",
+                "text": "Knaresborough",
+                "text_colour": "White",
+            },
+        )
+        self.assertNotEqual(draw_scripts[1].get("type"), "platform")
+
+    def test_platform_graphic_converts_decimal_coordinates_to_canvas_pixels(self):
+        platform = Graphic_Platform({
+            "x1": "10.5",
+            "y1": "19.25",
+            "x2": "30.5",
+            "y2": "21.75",
+            "Colour": "Gray",
+            "Text": "Knaresborough",
+            "Text-Colour": "White",
+        })
+
+        draw_script = platform.GetDrawScript()
+
+        self.assertEqual(
+            (draw_script["x1"], draw_script["y1"], draw_script["x2"], draw_script["y2"]),
+            (
+                10.5 * static.GRID_SIZE_X,
+                19.25 * static.GRID_SIZE_Y,
+                30.5 * static.GRID_SIZE_X,
+                21.75 * static.GRID_SIZE_Y,
+            ),
         )
 
     def test_app_loads_configuration_outside_project_directory(self):
