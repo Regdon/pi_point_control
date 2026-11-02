@@ -175,6 +175,24 @@ class GraphicConfigurationValidationTests(unittest.TestCase):
 
         validate_graphic_configuration(self.graphic_data)
 
+    def test_accepts_tunnel_configuration(self):
+        tunnel = next(
+            graphic for graphic in self.graphic_data["graphics"]
+            if graphic["type"] == "Tunnel"
+        )
+
+        validate_graphic_configuration({"graphics": [tunnel]})
+
+    def test_rejects_tunnel_with_non_positive_radius(self):
+        tunnel = next(
+            graphic for graphic in self.graphic_data["graphics"]
+            if graphic["type"] == "Tunnel"
+        )
+        tunnel["radius"] = "0"
+
+        with self.assertRaisesRegex(ConfigurationError, "radius"):
+            validate_graphic_configuration({"graphics": [tunnel]})
+
     def test_rejects_non_string_platform_text(self):
         self.graphic_data["graphics"][0]["Text"] = None
 

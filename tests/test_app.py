@@ -11,6 +11,7 @@ from server import create_app
 import static
 from i2c import i2c_control
 from data.Graphic_Platform import Graphic_Platform
+from data.Graphic_Tunnel import Graphic_Tunnel
 
 
 class ApplicationFactoryTests(unittest.TestCase):
@@ -190,14 +191,14 @@ class ApplicationFactoryTests(unittest.TestCase):
         draw_scripts = json.loads(engine.GetAllDrawScripts())
 
         self.assertEqual(
-            draw_scripts[1],
+            draw_scripts[0],
             {
                 "type": "locked_point",
                 "x": point.GetGridX(),
                 "y": point.GetGridY(),
             },
         )
-        self.assertNotEqual(draw_scripts[2].get("type"), "locked_point")
+        self.assertNotEqual(draw_scripts[1].get("type"), "locked_point")
 
         point.ClearLockedState()
         draw_scripts = json.loads(engine.GetAllDrawScripts())
@@ -205,27 +206,18 @@ class ApplicationFactoryTests(unittest.TestCase):
             any(script.get("type") == "locked_point" for script in draw_scripts)
         )
 
-    def test_platform_graphic_is_drawn_before_nodes(self):
+    def test_graphics_are_drawn_after_other_canvas_objects(self):
         engine = Point_Engine()
         engine.LoadData()
         engine.SetupAllNodeParents()
 
         draw_scripts = json.loads(engine.GetAllDrawScripts())
+        graphic_scripts = [
+            graphic.GetDrawScript() for graphic in engine.graphic_list
+        ]
 
-        self.assertEqual(
-            draw_scripts[0],
-            {
-                "type": "platform",
-                "x1": 10 * static.GRID_SIZE_X,
-                "y1": 19 * static.GRID_SIZE_Y,
-                "x2": 30 * static.GRID_SIZE_X,
-                "y2": 21 * static.GRID_SIZE_Y,
-                "colour": "Gray",
-                "text": "Knaresborough",
-                "text_colour": "White",
-            },
-        )
-        self.assertNotEqual(draw_scripts[1].get("type"), "platform")
+        self.assertEqual(draw_scripts[-len(graphic_scripts):], graphic_scripts)
+        self.assertNotEqual(draw_scripts[0].get("type"), "platform")
 
     def test_platform_graphic_converts_decimal_coordinates_to_canvas_pixels(self):
         platform = Graphic_Platform({
@@ -249,6 +241,46 @@ class ApplicationFactoryTests(unittest.TestCase):
                 21.75 * static.GRID_SIZE_Y,
             ),
         )
+
+    def test_tunnel_graphic_converts_centre_and_radius_to_canvas_pixels(self):
+        tunnel = Graphic_Tunnel({
+            "x1": "12.5",
+            "y1": "21",
+            "radius": "2",
+            "orientation": "180",
+            "Colour": "Black",
+        })
+
+        draw_script = tunnel.GetDrawScript()
+
+        self.assertEqual(
+            draw_script,
+            {
+                "type": "tunnel",
+                "x": 12.5 * static.GRID_SIZE_X,
+                "y": 21 * static.GRID_SIZE_Y,
+                "radius": 2 * static.GRID_SIZE_X,
+                "orientation": 180,
+                "colour": "Black",
+            },
+        )
+
+    def test_engine_loads_tunnel_from_graphic_configuration(self):
+        engine = Point_Engine()
+        engine.LoadData()
+        engine.SetupAllNodeParents()
+
+        draw_scripts = json.loads(engine.GetAllDrawScripts())
+        tunnel_script = next(
+            script for script in draw_scripts
+            if script.get("type") == "tunnel"
+        )
+        tunnel = next(
+            graphic for graphic in engine.graphic_list
+            if isinstance(graphic, Graphic_Tunnel)
+        )
+
+        self.assertEqual(tunnel_script, tunnel.GetDrawScript())
 
     def test_app_loads_configuration_outside_project_directory(self):
         original_directory = os.getcwd()

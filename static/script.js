@@ -58,6 +58,24 @@ function drawPlatform(ctx, graphic) {
     );
 }
 
+function drawTunnel(ctx, graphic) {
+    const orientation = (graphic.orientation % 360 + 360) % 360;
+    const halfCircle = Math.PI / 2;
+    const centreAngle = orientation * Math.PI / 180;
+
+    ctx.beginPath();
+    ctx.arc(
+        graphic.x,
+        graphic.y,
+        graphic.radius,
+        centreAngle - halfCircle,
+        centreAngle + halfCircle
+    );
+    ctx.strokeStyle = graphic.colour;
+    ctx.lineWidth = 5;
+    ctx.stroke();
+}
+
 document.addEventListener('DOMContentLoaded', function () {
     var socket = io.connect('http://' + document.domain + ':' + location.port);
 
@@ -78,6 +96,8 @@ document.addEventListener('DOMContentLoaded', function () {
             if ("type" in i) {
                 if (i.type == "platform") {
                     drawPlatform(ctx, i);
+                } else if (i.type == "tunnel") {
+                    drawTunnel(ctx, i);
                 } else if (i.type == "locked_point") {
                     drawPointLock(ctx, i.x, i.y);
                 } else if (i.type == "route_button" || i.type == "toggle_button") {

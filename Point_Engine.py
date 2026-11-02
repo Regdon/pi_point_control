@@ -4,6 +4,7 @@ from data.Node_Source import Node_Source
 from data.Node_Point_Diverge import Node_Point_Diverge
 from data.Node_Point_Converge import Node_Point_Converge
 from data.Graphic_Platform import Graphic_Platform
+from data.Graphic_Tunnel import Graphic_Tunnel
 from data.config import validate_configuration, validate_graphic_configuration
 from data.route import Route
 from data.toggle import Toggle
@@ -120,9 +121,6 @@ class Point_Engine:
 
     def GetAllDrawScripts(self):
         draw_scripts = []
-        for graphic in self.graphic_list:
-            draw_scripts.append(graphic.GetDrawScript())
-
         for point in self.node_list:
             if isinstance(point, Node_Point) and point.locked == 1:
                 draw_scripts.append({
@@ -144,6 +142,9 @@ class Point_Engine:
 
         for toggle in self.toggle_list:
             draw_scripts.append(toggle.GetDrawScript())
+
+        for graphic in self.graphic_list:
+            draw_scripts.append(graphic.GetDrawScript())
 
         return json.dumps(draw_scripts)
 
@@ -173,8 +174,12 @@ class Point_Engine:
         validate_graphic_configuration(graphic_data)
         self._route_data = route_data
         self._toggle_data = toggle_data
+        graphic_classes = {
+            "Platform": Graphic_Platform,
+            "Tunnel": Graphic_Tunnel,
+        }
         self.graphic_list = [
-            Graphic_Platform(graphic)
+            graphic_classes[graphic["type"]](graphic)
             for graphic in graphic_data["graphics"]
         ]
 

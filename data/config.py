@@ -26,6 +26,9 @@ GRAPHIC_FIELDS = {
         "id", "type", "x1", "y1", "x2", "y2",
         "Colour", "Text", "Text-Colour",
     },
+    "Tunnel": {
+        "id", "type", "x1", "y1", "radius", "orientation", "Colour",
+    },
 }
 ROUTE_POINT_STATES = {
     "Straight": static.POINT_STATE_STRAIGHT,
@@ -334,30 +337,39 @@ def validate_graphic_configuration(graphic_data: object) -> None:
             raise ConfigurationError(f"Duplicate graphic id: {graphic_id!r}")
         graphic_ids.add(graphic_id)
 
-        coordinates = {
-            field: _require_number(graphic[field], f"{context} {field}")
-            for field in ("x1", "y1", "x2", "y2")
-        }
-        if (
-            coordinates["x2"] <= coordinates["x1"]
-            or coordinates["y2"] <= coordinates["y1"]
-        ):
-            raise ConfigurationError(
-                f"{context} x2 and y2 must define a rectangle "
-                "larger than zero"
-            )
-
-        for field in ("Colour", "Text", "Text-Colour"):
-            if field == "Text":
-                if not isinstance(graphic[field], str):
-                    raise ConfigurationError(
-                        f"{context} Text must be a string"
-                    )
-                continue
+        for field in ("Colour",):
             if not isinstance(graphic[field], str) or not graphic[field]:
                 raise ConfigurationError(
                     f"{context} {field} must be a non-empty string"
                 )
+
+        if graphic_type == "Platform":
+            coordinates = {
+                field: _require_number(graphic[field], f"{context} {field}")
+                for field in ("x1", "y1", "x2", "y2")
+            }
+            if (
+                coordinates["x2"] <= coordinates["x1"]
+                or coordinates["y2"] <= coordinates["y1"]
+            ):
+                raise ConfigurationError(
+                    f"{context} x2 and y2 must define a rectangle "
+                    "larger than zero"
+                )
+            if not isinstance(graphic["Text"], str):
+                raise ConfigurationError(f"{context} Text must be a string")
+            if not isinstance(graphic["Text-Colour"], str) or not graphic["Text-Colour"]:
+                raise ConfigurationError(
+                    f"{context} Text-Colour must be a non-empty string"
+                )
+        elif graphic_type == "Tunnel":
+            for field in ("x1", "y1"):
+                _require_number(graphic[field], f"{context} {field}")
+            if _require_number(graphic["radius"], f"{context} radius") <= 0:
+                raise ConfigurationError(
+                    f"{context} radius must be greater than zero"
+                )
+            _require_number(graphic["orientation"], f"{context} orientation")
 
 
 def _require_node_reference(

@@ -18,5 +18,13 @@
         ,"Colour":"Gray"
         ,"Text":""
         ,"Text-Colour":"White"
+    },
+    {"id":"Knaresborough Tunnel"
+        ,"type":"Tunnel"
+        ,"x1":"12"
+        ,"y1":"23"
+        ,"radius":"2"
+        ,"orientation":"180"
+        ,"Colour":"Black"
     }
 ]}
