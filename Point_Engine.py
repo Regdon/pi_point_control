@@ -117,22 +117,30 @@ class Point_Engine:
             node.CalculateDrawColour()
 
     def GetAllDrawScripts(self):
-        dict = []
+        draw_scripts = []
+        for point in self.node_list:
+            if isinstance(point, Node_Point) and point.locked == 1:
+                draw_scripts.append({
+                    "type": "locked_point",
+                    "x": point.GetGridX(),
+                    "y": point.GetGridY(),
+                })
+
         for node in self.node_list:
             value = node.GetDrawScript()
             if value is not None:
                 if isinstance(value, list):
-                    dict.extend(value)
+                    draw_scripts.extend(value)
                 else:
-                    dict.append(value)
+                    draw_scripts.append(value)
 
         for route in self.route_list:
-            dict.append(route.GetDrawScript())
+            draw_scripts.append(route.GetDrawScript())
 
         for toggle in self.toggle_list:
-            dict.append(toggle.GetDrawScript())
+            draw_scripts.append(toggle.GetDrawScript())
 
-        return json.dumps(dict)
+        return json.dumps(draw_scripts)
 
     def LoadData(self):
         data_directory = Path(__file__).resolve().parent / 'data'

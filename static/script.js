@@ -15,6 +15,29 @@ function drawRect(ctx, x1, y1, width, height, colour) {
     ctx.fillRect(x1, y1, width, height);
 }
 
+function drawPointLock(ctx, x, y) {
+    ctx.save();
+    ctx.strokeStyle = "#000000";
+    ctx.fillStyle = "#FFD700";
+    ctx.lineWidth = 2;
+
+    ctx.beginPath();
+    ctx.moveTo(x - 4, y + 1);
+    ctx.lineTo(x - 4, y - 2);
+    ctx.arc(x, y - 2, 4, Math.PI, 0);
+    ctx.lineTo(x + 4, y + 1);
+    ctx.stroke();
+
+    ctx.fillRect(x - 6, y - 2, 12, 9);
+    ctx.strokeRect(x - 6, y - 2, 12, 9);
+
+    ctx.beginPath();
+    ctx.arc(x, y + 2, 1, 0, 2 * Math.PI);
+    ctx.fillStyle = "#000000";
+    ctx.fill();
+    ctx.restore();
+}
+
 document.addEventListener('DOMContentLoaded', function () {
     var socket = io.connect('http://' + document.domain + ':' + location.port);
 
@@ -33,7 +56,9 @@ document.addEventListener('DOMContentLoaded', function () {
         
         msgObject.forEach((i) => {
             if ("type" in i) {
-                if (i.type == "route_button" || i.type == "toggle_button") {
+                if (i.type == "locked_point") {
+                    drawPointLock(ctx, i.x, i.y);
+                } else if (i.type == "route_button" || i.type == "toggle_button") {
                     drawRect(ctx, i.x1, i.y1, i.width, i.height, i.colour);
                 }
             } else {

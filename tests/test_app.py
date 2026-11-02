@@ -176,6 +176,34 @@ class ApplicationFactoryTests(unittest.TestCase):
             (1, 4),
         )
 
+    def test_locked_points_are_drawn_before_other_draw_scripts(self):
+        engine = Point_Engine()
+        engine.LoadData()
+        engine.SetupAllNodeParents()
+        point = next(
+            point for point in engine.node_list
+            if point.id == "york_facing_crossover_point_outer"
+        )
+        point.LockToState(point.point_state)
+
+        draw_scripts = json.loads(engine.GetAllDrawScripts())
+
+        self.assertEqual(
+            draw_scripts[0],
+            {
+                "type": "locked_point",
+                "x": point.GetGridX(),
+                "y": point.GetGridY(),
+            },
+        )
+        self.assertNotEqual(draw_scripts[1].get("type"), "locked_point")
+
+        point.ClearLockedState()
+        draw_scripts = json.loads(engine.GetAllDrawScripts())
+        self.assertFalse(
+            any(script.get("type") == "locked_point" for script in draw_scripts)
+        )
+
     def test_app_loads_configuration_outside_project_directory(self):
         original_directory = os.getcwd()
         with tempfile.TemporaryDirectory() as working_directory:
