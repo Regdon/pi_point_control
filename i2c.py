@@ -1,3 +1,4 @@
+import errno
 import logging
 import os
 
@@ -20,7 +21,13 @@ class i2c_control:
                         raise
                     from smbus import SMBus
 
-                bus = SMBus(1)
+                try:
+                    bus = SMBus(1)
+                except FileNotFoundError as error:
+                    logger.warning(
+                        "I2C bus 1 is unavailable (%s); point changes will be local only",
+                        error,
+                    )
         self.bus = bus
 
     def SendState(self, node, point, state):
@@ -47,4 +54,24 @@ class i2c_control:
 
         print("Sending Messsage " + bin(value) + " to address " + bin(address))
         print([value])
-        self.bus.write_i2c_block_data(address, 0, [value])
+        try:
+            self.bus.write_i2c_block_data(address, 0, [value])
+        except OSError as error:
+            # A missing/unresponsive I2C device commonly reports EIO,
+            # ENXIO, or EREMOTEIO on Linux. Disable further I2C writes so
+            # startup can continue without repeatedly logging the same issue.
+            missing_device_errors = {
+                errno.EIO,
+                errno.ENXIO,
+                getattr(errno, "EREMOTEIO", 121),
+            }
+            if error.errno not in missing_device_errors:
+                raise
+
+            logger.warning(
+                "No I2C device responded at address 0x%02X (%s); "
+                "point changes will be local only until the application restarts",
+                address,
+                error,
+            )
+            self.bus = None
