@@ -2,12 +2,13 @@ import contextlib
 import io
 import json
 import os
+import socket
 import tempfile
 import unittest
-from unittest.mock import Mock
+from unittest.mock import MagicMock, Mock, patch
 
 from Point_Engine import Point_Engine
-from server import create_app
+from server import create_app, get_server_ip
 import static
 from i2c import i2c_control
 from data.Graphic_Platform import Graphic_Platform
@@ -15,6 +16,25 @@ from data.Graphic_Tunnel import Graphic_Tunnel
 
 
 class ApplicationFactoryTests(unittest.TestCase):
+    def test_server_ip_uses_address_selected_for_server_route(self):
+        connection = MagicMock()
+        connection.__enter__.return_value = connection
+        connection.getsockname.return_value = ("192.168.1.42", 0)
+
+        with patch("server.socket.socket", return_value=connection) as create_socket:
+            server_ip = get_server_ip()
+
+        create_socket.assert_called_once_with(socket.AF_INET, socket.SOCK_DGRAM)
+        connection.connect.assert_called_once_with(("8.8.8.8", 80))
+        self.assertEqual(server_ip, "192.168.1.42")
+
+    def test_home_page_displays_server_ip(self):
+        with patch("server.get_server_ip", return_value="192.168.1.42"):
+            response = create_app().test_client().get("/")
+
+        self.assertEqual(response.status_code, 200)
+        self.assertIn(b"Pi IP address: 192.168.1.42", response.data)
+
     @unittest.skipUnless(os.name == "nt", "Windows-only I2C simulation")
     def test_i2c_control_runs_without_hardware_on_windows(self):
         with self.assertLogs("i2c", level="WARNING") as logs:

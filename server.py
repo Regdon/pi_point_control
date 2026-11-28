@@ -1,9 +1,17 @@
+import socket
+
 from flask import Flask, render_template
 from flask_socketio import SocketIO, emit
 
 from Point_Engine import Point_Engine
 
 import static
+
+
+def get_server_ip() -> str:
+    with socket.socket(socket.AF_INET, socket.SOCK_DGRAM) as connection:
+        connection.connect(("8.8.8.8", 80))
+        return connection.getsockname()[0]
 
 
 def create_app() -> Flask:
@@ -21,6 +29,11 @@ def create_app() -> Flask:
     @app.route('/')
     def home():
         data = {'message': 'Hello, World!'}
+        try:
+            data['server_ip'] = get_server_ip()
+        except OSError:
+            app.logger.exception("Unable to determine the server IP address")
+            data['server_ip'] = None
         return render_template('index.html', data=data)
 
     @socketio.on('connect')

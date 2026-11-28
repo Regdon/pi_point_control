@@ -56,3 +56,36 @@ Run the test suite from the repository root with:
 ```sh
 python -m unittest discover -s tests
 ```
+
+## Setup webpage autostart
+
+The webpage footer displays the Pi's IPv4 address selected by its default
+network route. If the Pi has multiple network interfaces, this may not be the
+address reachable from every network.
+
+mkdir -p ~/.local/bin
+nano ~/.local/bin/start-pi-point-kiosk
+
+    #!/bin/sh
+
+    URL="http://localhost:5000/"
+
+    # Wait for the systemd server to become available.
+    until curl --fail --silent "$URL" >/dev/null; do
+        sleep 2
+    done
+
+    # Raspberry Pi OS versions may use either command name.
+    if command -v chromium >/dev/null 2>&1; then
+        exec chromium --kiosk --noerrdialogs --disable-infobars "$URL"
+    elif command -v chromium-browser >/dev/null 2>&1; then
+        exec chromium-browser --kiosk --noerrdialogs --disable-infobars "$URL"
+    else
+        echo "Chromium was not found" >&2
+        exit 1
+    fi
+
+chmod +x ~/.local/bin/start-pi-point-kiosk
+
+Add to ~/.config/labwc/autostart
+/home/regdon/.local/bin/start-pi-point-kiosk &
